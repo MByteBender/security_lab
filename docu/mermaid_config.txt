@@ -1,19 +1,17 @@
 Use the following code in mermaid.live to get the architecture diagram
 
 graph TD
-    subgraph Internet_Untrusted [Internet: Untrusted]
+    subgraph Internet_Untrusted [Extern: 10.0.0.0/24 Untrusted]
         Kali[Kali Linux - Attacker]
     end
 
-    subgraph Proxmox_Hypervisor [Proxmox VE Host]
         Router[Linux Router / FW]
-    end
 
-    subgraph DMZ_Zone [VLAN 20: DMZ]
+    subgraph DMZ_Zone [DMZ: 10.0.20.0/24 VLAN 20]
         Webserver[Win Server 2008 - PHP/MySQL/DVWA]
     end
 
-    subgraph LAN_Zone [VLAN 10: LAN]
+    subgraph LAN_Zone [Intern: 10.0.10.0/24 VLAN 10]
         Win7[Windows 7 Client - Unpatched]
         UbuntuDesktop[Linux Ubuntu Client - Unpatched]
         SIEM[SIEM: Graylog/Elastic]
