@@ -1,0 +1,48 @@
+Use the following code in mermaid.live to get the architecture diagram
+
+graph TD
+    subgraph Internet_Untrusted [Internet: Untrusted]
+        Kali[Kali Linux - Attacker]
+    end
+
+    subgraph Proxmox_Hypervisor [Proxmox VE Host]
+        Router[Linux Router / FW]
+    end
+
+    subgraph DMZ_Zone [VLAN 20: DMZ]
+        Webserver[Win Server 2008 - PHP/MySQL/DVWA]
+    end
+
+    subgraph LAN_Zone [VLAN 10: LAN]
+        Win7[Windows 7 Client - Unpatched]
+        UbuntuDesktop[Linux Ubuntu Client - Unpatched]
+        SIEM[SIEM: Graylog/Elastic]
+    end
+
+    subgraph Configuration [Setup: 192.168.0.0/24]
+        Ansible[Ansible Control Node]
+        NetBox[NetBox IPAM]
+    end
+
+    %% Verbindungen zum Router/FW
+    Internet_Untrusted <-->|Port 80/443 NAT| Router
+    Router <--> DMZ_Zone
+    Router <--> LAN_Zone
+
+    %% Management Zugriffe
+    Ansible -->|SSH/WinRM| Webserver
+    Ansible -->|SSH/WinRM| Win7
+    Ansible -->|SSH| Router
+    Ansible -->|SSH| UbuntuDesktop
+    Ansible -->|SSH| Kali
+    Ansible -->|SSH| SIEM
+
+    %% Logging
+    Webserver -.->|Syslog/Beats| SIEM
+    LAN_Zone -.->|Syslog/Beats| SIEM
+    Router -.->|Syslog| SIEM
+
+    style Router fill:#f96,stroke:#333,stroke-width:2px
+    style SIEM fill:#bbf,stroke:#333,stroke-width:2px
+    style Webserver fill:#faa,stroke:#333
+    style Kali fill:#000,stroke:#fff,color:#fff
