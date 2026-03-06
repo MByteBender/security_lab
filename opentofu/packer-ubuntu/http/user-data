@@ -1,0 +1,20 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US.UTF-8
+  keyboard:
+    layout: us
+  ssh:
+    install-server: true
+    allow-pw: true
+  user-data:
+    users:
+      - name: ubuntu
+        passwd: "$6$exS6SOfC$975LnzP.p.9Iu5jM.oV25lM6u.sS55J6f85G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45" # password: 'ubuntu'
+        lock_passwd: false
+        groups: [adm, sudo]
+        shell: /bin/bash
+        sudo: ALL=(ALL) NOPASSWD:ALL
+  storage:
+    layout:
+      name: direct
