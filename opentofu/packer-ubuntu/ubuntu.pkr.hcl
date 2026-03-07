@@ -37,6 +37,8 @@ source "proxmox-iso" "ubuntu-server" {
   token       = var.proxmox_api_token_secret
   insecure_skip_tls_verify = true
 
+  qemu_agent = true
+
   # VM Specs for the Build
   node                 = "pve"
   vm_id                = "150"
