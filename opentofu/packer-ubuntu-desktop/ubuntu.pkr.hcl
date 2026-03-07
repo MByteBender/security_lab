@@ -76,11 +76,12 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
   # The "Alternate" Boot Command
   # It uses /install/vmlinuz and standard debian-installer flags
   boot_command = [
-    "<wait5>",
-    "<esc><wait>",
-    "install ",
-    "auto ",
-    "fb=false ", # Disables frame buffer to keep it in text mode
+    "<wait10>",          // Increased wait: 10.04 is slow to initialize VGA
+    "<esc><wait>",       // Escape the "Keyboard/Human" logo
+    "<esc><wait>",       // Escape the Language Menu if it popped up
+    "<esc><wait>",       // Third escape just to be safe
+    "install ",          // Start typing the mode
+    "auto=true ",
     "priority=critical ",
     "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
     "locale=en_US ",
