@@ -107,6 +107,7 @@ build {
       "sudo apt-get install -y qemu-guest-agent",
       "sudo truncate -s 0 /etc/machine-id", # Clean machine ID for cloning
       "sudo apt-get clean"
+      "sudo rm /etc/sudoers.d/90-cloud-init-users"
     ]
   }
 }
