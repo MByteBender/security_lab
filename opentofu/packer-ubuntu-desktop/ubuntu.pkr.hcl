@@ -71,12 +71,7 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
   }
 
 # Keeping your existing logic for the extra ISO
-  additional_iso_files {
-    cd_files         = ["./http/preseed.seed"]
-    cd_label         = "preseed"
-    iso_storage_pool = "local"
-    unmount          = true
-  }
+  floppy_files = ["./http/preseed.seed"]
 
   boot_command = [
     "<wait10>",
