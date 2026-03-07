@@ -29,8 +29,9 @@ source "proxmox-iso" "ubuntu-server" {
 
   # VM Specs for the Build
   node                 = "pve"
-  vm_id                = "9000"
-  vm_name              = "ubuntu-2404-template"
+  vm_id                = "150"
+  vm_name              = "ubuntu-template"
+  pool                 = "IT-sec"
   template_description = "Ubuntu Server 24.04 LTS built via Packer"
 
     boot_iso {
@@ -54,7 +55,7 @@ source "proxmox-iso" "ubuntu-server" {
 
   disks {
     disk_size         = "20G"
-    storage_pool      = "local-lvm"
+    storage_pool      = "zfs-itsec"
     type              = "virtio"
   }
 
