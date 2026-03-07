@@ -30,7 +30,14 @@ variable "ubuntu_password_plain" {
   sensitive = true
 }
 
-# Legacy 10.04 Settings
+source "proxmox-iso" "ubuntu-10-04-desktop" {
+  # Proxmox Connection
+  proxmox_url              = var.proxmox_api_url
+  username                 = var.proxmox_api_token_id
+  token                    = var.proxmox_api_token_secret
+  insecure_skip_tls_verify = true
+
+  # Legacy 10.04 Settings
   qemu_agent = false # 10.04 lacks a modern guest agent by default
 
   node                 = "pve"
@@ -43,7 +50,7 @@ variable "ubuntu_password_plain" {
 
   boot_iso {
     type     = "ide"
-    iso_file = "local:iso/ubuntu-10.04.4-alternate-i386.iso"
+    iso_file = "local:iso/ubuntu-10.04.4-alternate-amd64.iso"
     unmount  = true
   }
 
