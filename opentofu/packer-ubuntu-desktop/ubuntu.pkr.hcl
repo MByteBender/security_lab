@@ -76,17 +76,17 @@ source "proxmox-iso" "ubuntu-desktop-10-04" {
 
   # The 10.04 Boot Command (Legacy Preseed Style)
   boot_command = [
-    "<esc><wait>",
-    "install ",
+    "<esc><wait><esc><wait>", // Double ESC to clear the language/splash menu
+    "/casper/vmlinuz ",
+    "boot=casper ",
+    "only-ubiquity ", // This tells the live CD to only run the installer
+    "automatic-ubiquity ", // This triggers the automated mode
     "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
     "debian-installer/locale=en_US ",
     "console-setup/layoutcode=us ",
-    "netcfg/get_hostname=ubuntu-desktop ",
-    "fb=false debconf/frontend=noninteractive ",
-    "keyboard-configuration/layoutcode=us ",
+    "hostname=ubuntu-desktop ",
     "initrd=/casper/initrd.lz ",
-    "root=/dev/ram0 ",
-    "-- <enter>"
+    "quiet -- <enter>"
   ]
 
   ssh_username = "ubuntu"
