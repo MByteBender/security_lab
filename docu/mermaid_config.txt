@@ -1,4 +1,4 @@
-Use the following code in mermaid.live to get the architecture diagram
+%% Use the following code in mermaid.live to get the architecture diagram
 
 graph TD
     subgraph Internet_Untrusted [Extern: 10.0.0.0/24 Untrusted]
