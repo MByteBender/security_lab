@@ -46,7 +46,7 @@ source "proxmox-iso" "ubuntu-desktop-10-04" {
   pool                 = "IT-sec"
   template_description = "Ubuntu 10.04 Desktop built via Packer"
 
-  boot = "order=ide0;ide2" # Older OS often prefers IDE for the boot drive
+  boot = "order=ide0;ide1" # Older OS often prefers IDE for the boot drive
 
   boot_iso {
     type     = "ide"
