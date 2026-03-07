@@ -8,10 +8,14 @@ autoinstall:
   identity:
     hostname: ubuntu-server
     username: ubuntu
-    password: "testing"
+    password: testing
   ssh:
     install-server: true
     allow-pw: true
   storage:
     layout:
       name: direct
+  late-commands:
+    - curtin in-target -- target/usr/bin/apt-get update
+    - curtin in-target -- target/usr/bin/apt-get install -y openssh-server
+    - curtin in-target -- systemctl enable ssh
