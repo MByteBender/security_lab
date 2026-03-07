@@ -34,7 +34,8 @@ source "proxmox-iso" "ubuntu-server" {
   pool                 = "IT-sec"
   template_description = "Ubuntu Server 24.04 LTS built via Packer"
 
-    boot_iso {
+  boot = "order=scsi0;virtio0"
+  boot_iso {
         type         = "scsi"                 # Or "ide" depending on your preference
         iso_file     = "local:iso/ubuntu-25.10-live-server-amd64.iso"
         unmount      = true                   # Automatically removes the "CD" when finished
