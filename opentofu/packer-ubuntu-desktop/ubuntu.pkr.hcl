@@ -50,7 +50,7 @@ source "proxmox-iso" "ubuntu-desktop-10-04" {
 
   boot_iso {
     type     = "ide"
-    iso_file = "local:iso/ubuntu-10.04.4-desktop-i386.iso"
+    iso_file = "local:iso/ubuntu-10.04.4-alternate-i386.iso"
     unmount  = true
   }
 
