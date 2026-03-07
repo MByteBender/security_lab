@@ -86,9 +86,9 @@ boot_command = [
   "install ",
   "auto=true ",
   "priority=critical ",
-  # The "Handshake" Fix: Unmount from the auto-grab, then mount to /mnt
-  "preseed/early_command=\"umount /dev/sr1 || true; mount /dev/sr1 /mnt\" ",
-  "file=/mnt/preseed.seed ",
+  # Simple mount: no 'mkdir', no 'umount', just force it to /media
+  "preseed/early_command=mount+/dev/sr1+/media ",
+  "file=/media/preseed.seed ",
   "debian-installer/locale=en_US ",
   "console-setup/layoutcode=us ",
   "initrd=/install/initrd.gz ",
