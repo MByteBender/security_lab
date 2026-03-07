@@ -75,7 +75,7 @@ source "proxmox-iso" "sophos-firewall" {
     
     # 2. Wait for the "Firmware Installed" message (Screen 2)
     # This usually takes 2-4 minutes.
-    "<wait5m>", 
+    "<wait1m>", 
     
     # 3. Trigger the Reboot (Screen 2 - Where you are now)
     "y<enter>", 
