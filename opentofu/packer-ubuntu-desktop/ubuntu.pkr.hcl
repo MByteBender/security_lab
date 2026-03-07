@@ -46,7 +46,7 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
   pool                 = "IT-sec"
   template_description = "Ubuntu 10.04 Desktop (Alternate ISO) via Packer"
 
-  boot = "order=ide0;ide2"
+  boot = "order=ide0;ide1"
 
   boot_iso {
     type     = "ide"
