@@ -20,6 +20,11 @@ variable "proxmox_api_token_secret" {
   sensitive = true
 }
 
+variable "ubuntu_password" {
+  type    = string
+  sensitive = true
+}
+
 source "proxmox-iso" "ubuntu-server" {
   # Proxmox Connection
   proxmox_url = var.proxmox_api_url
@@ -81,6 +86,7 @@ source "proxmox-iso" "ubuntu-server" {
 
   # SSH settings so Packer can log in to finish the setup
   ssh_username = "ubuntu"
+  ssh_password = "${var.ssh_pass}"
   ssh_timeout  = "20m"
 }
 
