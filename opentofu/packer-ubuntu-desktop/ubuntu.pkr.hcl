@@ -79,22 +79,23 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
     unmount          = true
   }
 
-  boot_command = [
-    "<wait15>",
-    "<enter><wait><f6><wait><esc>",
-    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-    "install ",
-    "auto=true ",
-    "priority=critical ",
-    # We tell the installer to search ALL disks for this file
-    "preseed/file=/media/preseed.seed ",
-    "debian-installer/locale=en_US ",
-    "console-setup/layoutcode=us ",
-    "initrd=/install/initrd.gz ",
-    "-- <enter>"
-  ]
+boot_command = [
+  "<wait15>",
+  "<enter><wait><f6><wait><esc>",
+  "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+  "install ",
+  "auto=true ",
+  "priority=critical ",
+  # The "Handshake" Fix: Unmount from the auto-grab, then mount to /mnt
+  "preseed/early_command=\"umount /dev/sr1 || true; mount /dev/sr1 /mnt\" ",
+  "file=/mnt/preseed.seed ",
+  "debian-installer/locale=en_US ",
+  "console-setup/layoutcode=us ",
+  "initrd=/install/initrd.gz ",
+  "-- <enter>"
+]
   ssh_username = "ubuntu"
-  ssh_password = "password" # Must match what you put in preseed.seed
+  ssh_password = "ubuntu" # Must match what you put in preseed.seed
   ssh_timeout  = "45m"      # Desktop installs take longer than server
 }
 
