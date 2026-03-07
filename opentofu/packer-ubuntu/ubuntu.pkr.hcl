@@ -33,7 +33,11 @@ source "proxmox-iso" "ubuntu-server" {
   vm_name              = "ubuntu-2404-template"
   template_description = "Ubuntu Server 24.04 LTS built via Packer"
 
-  iso_file = "local:iso/ubuntu-24.04-live-server-amd64.iso"
+    boot_iso {
+        type         = "scsi"                 # Or "ide" depending on your preference
+        iso_file     = "local:iso/ubuntu-25.10-live-server-amd64.iso"
+        unmount      = true                   # Automatically removes the "CD" when finished
+    }
   # Optional: un-comment to download automatically
   # iso_url = "https://releases.ubuntu.com/24.04/ubuntu-24.04-live-server-amd64.iso"
   # iso_checksum = "file:https://releases.ubuntu.com/24.04/SHA256SUMS"
