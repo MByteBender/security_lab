@@ -70,27 +70,29 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
     type         = "ide"
   }
 
-# Keeping your existing logic for the extra ISO
-  floppy_files = ["./http/preseed.seed"]
+# This creates a second CD drive.
+  # In 10.04, this usually appears as /dev/sr1 or /dev/sdb
+  additional_iso_files {
+    cd_files         = ["./http/preseed.seed"]
+    cd_label         = "OEMDRV" # Some old installers look for this label specifically
+    iso_storage_pool = "local"
+    unmount          = true
+  }
 
   boot_command = [
-    "<wait10>",
-    "<esc><wait>",
-    "<esc><wait>",
-    "<enter><wait>",
-    "<wait60>",
+    "<wait15>",
+    "<enter><wait><f6><wait><esc>",
+    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
     "install ",
     "auto=true ",
     "priority=critical ",
-    # Tell 10.04 to look at the second CD-ROM (sr1) for the file
-    "preseed/file=/hd-media/preseed.seed ",
+    # We tell the installer to search ALL disks for this file
+    "preseed/file=/media/preseed.seed ",
     "debian-installer/locale=en_US ",
     "console-setup/layoutcode=us ",
-    "netcfg/get_hostname=ubuntu-desktop ",
     "initrd=/install/initrd.gz ",
     "-- <enter>"
   ]
-
   ssh_username = "ubuntu"
   ssh_password = "password" # Must match what you put in preseed.seed
   ssh_timeout  = "45m"      # Desktop installs take longer than server
