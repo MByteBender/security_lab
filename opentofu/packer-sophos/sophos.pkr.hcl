@@ -68,7 +68,7 @@ source "proxmox-iso" "sophos-firewall" {
   communicator = "none"
 
   # 2. Detailed Keystroke Sequence
-  boot_wait = "10s"
+  boot_wait = "30s"
   boot_command = [
     # Part 1: Initial Install
     "y<enter>", 
