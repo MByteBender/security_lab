@@ -70,8 +70,8 @@ source "proxmox-iso" "ubuntu-server" {
 
   # Update the boot command to look at /cdrom/ instead of http
   boot_command = [
-    "<esc><wait>c<wait>",
-    "linux /casper/vmlinuz --- autoinstall ds=nocloud;s=/cdrom/",
+    "<wait><esc><wait>c<wait>",
+    "linux /casper/vmlinuz autoinstall --- ds=nocloud;s=/cdrom/",
     "<enter><wait>",
     "initrd /casper/initrd",
     "<enter><wait>",
