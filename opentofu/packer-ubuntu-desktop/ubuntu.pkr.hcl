@@ -72,13 +72,10 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
 
 # This creates a second CD drive.
   # In 10.04, this usually appears as /dev/sr1 or /dev/sdb
-  additional_iso_files {
-    cd_files         = ["./http/preseed.seed"]
-    cd_label         = "OEMDRV" # Some old installers look for this label specifically
-    iso_storage_pool = "local"
-    unmount          = true
-  }
+http_directory = "http"
 
+  # Force Packer to bind to an address the VM can reach (0.0.0.0 is safest)
+  http_bind_address = "0.0.0.0"
 boot_command = [
   "<wait15>",
   "<enter><wait><f6><wait><esc>",
@@ -86,11 +83,18 @@ boot_command = [
   "install ",
   "auto=true ",
   "priority=critical ",
-  # This tells the installer to load CD drivers immediately
-  "modules=cdrom-detect ",
-  # We use the 'preseed/file' alias which is more native to 10.04
-  "preseed/file=/media/preseed.seed ",
-  "debian-installer/locale=en_US ",
+
+  # --- Network Initialization ---
+  "netcfg/choose_interface=auto ",
+  "netcfg/link_wait_timeout=20 ",  # Give the virtual switch time to connect
+  "netcfg/dhcp_timeout=60 ",       # Give the DHCP server time to respond
+  "netcfg/get_hostname=ubuntu-desktop ",
+
+  # --- Preseed Fetching ---
+  "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
+
+  # --- Localization ---
+  "locale=en_US ",
   "console-setup/layoutcode=us ",
   "initrd=/install/initrd.gz ",
   "-- <enter>"
