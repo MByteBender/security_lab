@@ -86,11 +86,11 @@ boot_command = [
   "install ",
   "auto=true ",
   "priority=critical ",
-  # We force the installer to start the network before looking for the file
-  "netcfg/choose_interface=auto ",
-  "netcfg/get_hostname=ubuntu-desktop ",
-  "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
-  "locale=en_US ",
+  # This tells the installer to load CD drivers immediately
+  "modules=cdrom-detect ",
+  # We use the 'preseed/file' alias which is more native to 10.04
+  "preseed/file=/media/preseed.seed ",
+  "debian-installer/locale=en_US ",
   "console-setup/layoutcode=us ",
   "initrd=/install/initrd.gz ",
   "-- <enter>"
