@@ -79,13 +79,14 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
     "<wait5>",
     "<esc><wait>",
     "install ",
-    "auto=true ",
+    "auto ",
+    "fb=false ", # Disables frame buffer to keep it in text mode
     "priority=critical ",
-    "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
-    "debian-installer/locale=en_US ",
+    "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
+    "locale=en_US ",
     "console-setup/layoutcode=us ",
     "netcfg/get_hostname=ubuntu-desktop ",
-    "initrd=/install/initrd.gz ", # Path is different on Alternate ISO
+    "initrd=/install/initrd.gz ",
     "-- <enter>"
   ]
 
