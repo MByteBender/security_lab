@@ -58,7 +58,6 @@ source "proxmox-iso" "ubuntu-server" {
     disk_size         = "20G"
     storage_pool      = "zfs-itsec"
     type              = "virtio"
-    index             = 0
   }
 
   # Cloud-Init "Autoinstall" Logic
