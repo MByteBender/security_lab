@@ -58,6 +58,7 @@ source "proxmox-iso" "ubuntu-server" {
     disk_size         = "20G"
     storage_pool      = "zfs-itsec"
     type              = "virtio"
+    index             = 0
   }
 
   # Cloud-Init "Autoinstall" Logic
@@ -71,7 +72,7 @@ source "proxmox-iso" "ubuntu-server" {
   # Update the boot command to look at /cdrom/ instead of http
   boot_command = [
     "<wait><esc><wait>c<wait>",
-    "linux /casper/vmlinuz autoinstall --- ds=nocloud;s=/cdrom/",
+    "linux /casper/vmlinuz autoinstall noprompt --- ds=nocloud;s=/cdrom/",
     "<enter><wait>",
     "initrd /casper/initrd",
     "<enter><wait>",
