@@ -82,22 +82,11 @@ source "proxmox-iso" "sophos-firewall" {
     
     # 4. Wait for the actual Sophos OS to boot up 
     # This is where the 10-minute timer belongs.
-    "<wait10m>",
+    "<wait2m>",
     
     # Part 3: Handle Mandatory Password Change
     "admin<enter>",              
-    "<wait2s>admin<enter>",      
-    "<wait2s>LabPassword123!<enter>", 
-    "<wait2s>LabPassword123!<enter>", 
-    
-    # Part 4: Access Console to enable API
-    "<wait5s>4<enter>",          
-    "<wait2s>system system_modules api status enable<enter>",
-    "<wait1s>exit<enter>",       
-    
-    # Part 5: Shutdown to finalize Template
-    "<wait2s>0<enter>",          
-    "<wait1s>y<enter>"           
+
   ]
 }
 
