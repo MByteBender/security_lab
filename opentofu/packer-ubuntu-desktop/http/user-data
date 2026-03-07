@@ -1,0 +1,24 @@
+#cloud-config
+autoinstall:
+  version: 1
+  packages:
+    - qemu-guest-agent
+  locale: en_US.UTF-8
+  keyboard:
+    layout: us
+  # Identity handles the user creation in 24.04/25.10
+  identity:
+    hostname: ubuntu-server
+    username: ubuntu
+    password: "$6$on4IEWjLWWnH7RlF$Cgf7ES2UMColK6VRHBlFN8WcEP5T2jq8NU/uut15IDOcB3BllP2Yzc9C1oOhzHAhDtcsgWBS6tQ.G1MwmUNFo/"
+  user-data:
+    users:
+      - name: ubuntu
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        shell: /bin/bash
+  ssh:
+    install-server: true
+    allow-pw: true
+  storage:
+    layout:
+      name: direct
