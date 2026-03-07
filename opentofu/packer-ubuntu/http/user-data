@@ -4,17 +4,14 @@ autoinstall:
   locale: en_US.UTF-8
   keyboard:
     layout: us
+  # Identity handles the user creation in 24.04/25.10
+  identity:
+    hostname: ubuntu-server
+    username: ubuntu
+    password: "$6$exS6SOfC$975LnzP.p.9Iu5jM.oV25lM6u.sS55J6f85G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45"
   ssh:
     install-server: true
     allow-pw: true
-  user-data:
-    users:
-      - name: ubuntu
-        passwd: "$6$exS6SOfC$975LnzP.p.9Iu5jM.oV25lM6u.sS55J6f85G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45" # password: 'ubuntu'
-        lock_passwd: false
-        groups: [adm, sudo]
-        shell: /bin/bash
-        sudo: ALL=(ALL) NOPASSWD:ALL
   storage:
     layout:
       name: direct

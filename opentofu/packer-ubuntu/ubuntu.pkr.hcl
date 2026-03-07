@@ -70,7 +70,7 @@ source "proxmox-iso" "ubuntu-server" {
     "<enter><wait>",
     "boot<enter>"
   ]
-  boot_wait = "5s"
+  boot_wait = "30s"
 
   # SSH settings so Packer can log in to finish the setup
   ssh_username = "ubuntu"
