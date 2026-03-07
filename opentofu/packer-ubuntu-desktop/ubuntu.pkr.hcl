@@ -86,10 +86,11 @@ boot_command = [
   "install ",
   "auto=true ",
   "priority=critical ",
-  # Simple mount: no 'mkdir', no 'umount', just force it to /media
-  "preseed/early_command=mount+/dev/sr1+/media ",
-  "file=/media/preseed.seed ",
-  "debian-installer/locale=en_US ",
+  # We force the installer to start the network before looking for the file
+  "netcfg/choose_interface=auto ",
+  "netcfg/get_hostname=ubuntu-desktop ",
+  "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
+  "locale=en_US ",
   "console-setup/layoutcode=us ",
   "initrd=/install/initrd.gz ",
   "-- <enter>"
