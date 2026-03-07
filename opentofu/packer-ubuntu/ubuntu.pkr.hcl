@@ -60,17 +60,22 @@ source "proxmox-iso" "ubuntu-server" {
   }
 
   # Cloud-Init "Autoinstall" Logic
-  http_directory = "http"
+  additional_iso_files {
+    cd_files         = ["./http/user-data", "./http/meta-data"]
+    cd_label         = "cidata"
+    iso_storage_pool = "local" # Change to your ISO storage name
+    unmount          = true
+  }
+
+  # Update the boot command to look at /cdrom/ instead of http
   boot_command = [
-    "<esc><wait>",
-    "c<wait>",
-    "linux /casper/vmlinuz --- autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/",
+    "<esc><wait>c<wait>",
+    "linux /casper/vmlinuz --- autoinstall ds=nocloud;s=/cdrom/",
     "<enter><wait>",
     "initrd /casper/initrd",
     "<enter><wait>",
     "boot<enter>"
   ]
-  boot_wait = "30s"
 
   # SSH settings so Packer can log in to finish the setup
   ssh_username = "ubuntu"

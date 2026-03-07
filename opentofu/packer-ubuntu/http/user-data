@@ -8,7 +8,7 @@ autoinstall:
   identity:
     hostname: ubuntu-server
     username: ubuntu
-    password: "$6$exS6SOfC$975LnzP.p.9Iu5jM.oV25lM6u.sS55J6f85G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45G6S45"
+    password: "testing"
   ssh:
     install-server: true
     allow-pw: true
