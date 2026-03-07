@@ -76,16 +76,17 @@ source "proxmox-iso" "ubuntu-desktop-10-04" {
 
   # The 10.04 Boot Command (Legacy Preseed Style)
   boot_command = [
-    "<esc><wait><esc><wait>", // Double ESC to clear the language/splash menu
-    "/casper/vmlinuz ",
+    "<wait5>",          // Wait for the BIOS/ISOLINUX to load
+    "<esc><wait>",      // First ESC clears the "keyboard = human" icon
+    "<esc><wait>",      // Second ESC clears the language selection menu
+    "vmlinuz ",         // Start typing the kernel path
     "boot=casper ",
-    "only-ubiquity ", // This tells the live CD to only run the installer
-    "automatic-ubiquity ", // This triggers the automated mode
+    "automatic-ubiquity ", // This is the magic flag for Desktop automation
     "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
     "debian-installer/locale=en_US ",
     "console-setup/layoutcode=us ",
-    "hostname=ubuntu-desktop ",
     "initrd=/casper/initrd.lz ",
+    "root=/dev/ram0 ",
     "quiet -- <enter>"
   ]
 
