@@ -7,15 +7,25 @@ packer {
   }
 }
 
-variable "proxmox_api_url"          { type = string }
-variable "proxmox_api_token_id"     { type = string }
-variable "proxmox_api_token_secret" { type = string; sensitive = true }
+# --- Fixed Variables ---
+variable "proxmox_api_url" {
+  type = string
+}
+
+variable "proxmox_api_token_id" {
+  type = string
+}
+
+variable "proxmox_api_token_secret" {
+  type      = string
+  sensitive = true
+}
 
 source "proxmox-iso" "sophos-firewall" {
   # Proxmox Connection
   proxmox_url              = var.proxmox_api_url
   username                 = var.proxmox_api_token_id
-  token                    = var.proxmox_api_token_secret
+  token                    = var.proxmox_api_token_secret # This maps to the secret
   insecure_skip_tls_verify = true
 
   # VM Specs
@@ -63,27 +73,26 @@ source "proxmox-iso" "sophos-firewall" {
     # Part 1: Initial Install
     "y<enter>", 
     
-    # Part 2: Wait for Install + Reboot (Usually takes 5-8 mins on ZFS)
+    # Part 2: Wait for Install + Reboot
     "<wait10m>", 
     
     # Part 3: Handle Mandatory Password Change
-    "admin<enter>",              # Initial User
-    "<wait2s>admin<enter>",      # Initial Pass
-    "<wait2s>LabPassword123!<enter>", # NEW Password
-    "<wait2s>LabPassword123!<enter>", # Confirm NEW Password
+    "admin<enter>",              
+    "<wait2s>admin<enter>",      
+    "<wait2s>LabPassword123!<enter>", 
+    "<wait2s>LabPassword123!<enter>", 
     
-    # Part 4: Access Console to enable API (Optional but recommended for Ansible)
-    "<wait5s>4<enter>",          # Option 4: Device Console
+    # Part 4: Access Console to enable API
+    "<wait5s>4<enter>",          
     "<wait2s>system system_modules api status enable<enter>",
-    "<wait1s>exit<enter>",       # Exit Console
+    "<wait1s>exit<enter>",       
     
     # Part 5: Shutdown to finalize Template
-    "<wait2s>0<enter>",          # Option 0: Logout/Shutdown
-    "<wait1s>y<enter>"           # Confirm Shutdown
+    "<wait2s>0<enter>",          
+    "<wait1s>y<enter>"           
   ]
 }
 
 build {
   sources = ["source.proxmox-iso.sophos-firewall"]
-  # No provisioners needed!
 }
