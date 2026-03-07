@@ -30,37 +30,30 @@ variable "ubuntu_password_plain" {
   sensitive = true
 }
 
-source "proxmox-iso" "ubuntu-desktop-10-04" {
-  # Proxmox Connection
-  proxmox_url              = var.proxmox_api_url
-  username                 = var.proxmox_api_token_id
-  token                    = var.proxmox_api_token_secret
-  insecure_skip_tls_verify = true
-
-  # 10.04 might need the older 'virtio' or even 'ide' for stability
-  qemu_agent = false # 10.04 doesn't have native easy guest-agent support
+# Legacy 10.04 Settings
+  qemu_agent = false # 10.04 lacks a modern guest agent by default
 
   node                 = "pve"
-  vm_id                = "151"
-  vm_name              = "ubuntu-10-04-desktop"
+  vm_id                = "152"
+  vm_name              = "ubuntu-10-04-desktop-alt"
   pool                 = "IT-sec"
-  template_description = "Ubuntu 10.04 Desktop built via Packer"
+  template_description = "Ubuntu 10.04 Desktop (Alternate ISO) via Packer"
 
-  boot = "order=ide0;ide1" # Older OS often prefers IDE for the boot drive
+  boot = "order=ide0;ide2"
 
   boot_iso {
     type     = "ide"
-    iso_file = "local:iso/ubuntu-10.04.4-alternate-i386.iso"
+    iso_file = "local:iso/ubuntu-10.04.4-alternate-amd64.iso"
     unmount  = true
   }
 
-  scsi_controller = "lsi" # More compatible with 2010-era kernels
-
-  cores   = 2
-  memory  = 2048
+  # Hardware Compatibility (10.04 is happier with these)
+  scsi_controller = "lsi"
+  cores           = 2
+  memory          = 2048
 
   network_adapters {
-    model  = "e1000" # More likely to have drivers in 10.04 than virtio
+    model  = "e1000"
     bridge = "vmbr0"
   }
 
@@ -70,43 +63,37 @@ source "proxmox-iso" "ubuntu-desktop-10-04" {
     type         = "ide"
   }
 
-  # 10.04 uses a local HTTP server or Floppy for preseed,
-  # but here we'll use the boot_command to point to a preseed file.
+  # This serves your preseed.seed file
   http_directory = "http"
 
-  # The 10.04 Boot Command (Legacy Preseed Style)
-boot_command = [
-    "<wait10>",          // Give Proxmox/BIOS plenty of time to start the VGA
-    "<esc><wait>",       // Clear the "language icon" screen
-    "<esc><wait>",       // If the language menu is open, clear it
-    "<f6><wait><esc>",   // F6 opens the options menu, ESC closes the popup but keeps the line open
-    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>", // Backspace to clear "quiet splash --"
-    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+  # The "Alternate" Boot Command
+  # It uses /install/vmlinuz and standard debian-installer flags
+  boot_command = [
+    "<wait5>",
+    "<esc><wait>",
+    "install ",
     "auto=true ",
     "priority=critical ",
     "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
     "debian-installer/locale=en_US ",
     "console-setup/layoutcode=us ",
-    "hostname=ubuntu-desktop ",
-    "initrd=/casper/initrd.lz ",
-    "root=/dev/ram0 ",
-    "boot=casper ",
-    "automatic-ubiquity ",
+    "netcfg/get_hostname=ubuntu-desktop ",
+    "initrd=/install/initrd.gz ", # Path is different on Alternate ISO
     "-- <enter>"
   ]
 
   ssh_username = "ubuntu"
-  ssh_password = "ubuntu" # Match what's in your preseed
-  ssh_timeout  = "20m"
+  ssh_password = "password" # Must match what you put in preseed.seed
+  ssh_timeout  = "45m"      # Desktop installs take longer than server
 }
 
 build {
-  sources = ["source.proxmox-iso.ubuntu-desktop-10-04"]
+  sources = ["source.proxmox-iso.ubuntu-10-04-desktop"]
 
   provisioner "shell" {
     inline = [
       "sudo apt-get update",
-      "sudo apt-get install -y x11vnc", # Example desktop tool
+      "sudo apt-get install -y build-essential",
       "sudo apt-get clean"
     ]
   }
