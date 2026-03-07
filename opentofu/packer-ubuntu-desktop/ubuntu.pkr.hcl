@@ -70,21 +70,24 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
     type         = "ide"
   }
 
-  # This serves your preseed.seed file
-  http_directory = "http"
+# Keeping your existing logic for the extra ISO
+  additional_iso_files {
+    cd_files         = ["./http/preseed.seed"]
+    cd_label         = "preseed"
+    iso_storage_pool = "local"
+    unmount          = true
+  }
 
-  # The "Alternate" Boot Command
-  # It uses /install/vmlinuz and standard debian-installer flags
   boot_command = [
-    "<wait10>",          // Increased wait: 10.04 is slow to initialize VGA
-    "<esc><wait>",       // Escape the "Keyboard/Human" logo
-    "<esc><wait>",       // Escape the Language Menu if it popped up
-    "<esc><wait>",       // Third escape just to be safe
-    "install ",          // Start typing the mode
+    "<wait10>",
+    "<esc><wait>",
+    "<esc><wait>",
+    "install ",
     "auto=true ",
     "priority=critical ",
-    "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
-    "locale=en_US ",
+    # Tell 10.04 to look at the second CD-ROM (sr1) for the file
+    "preseed/file=/hd-media/preseed.seed ",
+    "debian-installer/locale=en_US ",
     "console-setup/layoutcode=us ",
     "netcfg/get_hostname=ubuntu-desktop ",
     "initrd=/install/initrd.gz ",
