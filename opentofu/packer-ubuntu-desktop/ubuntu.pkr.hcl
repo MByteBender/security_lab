@@ -75,19 +75,24 @@ source "proxmox-iso" "ubuntu-desktop-10-04" {
   http_directory = "http"
 
   # The 10.04 Boot Command (Legacy Preseed Style)
-  boot_command = [
-    "<wait5>",          // Wait for the BIOS/ISOLINUX to load
-    "<esc><wait>",      // First ESC clears the "keyboard = human" icon
-    "<esc><wait>",      // Second ESC clears the language selection menu
-    "vmlinuz ",         // Start typing the kernel path
-    "boot=casper ",
-    "automatic-ubiquity ", // This is the magic flag for Desktop automation
+boot_command = [
+    "<wait10>",          // Give Proxmox/BIOS plenty of time to start the VGA
+    "<esc><wait>",       // Clear the "language icon" screen
+    "<esc><wait>",       // If the language menu is open, clear it
+    "<f6><wait><esc>",   // F6 opens the options menu, ESC closes the popup but keeps the line open
+    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>", // Backspace to clear "quiet splash --"
+    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+    "auto=true ",
+    "priority=critical ",
     "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
     "debian-installer/locale=en_US ",
     "console-setup/layoutcode=us ",
+    "hostname=ubuntu-desktop ",
     "initrd=/casper/initrd.lz ",
     "root=/dev/ram0 ",
-    "quiet -- <enter>"
+    "boot=casper ",
+    "automatic-ubiquity ",
+    "-- <enter>"
   ]
 
   ssh_username = "ubuntu"
