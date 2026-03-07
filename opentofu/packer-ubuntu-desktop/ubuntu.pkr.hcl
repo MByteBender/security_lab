@@ -43,7 +43,7 @@ variable "ubuntu_password_plain" {
 
   boot_iso {
     type     = "ide"
-    iso_file = "local:iso/ubuntu-10.04.4-alternate-amd64.iso"
+    iso_file = "local:iso/ubuntu-10.04.4-alternate-i386.iso"
     unmount  = true
   }
 
