@@ -91,7 +91,7 @@ source "proxmox-iso" "ubuntu-server" {
 
   # SSH settings so Packer can log in to finish the setup
   ssh_username = "ubuntu"
-  ssh_password = "${var.ubuntu_password_plain}"
+  ssh_password = "ubuntu"
   ssh_timeout  = "20m"
 }
 
