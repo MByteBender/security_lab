@@ -82,6 +82,7 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
     "<wait10>",
     "<esc><wait>",
     "<esc><wait>",
+    "<enter><wait>",
     "<wait60>",
     "install ",
     "auto=true ",
