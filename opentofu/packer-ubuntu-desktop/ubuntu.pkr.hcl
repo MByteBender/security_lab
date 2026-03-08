@@ -93,6 +93,12 @@ boot_command = [
   "netcfg/confirm_static=true ",
   "netcfg/get_hostname=ubuntu-desktop ",
 
+# 2. NOW POINT TO THE REPOS (AND BYPASS AUTH)
+  "mirror/protocol=http ",
+  "mirror/http/hostname=old-releases.ubuntu.com ",
+  "mirror/http/directory=/ubuntu ",
+  "debian-installer/allow_unauthenticated=true ", # Essential for old-releases!
+
   # --- Preseed Fetching ---
   "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
 
