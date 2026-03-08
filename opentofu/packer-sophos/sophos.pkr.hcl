@@ -78,7 +78,9 @@ source "proxmox-iso" "sophos-firewall" {
 boot_command = [
   # 1. Wait long enough for the 'Password' prompt to be solid
   "y<enter>",
-  "<wait10m>y<enter><wait5m>",
+  "<wait10m>y<enter>",
+
+  "<wait5m>y<enter>"
 
   # 2. Clear any junk and attempt login
   "<esc><esc><enter>",
