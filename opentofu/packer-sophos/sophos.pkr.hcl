@@ -80,7 +80,10 @@ source "proxmox-iso" "sophos-firewall" {
 build {
   sources = ["source.proxmox-iso.sophos-firewall"]
 
-  provisioner "local-exec" {
-    command = "python3 bootstrap_sophos.py --ip ${var.vm_ip}"
+# Change "local-exec" to "shell-local"
+  provisioner "shell-local" {
+    inline = [
+      "python3 bootstrap_sophos.py"
+    ]
   }
 }
