@@ -80,11 +80,12 @@ boot_command = [
   "<wait15>",
   "<enter><wait><f6><wait><esc>",
   "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-  "install ",
+  "install ", # Explicit space
+  "initrd=/install/initrd.gz ", # Moved this up to ensure it's read first
   "auto=true ",
   "priority=critical ",
 
-  # 1. SET UP THE NETWORK FIRST
+  # --- Network FIRST ---
   "netcfg/disable_dhcp=true ",
   "netcfg/get_ipaddress=172.16.50.56 ",
   "netcfg/get_netmask=255.255.255.0 ",
@@ -93,19 +94,14 @@ boot_command = [
   "netcfg/confirm_static=true ",
   "netcfg/get_hostname=ubuntu-desktop ",
 
-  # 2. NOW POINT TO THE REPOS (AND BYPASS AUTH)
-  "mirror/protocol=http ",
+  # --- Repo & Preseed ---
   "mirror/http/hostname=old-releases.ubuntu.com ",
   "mirror/http/directory=/ubuntu ",
-  "debian-installer/allow_unauthenticated=true ", # Essential for old-releases!
-
-  # 3. FETCH THE PRESEED
+  "debian-installer/allow_unauthenticated=true ",
   "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
 
-  # 4. FINISH BOOT
   "locale=en_US ",
   "console-setup/layoutcode=us ",
-  "initrd=/install/initrd.gz ",
   "-- <enter>"
 ]
   ssh_username = "ubuntu"
