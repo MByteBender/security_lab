@@ -22,12 +22,6 @@ d-i mirror/http/directory string /ubuntu
 d-i mirror/http/proxy string
 # This tells the installer to ignore the fact that the Release file is expired
 d-i debian-installer/allow_unauthenticated boolean true
-# Mirror settings (moved from boot command to bypass length limit)
-d-i mirror/protocol string http
-d-i mirror/http/hostname string old-releases.ubuntu.com
-d-i mirror/http/directory string /ubuntu
-d-i mirror/http/proxy string
-d-i debian-installer/allow_unauthenticated boolean true
 
 # Localization (also moved to preseed)
 d-i debian-installer/locale string en_US
@@ -63,7 +57,12 @@ d-i preseed/late_command string \
     in-target sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config; \
     in-target ssh-keygen -A; \
     in-target service ssh restart
-
+    mkdir -p /mnt/iso; \
+    mount /dev/sr1 /mnt/iso; \
+    in-target dpkg -i /mnt/iso/openssh-client_5.3p1-3ubuntu3_amd64.deb; \
+    in-target dpkg -i /mnt/iso/openssh-sftp-server_5.3p1-3ubuntu3_amd64.deb; \
+    in-target dpkg -i /mnt/iso/openssh-server_5.3p1-3ubuntu3_amd64.deb; \
+    umount /mnt/iso
 # Bootloader
 d-i grub-installer/only_debian boolean true
 d-i grub-installer/with_other_os boolean true

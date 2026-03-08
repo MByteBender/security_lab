@@ -70,8 +70,19 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
     type         = "ide"
   }
 
+
+
 # This creates a second CD drive.
-  # In 10.04, this usually appears as /dev/sr1 or /dev/sdb
+additional_iso_files {
+    cd_files = [
+      "./http/preseed.seed",
+      "./http/openssh-client_5.3p1-3ubuntu3_amd64.deb",
+      "./http/openssh-server_5.3p1-3ubuntu3_amd64.deb",
+    ]
+    cd_label = "PRESEED"
+    iso_storage_pool = "local"
+  }
+
 http_directory = "http"
 
   # Force Packer to bind to an address the VM can reach (0.0.0.0 is safest)
