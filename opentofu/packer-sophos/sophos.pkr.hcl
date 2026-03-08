@@ -75,30 +75,36 @@ source "proxmox-iso" "sophos-firewall" {
 
   # 2. Detailed Keystroke Sequence
   boot_wait = "60s"
-  boot_command = [
-    "<enter>",
-    "<wait10s>y<enter>",
-    "<wait2m>y<enter>",
+boot_command = [
+  # 1. Wait long enough for the 'Password' prompt to be solid
+  "<wait10m>",
 
-    "<wait5m>",
+  # 2. Clear any junk and attempt login
+  "<esc><esc><enter>",
+  "admin<enter>",
+  "<wait2s>admin<enter>",
 
-    "admin<enter>",      # Username
-    "<wait1s>admin<enter>", # Default Password
-    "<wait2s>y<enter>",  # Accept EULA (if it pops up)
+  # 3. Handle the 'Accept EULA' screen if it appears
+  "<wait5s>y<enter>",
 
-    # Now we are at the Main Menu
-    "<wait2s>4<enter>",  # Option 4 is 'Device Console'
+  # 4. We need to get to the 'Main Menu'.
+  # If it asks to change password, we press '0' or 'n' to skip for now.
+  "<wait2s>n<enter>",
 
-    # Type the magic command to unlock the API
-    "<wait2s>system system_modules api set status enable<enter>",
+  # 5. Now we should be at the Main Menu (1-7). Select 4 for Device Console.
+  "<wait2s>4<enter>",
 
-    # (Optional) Allow your specific IP to talk to the API
-    "system system_modules api add ip-address 172.16.16.100<enter>",
+  # 6. Type the enable command. We use <wait> to ensure the console is ready.
+  "<wait5s>system system_modules api set status enable<enter>",
 
-    "exit<enter>",       # Back to Main Menu
-    "0<enter>"           # Logout
+  # 7. CRITICAL: By default, Sophos only allows the API from specific IPs.
+  # This command tells it to allow the API from EVERYWHERE on the LAN.
+  "<wait2s>system system_modules api add ip-address 172.16.16.100<enter>",
 
-  ]
+  # 8. Exit back to main menu
+  "<wait2s>exit<enter>",
+  "0<enter>"
+]
 }
 
 build {
