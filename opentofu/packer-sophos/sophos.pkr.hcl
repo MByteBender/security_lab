@@ -66,23 +66,9 @@ source "proxmox-iso" "sophos-firewall" {
   # 2. Detailed Keystroke Sequence
   boot_wait = "60s"
   boot_command = [
-    # 1. Start Installation (Screen 1)
-    "<enter><wait5s>y<enter>", 
-    
-    # 2. Wait for the "Firmware Installed" message (Screen 2)
-    # This usually takes 2-4 minutes.
-    "<wait1m>", 
-    
-    # 3. Trigger the Reboot (Screen 2 - Where you are now)
-    "y<enter>", 
-    
-    # 4. Wait for the actual Sophos OS to boot up 
-    # This is where the 10-minute timer belongs.
-    "<wait2m>",
-    
-    # Part 3: Handle Mandatory Password Change
-    "admin<enter>",              
-
+    "<enter>",
+    "<wait10s>y<enter>",
+    "<wait2m>y<enter>"
   ]
 }
 
