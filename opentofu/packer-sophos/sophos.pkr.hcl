@@ -21,6 +21,11 @@ variable "proxmox_api_token_secret" {
   sensitive = true
 }
 
+variable "vm_ip" {
+  type    = string
+  default = "172.16.16.16"
+}
+
 source "proxmox-iso" "sophos-firewall" {
   # Proxmox Connection
   proxmox_url              = var.proxmox_api_url
