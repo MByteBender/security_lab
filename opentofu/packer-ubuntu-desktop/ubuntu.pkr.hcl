@@ -70,8 +70,6 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
     type         = "ide"
   }
 
-
-
 # This creates a second CD drive.
 additional_iso_files {
     cd_files = [
@@ -132,8 +130,8 @@ build {
   sources = ["source.proxmox-iso.ubuntu-10-04-desktop"]
 
     provisioner "shell" {
-        # This magic string feeds the password into the sudo prompt automatically
-        execute_command = "echo '${var.ubuntu_password}' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+    # Update your provisioner block to use single quotes around the variable
+    execute_command = "echo ubuntu | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
 
         inline = [
           "sudo sed -i 's/archive.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list",
