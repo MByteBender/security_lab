@@ -131,11 +131,15 @@ boot_command = [
 build {
   sources = ["source.proxmox-iso.ubuntu-10-04-desktop"]
 
-  provisioner "shell" {
-    inline = [
-      "sudo apt-get update",
-      "sudo apt-get install -y build-essential",
-      "sudo apt-get clean"
-    ]
-  }
+    provisioner "shell" {
+        # This magic string feeds the password into the sudo prompt automatically
+        execute_command = "echo '${var.ubuntu_password}' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+
+        inline = [
+          "sudo sed -i 's/archive.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list",
+          "sudo sed -i 's/security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list",
+          "sudo apt-get update",
+          "sudo apt-get install -y build-essential"
+        ]
+    }
 }
