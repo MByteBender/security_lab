@@ -80,12 +80,15 @@ boot_command = [
   "<wait15>",
   "<enter><wait><f6><wait><esc>",
   "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-  "install ", # Explicit space
-  "initrd=/install/initrd.gz ", # Moved this up to ensure it's read first
+  "install ",
   "auto=true ",
   "priority=critical ",
 
-  # --- Network FIRST ---
+  "mirror/protocol=http ",
+  "mirror/http/hostname=old-releases.ubuntu.com ",
+  "mirror/http/directory=/ubuntu ",
+
+  # --- Manual Static Network Initialization ---
   "netcfg/disable_dhcp=true ",
   "netcfg/get_ipaddress=172.16.50.56 ",
   "netcfg/get_netmask=255.255.255.0 ",
@@ -94,15 +97,13 @@ boot_command = [
   "netcfg/confirm_static=true ",
   "netcfg/get_hostname=ubuntu-desktop ",
 
-  # --- Repo & Preseed ---
-  "mirror/http/hostname=old-releases.ubuntu.com ",
-  "mirror/http/directory=/ubuntu ",
-  "debian-installer/allow_unauthenticated=true ",
+  # --- Preseed Fetching ---
   "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
 
+  # --- Localization ---
   "locale=en_US ",
   "console-setup/layoutcode=us ",
-  "-- <enter>"
+  "initrd=/install/initrd.gz ",
   "-- <enter>"
 ]
   ssh_username = "ubuntu"
