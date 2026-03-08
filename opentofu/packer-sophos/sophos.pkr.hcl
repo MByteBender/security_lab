@@ -86,7 +86,6 @@ build {
   sources = ["source.proxmox-iso.sophos-firewall"]
 
   provisioner "shell-local" {
-    provisioner "shell-local" {
       inline = [
         "echo '${var.sudo_password}' | sudo -S ip addr add 172.16.16.100/24 dev eth0",
         "python3 bootstrap_sophos.py",
