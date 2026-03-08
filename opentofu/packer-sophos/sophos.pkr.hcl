@@ -80,7 +80,7 @@ boot_command = [
   "y<enter>",
   "<wait10m>y<enter>",
 
-  "<wait5m>y<enter>"
+  "<wait5m>y<enter>",
 
   # 2. Clear any junk and attempt login
   "<esc><esc><enter>",
