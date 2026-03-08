@@ -103,11 +103,7 @@ boot_command = [
   ssh_password = "ubuntu" # Must match what you put in preseed.seed
   ssh_timeout  = "45m"      # Desktop installs take longer than server
 
-  # 1. Allow the older Host Key types offered by 10.04
-  ssh_host_key_algorithms = [
-    "ssh-rsa",
-    "ssh-dss"
-  ]
+
 
   # 2. Allow the older Key Exchange methods
   ssh_key_exchange_algorithms = [
