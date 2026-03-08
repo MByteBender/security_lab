@@ -87,9 +87,9 @@ build {
 
   provisioner "shell-local" {
       inline = [
-        "echo '${var.sudo_password}' | sudo -S ip addr add 172.16.16.100/24 dev eth0",
+        "echo '${var.sudo_password}' | sudo -S ip addr add 172.16.16.100/24 dev ens18",
         "python3 bootstrap_sophos.py",
-        "echo '${var.sudo_password}' | sudo -S ip addr del 172.16.16.100/24 dev eth0"
+        "echo '${var.sudo_password}' | sudo -S ip addr del 172.16.16.100/24 dev ens18"
       ]
   }
 }
