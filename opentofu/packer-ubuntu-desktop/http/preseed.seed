@@ -40,8 +40,10 @@ tasksel tasksel/first multiselect ubuntu-desktop
 d-i pkgsel/include string openssh-server
 d-i pkgsel/upgrade select none
 
-# Late Command: Force SSH to start and allow password login
-# Late Command: Mount the second ISO and install SSH packages offline
+# Add this to your Account Setup section
+d-i passwd/user-default-groups string audio cdrom video sudo
+
+# Add this to your late_command (at the end of the existing commands)
 d-i preseed/late_command string \
     mkdir -p /mnt/iso; \
     mount /dev/sr1 /mnt/iso; \
@@ -49,7 +51,8 @@ d-i preseed/late_command string \
     in-target dpkg -i /mnt/iso/openssh-sftp-server_5.3p1-3ubuntu3_i386.deb; \
     in-target dpkg -i /mnt/iso/openssh-server_5.3p1-3ubuntu3_i386.deb; \
     in-target sed -i 's/PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config; \
-    in-target update-rc.d ssh defaults; \
+    echo "ubuntu ALL=(ALL) NOPASSWD:ALL" > /target/etc/sudoers.d/ubuntu; \
+    chmod 440 /target/etc/sudoers.d/ubuntu; \
     umount /mnt/iso
 
 # Bootloader
