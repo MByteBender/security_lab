@@ -84,10 +84,6 @@ boot_command = [
   "auto=true ",
   "priority=critical ",
 
-  "mirror/protocol=http ",
-  "mirror/http/hostname=old-releases.ubuntu.com ",
-  "mirror/http/directory=/ubuntu ",
-
   # --- Manual Static Network Initialization ---
   "netcfg/disable_dhcp=true ",
   "netcfg/get_ipaddress=172.16.50.56 ",
