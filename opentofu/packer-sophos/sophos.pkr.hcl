@@ -78,12 +78,11 @@ source "proxmox-iso" "sophos-firewall" {
 boot_command = [
   # 1. Wait long enough for the 'Password' prompt to be solid
   "y<enter>",
-  "<wait10m>y<enter>",
+  "<wait6m>y<enter>",
 
-  "<wait5m>y<enter>",
+  "<wait3m>y<enter>",
 
   # 2. Clear any junk and attempt login
-  "<esc><esc><enter>",
   "<wait2s>admin<enter>",
 
   # 3. Handle the 'Accept EULA' screen if it appears
