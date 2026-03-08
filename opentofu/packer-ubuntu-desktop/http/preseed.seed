@@ -48,6 +48,9 @@ d-i preseed/late_command string \
     in-target apt-get install -y openssh-server; \
     in-target sed -i 's/PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config; \
     in-target update-rc.d ssh defaults
+    in-target sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config; \
+    in-target ssh-keygen -A; \
+    in-target service ssh restart
 
 # Bootloader
 d-i grub-installer/only_debian boolean true
