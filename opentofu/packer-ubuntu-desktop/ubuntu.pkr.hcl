@@ -81,33 +81,17 @@ boot_command = [
   "<enter><wait><f6><wait><esc>",
   "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
   "install ",
-  "auto=true ",
-  "priority=critical ",
-
-  # --- Manual Static Network Initialization ---
   "netcfg/disable_dhcp=true ",
   "netcfg/get_ipaddress=172.16.50.56 ",
   "netcfg/get_netmask=255.255.255.0 ",
   "netcfg/get_gateway=172.16.50.1 ",
   "netcfg/get_nameservers=8.8.8.8 ",
   "netcfg/confirm_static=true ",
-  "netcfg/get_hostname=ubuntu-desktop ",
-
-# 2. NOW POINT TO THE REPOS (AND BYPASS AUTH)
-  "mirror/protocol=http ",
-  "mirror/http/hostname=old-releases.ubuntu.com ",
-  "mirror/http/directory=/ubuntu ",
-  "debian-installer/allow_unauthenticated=true ", # Essential for old-releases!
-
-  # --- Preseed Fetching ---
   "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
-
-  # --- Localization ---
-  "locale=en_US ",
-  "console-setup/layoutcode=us ",
   "initrd=/install/initrd.gz ",
   "-- <enter>"
 ]
+
   ssh_username = "ubuntu"
   ssh_password = "ubuntu" # Must match what you put in preseed.seed
   ssh_timeout  = "45m"      # Desktop installs take longer than server
