@@ -30,7 +30,7 @@ source "proxmox-iso" "sophos-firewall" {
 
   # VM Specs
   node                 = "pve"
-  vm_id                = "160"
+  vm_id                = "170"
   vm_name              = "sophos-template"
   pool                 = "IT-sec"
   template_description = "Sophos FW 21.0.1 MR-1 - Auto-Configured for Lab"
@@ -48,10 +48,6 @@ source "proxmox-iso" "sophos-firewall" {
   network_adapters {
     model  = "virtio"
     bridge = "vmbr0" # Port1 (LAN)
-  }
-  network_adapters {
-    model  = "virtio"
-    bridge = "vmbr0" # Port2 (WAN)
   }
 
   disks {
@@ -92,4 +88,8 @@ source "proxmox-iso" "sophos-firewall" {
 
 build {
   sources = ["source.proxmox-iso.sophos-firewall"]
+
+  provisioner "local-exec" {
+    command = "python3 bootstrap_sophos.py --ip ${var.vm_ip}"
+  }
 }
