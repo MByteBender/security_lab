@@ -103,6 +103,7 @@ boot_command = [
   "locale=en_US ",
   "console-setup/layoutcode=us ",
   "-- <enter>"
+  "-- <enter>"
 ]
   ssh_username = "ubuntu"
   ssh_password = "ubuntu" # Must match what you put in preseed.seed
