@@ -84,10 +84,13 @@ boot_command = [
   "auto=true ",
   "priority=critical ",
 
-  # --- Network Initialization ---
-  "netcfg/choose_interface=auto ",
-  "netcfg/link_wait_timeout=20 ",  # Give the virtual switch time to connect
-  "netcfg/dhcp_timeout=60 ",       # Give the DHCP server time to respond
+  # --- Manual Static Network Initialization ---
+  "netcfg/disable_dhcp=true ",
+  "netcfg/get_ipaddress=172.16.50.56 ",
+  "netcfg/get_netmask=255.255.255.0 ",
+  "netcfg/get_gateway=172.16.50.1 ",
+  "netcfg/get_nameservers=8.8.8.8 ",
+  "netcfg/confirm_static=true ",
   "netcfg/get_hostname=ubuntu-desktop ",
 
   # --- Preseed Fetching ---
@@ -102,7 +105,7 @@ boot_command = [
   ssh_username = "ubuntu"
   ssh_password = "ubuntu" # Must match what you put in preseed.seed
   ssh_timeout  = "45m"      # Desktop installs take longer than server
-
+  ssh_host = "172.16.50.56"
 
 
   # 2. Allow the older Key Exchange methods
