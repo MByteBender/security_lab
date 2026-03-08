@@ -79,6 +79,25 @@ source "proxmox-iso" "sophos-firewall" {
     "<enter>",
     "<wait10s>y<enter>",
     "<wait2m>y<enter>"
+
+    "<wait5m>",
+
+    "admin<enter>",      # Username
+    "<wait1s>admin<enter>", # Default Password
+    "<wait2s>y<enter>",  # Accept EULA (if it pops up)
+
+    # Now we are at the Main Menu
+    "<wait2s>4<enter>",  # Option 4 is 'Device Console'
+
+    # Type the magic command to unlock the API
+    "<wait2s>system system_modules api set status enable<enter>",
+
+    # (Optional) Allow your specific IP to talk to the API
+    "system system_modules api add ip-address 172.16.16.100<enter>",
+
+    "exit<enter>",       # Back to Main Menu
+    "0<enter>"           # Logout
+
   ]
 }
 
