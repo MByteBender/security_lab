@@ -81,6 +81,7 @@ build {
   sources = ["source.proxmox-iso.sophos-firewall"]
 
   provisioner "shell-local" {
+    execute_command = "echo ubuntu | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
     # This runs on your Packer host machine
     inline = [
       "echo 'Adding temporary IP alias...'",
