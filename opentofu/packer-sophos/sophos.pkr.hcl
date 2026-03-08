@@ -78,7 +78,7 @@ source "proxmox-iso" "sophos-firewall" {
   boot_command = [
     "<enter>",
     "<wait10s>y<enter>",
-    "<wait2m>y<enter>"
+    "<wait2m>y<enter>",
 
     "<wait5m>",
 
