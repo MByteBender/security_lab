@@ -134,10 +134,7 @@ build {
     execute_command = "echo ubuntu | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
 
         inline = [
-          "sudo sed -i 's/archive.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list",
-          "sudo sed -i 's/security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list",
-          "sudo apt-get update",
-          "sudo apt-get install -y build-essential"
+          "echo testing"
         ]
     }
 }
