@@ -21,6 +21,11 @@ variable "proxmox_api_token_secret" {
   sensitive = true
 }
 
+variable "sudo_password" {
+  type      = string
+  sensitive = true
+}
+
 variable "vm_ip" {
   type    = string
   default = "172.16.16.16"
@@ -81,17 +86,12 @@ build {
   sources = ["source.proxmox-iso.sophos-firewall"]
 
   provisioner "shell-local" {
-    execute_command = "echo ubuntu | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
-    # This runs on your Packer host machine
-    inline = [
-      "echo 'Adding temporary IP alias...'",
-      "sudo ip addr add 172.16.16.100/24 dev eth0", # Use your actual interface name
-
-      "echo 'Running Python bootstrap...'",
-      "python3 bootstrap_sophos.py",
-
-      "echo 'Cleaning up IP alias...'",
-      "sudo ip addr del 172.16.16.100/24 dev eth0"
-    ]
+    provisioner "shell-local" {
+      inline = [
+        "echo '${var.sudo_password}' | sudo -S ip addr add 172.16.16.100/24 dev eth0",
+        "python3 bootstrap_sophos.py",
+        "echo '${var.sudo_password}' | sudo -S ip addr del 172.16.16.100/24 dev eth0"
+      ]
+    }
   }
 }
