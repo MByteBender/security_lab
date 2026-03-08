@@ -80,10 +80,17 @@ source "proxmox-iso" "sophos-firewall" {
 build {
   sources = ["source.proxmox-iso.sophos-firewall"]
 
-# Change "local-exec" to "shell-local"
   provisioner "shell-local" {
+    # This runs on your Packer host machine
     inline = [
-      "python3 bootstrap_sophos.py"
+      "echo 'Adding temporary IP alias...'",
+      "sudo ip addr add 172.16.16.100/24 dev eth0", # Use your actual interface name
+
+      "echo 'Running Python bootstrap...'",
+      "python3 bootstrap_sophos.py",
+
+      "echo 'Cleaning up IP alias...'",
+      "sudo ip addr del 172.16.16.100/24 dev eth0"
     ]
   }
 }
