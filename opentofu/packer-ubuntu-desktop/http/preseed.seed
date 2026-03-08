@@ -20,7 +20,6 @@ d-i mirror/country string manual
 d-i mirror/http/hostname string old-releases.ubuntu.com
 d-i mirror/http/directory string /ubuntu
 d-i mirror/http/proxy string
-
 # This tells the installer to ignore the fact that the Release file is expired
 d-i debian-installer/allow_unauthenticated boolean true
 

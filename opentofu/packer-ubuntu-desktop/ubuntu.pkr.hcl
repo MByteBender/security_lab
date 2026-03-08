@@ -84,11 +84,7 @@ boot_command = [
   "auto=true ",
   "priority=critical ",
 
-  "mirror/protocol=http ",
-  "mirror/http/hostname=old-releases.ubuntu.com ",
-  "mirror/http/directory=/ubuntu ",
-
-  # --- Manual Static Network Initialization ---
+  # 1. SET UP THE NETWORK FIRST
   "netcfg/disable_dhcp=true ",
   "netcfg/get_ipaddress=172.16.50.56 ",
   "netcfg/get_netmask=255.255.255.0 ",
@@ -97,10 +93,16 @@ boot_command = [
   "netcfg/confirm_static=true ",
   "netcfg/get_hostname=ubuntu-desktop ",
 
-  # --- Preseed Fetching ---
+  # 2. NOW POINT TO THE REPOS (AND BYPASS AUTH)
+  "mirror/protocol=http ",
+  "mirror/http/hostname=old-releases.ubuntu.com ",
+  "mirror/http/directory=/ubuntu ",
+  "debian-installer/allow_unauthenticated=true ", # Essential for old-releases!
+
+  # 3. FETCH THE PRESEED
   "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
 
-  # --- Localization ---
+  # 4. FINISH BOOT
   "locale=en_US ",
   "console-setup/layoutcode=us ",
   "initrd=/install/initrd.gz ",
