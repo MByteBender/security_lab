@@ -44,6 +44,8 @@ source "proxmox-iso" "win7" {
     bridge = "vmbr0"
   }
 
+  iso_file = "local:iso/win7_64_bit.iso"
+
   # Disks
   disks {
     disk_size         = "40G"
