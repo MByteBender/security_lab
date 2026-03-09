@@ -86,11 +86,11 @@ build {
   sources = ["source.proxmox-iso.win7"]
 
   # Optional: Install updates or software via PowerShell
-  provisioner "powershell" {
-    inline = [
-      "dir env:",
-      "Get-Service"
-    ]
-  }
+  #provisioner "powershell" {
+  #  inline = [
+  #    "dir env:",
+  #    "Get-Service"
+  #  ]
+  #}
 }
 
