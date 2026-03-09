@@ -80,7 +80,7 @@ http_directory = "http"
 boot_command = [
     "<esc><wait>",
     "install ",
-    "preseed/file=/floppy/kali.preseed ",
+    "preseed/url=file:///kali.preseed ", # Note the triple slash
     "auto=true ",
     "priority=critical ",
     "debian-installer/locale=en_US.UTF-8 ",
