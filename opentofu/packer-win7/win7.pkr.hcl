@@ -54,8 +54,8 @@ source "proxmox-iso" "win7" {
   boot_command = [
     "<wait1m>",
     "<enter><wait15s>",
-    "<enter><wait2m>",
-    "<enter><wait20s><enter>",
+    "<enter><wait150s>",
+    "<enter><wait5s><enter><wait5s><enter>",
     "<wait20m>",
   ]
 
