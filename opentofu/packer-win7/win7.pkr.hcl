@@ -46,20 +46,25 @@ source "proxmox-iso" "win7" {
   disks {
     disk_size         = "40G"
     format            = "raw"
-    storage_pool      = "local-lvm"
+    storage_pool      = "zfs-itsec"
     type              = "scsi" # Matches virtio-scsi-pci
   }
 
   # ISOs: 1. Windows 7 ISO, 2. VirtIO Drivers ISO
   iso_file = "local:iso/windows_7_install.iso"
   
-# How Packer sends the answer file to the VM
-  floppy_files         = ["./http/Autounattend.xml"]
+  additional_iso_files {
+    device                 = "sata1"
+    unmount                = true
+    cd_files               = ["./http/Autounattend.xml"]
+    iso_storage_pool       = "local"
+  }
 
   # Packer needs to know how to talk to the VM after install
   # For a "default" build without WinRM/SSH, you might just want it to finish.
   communicator         = "none"
   shutdown_timeout     = "30m"
+  unmount_iso          = true
 }
 
 build {
