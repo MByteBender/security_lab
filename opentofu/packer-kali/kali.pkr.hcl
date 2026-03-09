@@ -74,7 +74,7 @@ source "proxmox-iso" "kali-linux" {
   }
 
 additional_iso_files {
-    cd_files = ["./http/kali.preseed"]
+    cd_files = ["./http/preseed.seed"]
     cd_label = "PRESEED"
     iso_storage_pool = "local" # Or your preferred storage
   }
