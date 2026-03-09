@@ -1,7 +1,12 @@
-# Account setup
+# User account setup
+d-i passwd/root-login boolean false
+d-i passwd/make-user boolean true
+d-i passwd/user-fullname string kali
+d-i passwd/username string kali
+d-i passwd/user-password password kali
+d-i passwd/user-password-again password kali
 d-i user-setup/allow-password-weak boolean true
 d-i user-setup/encrypt-home boolean false
-
 # Clock setup
 d-i clock-setup/utc boolean true
 d-i time/zone string US/Eastern

@@ -79,7 +79,7 @@ additional_iso_files {
     iso_storage_pool = "local" # Ensure 'local' allows 'ISO Image' in Proxmox
 }
 
-boot = "order=ide0;scsi0;ide1"
+boot = "order=ide0;scsi0"
 
 http_directory = "http"
 
