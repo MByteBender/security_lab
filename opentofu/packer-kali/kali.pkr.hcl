@@ -73,22 +73,20 @@ source "proxmox-iso" "kali-linux" {
     unmount  = true
   }
 
-additional_iso_files {
-    cd_files = ["./http/preseed.seed"]
-    cd_label = "PRESEED"
-    iso_storage_pool = "local" # Or your preferred storage
-  }
+http_directory = "http"
 
-  # Updated Boot Command to look at the CD-ROM (usually /dev/sr1 or /media)
+  # Boot Command for Kali Installer
+  # This sequence selects 'Install', then feeds the preseed URL
   boot_command = [
     "<esc><wait>",
     "install ",
     "auto=true ",
     "priority=critical ",
-    "keymap=us ",
-    "locale=en_US.UTF-8 ",
-    # This line tells the installer to look for the file on any mounted media
-    "preseed/file=/media/preseed.seed ",
+    "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kali.preseed ",
+    "hostname=kali ",
+    "domain=local ",
+    "interface=auto ",
+    "vga=788 ",
     "initrd=initrd.gz ",
     "--- <enter>"
   ]

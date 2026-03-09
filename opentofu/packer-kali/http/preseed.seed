@@ -18,9 +18,3 @@ d-i ethdetect/prompt_missing_firmware boolean false
 
 # Clock and Suite
 d-i mirror/suite string rolling
-    mkdir -p /mnt/iso; \
-    mount /dev/sr1 /mnt/iso; \
-    in-target sed -i 's/PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config; \
-    echo "ubuntu ALL=(ALL) NOPASSWD:ALL" > /target/etc/sudoers.d/ubuntu; \
-    chmod 440 /target/etc/sudoers.d/ubuntu; \
-    umount /mnt/iso
