@@ -105,3 +105,7 @@ boot_command = [
   #"<wait6s>enableremote serverip 172.16.50.180 port 22<enter>",
 ]
 }
+
+build {
+  sources = ["source.proxmox-iso.ubuntu-10-04-desktop"]
+}
