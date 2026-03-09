@@ -46,6 +46,15 @@ source "proxmox-iso" "win7" {
 
   iso_file = "local:iso/win7_64_bit.iso"
 
+  # enter
+  # wait
+  # enter name
+
+  boot_command = [
+    "<wait20m>",
+  ]
+
+
   # Disks
   disks {
     disk_size         = "40G"
