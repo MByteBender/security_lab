@@ -35,7 +35,7 @@ source "proxmox-iso" "win7" {
   # VM Hardware
   cores                = 2
   memory               = 4096
-  scsi_controller      = "virtio-scsi-pci"
+  scsi_controller      = "virtio-scsi-single"
   os                   = "win7"
   
   # Network
@@ -65,6 +65,8 @@ source "proxmox-iso" "win7" {
   # For a "default" build without WinRM/SSH, you might just want it to finish.
   communicator         = "none"
   unmount_iso          = true
+
+  # enter
 }
 
 build {
@@ -78,3 +80,4 @@ build {
     ]
   }
 }
+
