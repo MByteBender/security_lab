@@ -30,16 +30,10 @@ variable "ubuntu_password_plain" {
   sensitive = true
 }
 
-packer {
-  required_plugins {
-    proxmox = {
-      source  = "github.com/hashicorp/proxmox"
-      version = "~> 1"
-    }
-  }
-}
+variable "kali_password" {
+  type = string;
+  default = "kali" }
 
-variable "kali_password"            { type = string; default = "kali" }
 
 source "proxmox-iso" "kali-linux" {
   # Proxmox Connection
