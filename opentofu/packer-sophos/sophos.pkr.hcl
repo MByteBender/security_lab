@@ -90,10 +90,10 @@ boot_command = [
   "<wait5s>a",
 
   # 5. Now we should be at the Main Menu (1-7). Select 4 for Device Console.
-  "<wait15s>4<enter>",
+  "<wait10s>4<enter>",
 
   # 6. Type the enable command. We use <wait> to ensure the console is ready.
-  "<wait10s>enableremote -i 172.16.16.100 -p 22<enter>",
+  "<wait10s>enableremote serverip 172.16.16.100 port 22<enter>",
 
   "<wait10m>"
 
