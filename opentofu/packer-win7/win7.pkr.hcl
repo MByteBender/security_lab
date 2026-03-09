@@ -27,7 +27,9 @@ source "proxmox-iso" "win7" {
   insecure_skip_tls_verify = true
 
   node                 = "pve"
+  vm_id                = "165"
   vm_name              = "win7-packer-template"
+  pool                 = "IT-sec"
   template_description = "Windows 7 Professional with VirtIO"
   
   # VM Hardware
@@ -45,7 +47,6 @@ source "proxmox-iso" "win7" {
   # Disks
   disks {
     disk_size         = "40G"
-    format            = "raw"
     storage_pool      = "zfs-itsec"
     type              = "scsi" # Matches virtio-scsi-pci
   }
