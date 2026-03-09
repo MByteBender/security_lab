@@ -37,6 +37,12 @@ d-i apt-setup/use_mirror boolean true
 d-i apt-setup/cdrom/set-first boolean false
 d-i apt-setup/no_mirror boolean false
 
+# This is the "Magic" line: tell it not to even look at the CD for extra suites
+d-i apt-setup/non-free boolean true
+d-i apt-setup/contrib boolean true
+d-i apt-setup/disable-cdrom-entries boolean true
+
+
 # Define the Kali Mirror
 d-i mirror/country string manual
 d-i mirror/http/hostname string http.kali.org
