@@ -1,8 +1,22 @@
-# 1. Locale and Language (Must be at the top)
+# 1. Localization (Fixes Country/City prompts)
 d-i debian-installer/locale string en_US.UTF-8
+d-i debian-installer/language string en
+d-i debian-installer/country string US
+d-i localechooser/supported-locales multiselect en_US.UTF-8
+
+# 2. Keyboard (Ensure no prompts here)
 d-i console-setup/ask_detect boolean false
 d-i keyboard-configuration/xkb-keymap select us
-d-i keyboard-configuration/layoutcode string us
+
+# 3. Hardware (Fixes the Sound Card/Missing Firmware pause)
+d-i hw-detect/load_media_at_mount_debian_installer boolean true
+d-i ethdetect/prompt_missing_firmware boolean false
+d-i hw-detect/load_firmware boolean false
+
+# 4. Timezone (Fixes the City prompt)
+d-i clock-setup/utc boolean true
+d-i time/zone string US/Eastern
+d-i clock-setup/ntp boolean true
 
 # 2. Network and Mirror Settings
 # We set these early so Apt-Setup knows where to go
