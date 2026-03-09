@@ -103,25 +103,5 @@ boot_command = [
 
   # 6. Type the enable command. We use <wait> to ensure the console is ready.
   "<wait6s>enableremote serverip 172.16.50.180 port 22<enter>",
-
-  "<wait10m>"
-
-  # 7. CRITICAL: By default, Sophos only allows the API from specific IPs.
-  # This command tells it to allow the API from EVERYWHERE on the LAN.
-  # 8. Exit back to main menu
-  #"<wait2s>exit<enter>",
-  #"0<enter>"
 ]
-}
-
-build {
-  sources = ["source.proxmox-iso.sophos-firewall"]
-
-  provisioner "shell-local" {
-      inline = [
-        "echo '${var.sudo_password}' | sudo -S ip addr add 172.16.16.100/24 dev ens18",
-        "python3 bootstrap_sophos.py",
-        "echo '${var.sudo_password}' | sudo -S ip addr del 172.16.16.100/24 dev ens18"
-      ]
-  }
 }
