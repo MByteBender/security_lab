@@ -81,7 +81,7 @@ boot_command = [
   "y<enter>",
   "<wait2m>y<enter>",
 
-  "<wait90s>y<enter>",
+  "<wait70s>y<enter>",
 
   # 2. Clear any junk and attempt login
   "<wait15s>admin<enter>",
@@ -102,7 +102,7 @@ boot_command = [
   "<wait10s>4<enter>",
 
   # 6. Type the enable command. We use <wait> to ensure the console is ready.
-  "<wait10s>enableremote serverip 172.16.16.100 port 22<enter>",
+  "<wait6s>enableremote serverip 172.16.50.180 port 22<enter>",
 
   "<wait10m>"
 
