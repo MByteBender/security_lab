@@ -86,25 +86,19 @@ boot_command = [
   "<wait2s>admin<enter>",
 
   # 3. Handle the 'Accept EULA' screen if it appears
-  "<wait5s>y<enter>",
-
-  # 4. We need to get to the 'Main Menu'.
-  # If it asks to change password, we press '0' or 'n' to skip for now.
-  "<wait2s>n<enter>",
+  "<wait5s>a<enter>",
 
   # 5. Now we should be at the Main Menu (1-7). Select 4 for Device Console.
   "<wait2s>4<enter>",
 
   # 6. Type the enable command. We use <wait> to ensure the console is ready.
-  "<wait5s>system system_modules api set status enable<enter>",
+  "<wait5s>enableremote -i 172.16.16.100 -p 22<enter>",
 
   # 7. CRITICAL: By default, Sophos only allows the API from specific IPs.
   # This command tells it to allow the API from EVERYWHERE on the LAN.
-  "<wait2s>system system_modules api add ip-address 172.16.16.100<enter>",
-
   # 8. Exit back to main menu
-  "<wait2s>exit<enter>",
-  "0<enter>"
+  #"<wait2s>exit<enter>",
+  #"0<enter>"
 ]
 }
 
