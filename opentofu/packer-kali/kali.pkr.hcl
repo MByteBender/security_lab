@@ -80,7 +80,7 @@ http_directory = "http"
 boot_command = [
     "<esc><wait>",
     "install ",
-    "preseed/url=file:///kali.preseed ", # Note the triple slash
+    "preseed/url=file:///preseed.seed ", # Note the triple slash
     "auto=true ",
     "priority=critical ",
     "debian-installer/locale=en_US.UTF-8 ",
