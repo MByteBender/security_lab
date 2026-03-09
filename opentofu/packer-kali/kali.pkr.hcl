@@ -77,16 +77,15 @@ http_directory = "http"
 
   # Boot Command for Kali Installer
   # This sequence selects 'Install', then feeds the preseed URL
-  boot_command = [
+boot_command = [
     "<esc><wait>",
     "install ",
+    "preseed/file=/floppy/kali.preseed ",
     "auto=true ",
     "priority=critical ",
-    "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kali.preseed ",
-    "hostname=kali ",
-    "domain=local ",
-    "interface=auto ",
-    "vga=788 ",
+    "debian-installer/locale=en_US.UTF-8 ",
+    "kbd-chooser/method=us ",
+    "keyboard-configuration/xkb-keymap=us ",
     "initrd=initrd.gz ",
     "--- <enter>"
   ]
