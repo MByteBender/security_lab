@@ -56,7 +56,6 @@ source "proxmox-iso" "win7" {
     "<enter><wait15s>",
     "<enter><wait150s>",
     "<enter><wait5s><enter><wait5s><enter>",
-    "<wait20m>",
   ]
 
 
