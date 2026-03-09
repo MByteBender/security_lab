@@ -28,7 +28,7 @@ variable "sudo_password" {
 
 variable "vm_ip" {
   type    = string
-  default = "172.16.16.16"
+  default = "172.16.50.180"
 }
 
 source "proxmox-iso" "sophos-firewall" {
@@ -93,7 +93,7 @@ boot_command = [
   "<wait2s>1<enter>",
   "<wait2s><enter>",
   "<wait2s><enter>y<enter>",
-  "<wait2s>172.16.50.180<enter>",
+  "<wait2s>${var.vm_ip}<enter>",
   "<enter><wait10s>",
   "<enter>n<enter>",
   "<wait5s>0<enter>",
@@ -101,7 +101,7 @@ boot_command = [
   # 5. Now we should be at the Main Menu (1-7). Select 4 for Device Console.
   "<wait10s>4<enter>",
 
-  # 6. Type the enable command. We use <wait> to ensure the console is ready.
-  "<wait6s>enableremote serverip 172.16.50.180 port 22<enter>",
+  # 6. Type the enable command. We use <wait> to ensure the console is ready. Currently not needed
+  #"<wait6s>enableremote serverip 172.16.50.180 port 22<enter>",
 ]
 }
