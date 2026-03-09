@@ -63,7 +63,6 @@ source "proxmox-iso" "win7" {
   # Packer needs to know how to talk to the VM after install
   # For a "default" build without WinRM/SSH, you might just want it to finish.
   communicator         = "none"
-  shutdown_timeout     = "30m"
   unmount_iso          = true
 }
 
