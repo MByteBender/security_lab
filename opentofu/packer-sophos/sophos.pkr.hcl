@@ -56,6 +56,7 @@ source "proxmox-iso" "sophos-firewall" {
   memory          = 6016
 
   network_adapters {
+
     model  = "virtio"
     bridge = "vmbr0" # Port1 (LAN)
   }
@@ -83,7 +84,7 @@ boot_command = [
   "<wait90s>y<enter>",
 
   # 2. Clear any junk and attempt login
-  "<wait2s>admin<enter>",
+  "<wait30s>admin<enter>",
 
   # 3. Handle the 'Accept EULA' screen if it appears
   "<wait5s>a<enter>",
