@@ -32,8 +32,8 @@ variable "ubuntu_password_plain" {
 
 variable "kali_password" {
   type = string;
-  default = "kali" }
-
+  default = "kali"
+}
 
 source "proxmox-iso" "kali-linux" {
   # Proxmox Connection
