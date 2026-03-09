@@ -20,6 +20,8 @@ d-i partman/choose_partition select finish
 d-i partman/confirm boolean true
 d-i partman/confirm_nooverwrite boolean true
 
+d-i preseed/early_command string umount /media || true
+
 # Package selection (Standard Kali Desktop)
 tasksel tasksel/first multiselect standard, desktop-xfce, kali-linux-default
 d-i pkgsel/include string qemu-guest-agent, ssh
