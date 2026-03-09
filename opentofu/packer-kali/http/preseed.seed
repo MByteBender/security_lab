@@ -1,0 +1,11 @@
+d-i passwd/user-fullname string kali
+d-i passwd/username string kali
+d-i passwd/user-password password kali
+d-i passwd/user-password-again password kali
+
+# Avoid the "missing firmware" prompts
+d-i hw-detect/load_media_at_mount_debian_installer boolean true
+d-i ethdetect/prompt_missing_firmware boolean false
+
+# Clock and Suite
+d-i mirror/suite string rolling
