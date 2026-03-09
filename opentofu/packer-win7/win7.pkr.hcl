@@ -48,12 +48,10 @@ source "proxmox-iso" "win7" {
   disks {
     disk_size         = "40G"
     storage_pool      = "zfs-itsec"
-    type              = "scsi" # Matches virtio-scsi-pci
+    type              = "sata" # Matches virtio-scsi-pci
   }
 
   # ISOs: 1. Windows 7 ISO, 2. VirtIO Drivers ISO
-  iso_file = "local:iso/win7_64_bit.iso"
-  
   additional_iso_files {
     device                 = "sata1"
     unmount                = true
