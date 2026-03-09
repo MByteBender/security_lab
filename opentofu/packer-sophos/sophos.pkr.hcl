@@ -87,7 +87,7 @@ boot_command = [
   "<wait15s>admin<enter>",
 
   # 3. Handle the 'Accept EULA' screen if it appears
-  "<wait5s>a<enter>",
+  "<wait5s>a",
 
   # 5. Now we should be at the Main Menu (1-7). Select 4 for Device Console.
   "<wait15s>4<enter>",
