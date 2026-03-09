@@ -73,11 +73,11 @@ source "proxmox-iso" "kali-linux" {
     unmount  = true
   }
 
-additional_iso_files {
-    cd_files = ["./http/preseed.seed"]
-    cd_label = "PRESEED"
-    iso_storage_pool = "local" # Ensure 'local' allows 'ISO Image' in Proxmox
-}
+#additional_iso_files {
+#    cd_files = ["./http/preseed.seed"]
+#    cd_label = "PRESEED"
+#    iso_storage_pool = "local" # Ensure 'local' allows 'ISO Image' in Proxmox
+#}
 
 boot = "order=ide0;scsi0"
 
