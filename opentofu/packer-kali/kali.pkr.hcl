@@ -73,6 +73,8 @@ source "proxmox-iso" "kali-linux" {
     unmount  = true
   }
 
+    http_bind_address = "0.0.0.0"
+
   http_directory = "http"
 
   # Boot Command for Kali Installer
