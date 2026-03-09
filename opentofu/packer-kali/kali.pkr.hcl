@@ -84,12 +84,12 @@ boot_command = [
     "install ",
     "auto=true ",
     "priority=critical ",
-    "debconf/frontend=noninteractive ",
-    "console-setup/ask_detect=false ",
-    "console-setup/layoutcode=us ",
-    "keymap=us ",                             # Added this
-    "kbd-chooser/method=us ",                  # Added this
-    "locale=en_US.UTF-8 ",
+    "netcfg/disable_dhcp=true ",
+    "netcfg/get_ipaddress=172.16.50.56 ",
+    "netcfg/get_netmask=255.255.255.0 ",
+    "netcfg/get_gateway=172.16.50.1 ",
+    "netcfg/get_nameservers=8.8.8.8 ",
+    "netcfg/confirm_static=true ",
     "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kali.preseed ",
     "initrd=initrd.gz ",
     "--- <enter>"
