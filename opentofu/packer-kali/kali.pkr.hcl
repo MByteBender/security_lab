@@ -77,16 +77,16 @@ source "proxmox-iso" "kali-linux" {
 
   # Boot Command for Kali Installer
   # This sequence selects 'Install', then feeds the preseed URL
-  boot_command = [
+boot_command = [
     "<esc><wait>",
     "install ",
     "auto=true ",
     "priority=critical ",
+    "debconf/frontend=noninteractive ",
+    "console-setup/ask_detect=false ",
+    "console-setup/layoutcode=us ",
+    "locale=en_US.UTF-8 ",
     "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kali.preseed ",
-    "hostname=kali ",
-    "domain=local ",
-    "interface=auto ",
-    "vga=788 ",
     "initrd=initrd.gz ",
     "--- <enter>"
   ]

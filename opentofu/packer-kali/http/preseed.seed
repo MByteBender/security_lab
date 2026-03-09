@@ -1,3 +1,12 @@
+d-i debian-installer/locale string en_US.UTF-8
+d-i console-setup/ask_detect boolean false
+d-i keyboard-configuration/xkb-keymap select us
+
+# This prevents the network "auto-detect" from hanging if it's slow
+d-i netcfg/choose_interface select auto
+d-i netcfg/get_hostname string kali
+d-i netcfg/get_domain string local
+
 d-i passwd/user-fullname string kali
 d-i passwd/username string kali
 d-i passwd/user-password password kali
