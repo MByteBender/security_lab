@@ -75,7 +75,7 @@ source "proxmox-iso" "sophos-firewall" {
   communicator = "none"
 
   # 2. Detailed Keystroke Sequence
-  boot_wait = "60s"
+  boot_wait = "30s"
 boot_command = [
   # 1. Wait long enough for the 'Password' prompt to be solid
   "y<enter>",
@@ -84,16 +84,16 @@ boot_command = [
   "<wait90s>y<enter>",
 
   # 2. Clear any junk and attempt login
-  "<wait30s>admin<enter>",
+  "<wait15s>admin<enter>",
 
   # 3. Handle the 'Accept EULA' screen if it appears
   "<wait5s>a<enter>",
 
   # 5. Now we should be at the Main Menu (1-7). Select 4 for Device Console.
-  "<wait2s>4<enter>",
+  "<wait5s>4<enter>",
 
   # 6. Type the enable command. We use <wait> to ensure the console is ready.
-  "<wait5s>enableremote -i 172.16.16.100 -p 22<enter>",
+  "<wait10s>enableremote -i 172.16.16.100 -p 22<enter>",
 
   "<wait10m>"
 
