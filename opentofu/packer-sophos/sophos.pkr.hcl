@@ -93,9 +93,9 @@ boot_command = [
   "<wait2s>1<enter>",
   "<wait2s><enter>",
   "<wait2s><enter>y<enter>",
-  "<wait2s>172.16.50.180<enter>"
-  "<enter><wait10s>"
-  "<enter>n<enter>"
+  "<wait2s>172.16.50.180<enter>",
+  "<enter><wait10s>",
+  "<enter>n<enter>",
 
   # 5. Now we should be at the Main Menu (1-7). Select 4 for Device Console.
   "<wait10s>4<enter>",
