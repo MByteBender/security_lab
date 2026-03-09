@@ -88,7 +88,7 @@ additional_iso_files {
     "keymap=us ",
     "locale=en_US.UTF-8 ",
     # This line tells the installer to look for the file on any mounted media
-    "preseed/file=/media/kali.preseed ",
+    "preseed/file=/media/preseed.seed ",
     "initrd=initrd.gz ",
     "--- <enter>"
   ]
