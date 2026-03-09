@@ -52,7 +52,7 @@ source "proxmox-iso" "win7" {
   }
 
   # ISOs: 1. Windows 7 ISO, 2. VirtIO Drivers ISO
-  iso_file = "local:iso/windows_7_install.iso"
+  iso_file = "local:iso/win7_64_bit.iso"
   
   additional_iso_files {
     device                 = "sata1"
