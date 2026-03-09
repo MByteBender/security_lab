@@ -73,19 +73,29 @@ source "proxmox-iso" "kali-linux" {
     unmount  = true
   }
 
+additional_iso_files {
+    cd_files = ["./http/preseed.seed"]
+    cd_label = "PRESEED"
+    iso_storage_pool = "local" # Ensure 'local' allows 'ISO Image' in Proxmox
+}
+
+boot = "order=ide0;scsi0;ide1"
+
 http_directory = "http"
 
   # Boot Command for Kali Installer
   # This sequence selects 'Install', then feeds the preseed URL
 boot_command = [
-    "<esc><wait>",
+    "<esc><wait5>",
     "install ",
-    "preseed/url=file:///preseed.seed ", # Note the triple slash
     "auto=true ",
     "priority=critical ",
+    # We add a pause to let the virtual NIC "link up"
+    "netcfg/link_wait_timeout=60 ",
+    "netcfg/get_hostname=kali ",
+    "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
     "debian-installer/locale=en_US.UTF-8 ",
-    "kbd-chooser/method=us ",
-    "keyboard-configuration/xkb-keymap=us ",
+    "keymap=us ",
     "initrd=initrd.gz ",
     "--- <enter>"
   ]
