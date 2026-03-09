@@ -94,6 +94,8 @@ boot_command = [
   # 6. Type the enable command. We use <wait> to ensure the console is ready.
   "<wait5s>enableremote -i 172.16.16.100 -p 22<enter>",
 
+  "<wait10m>"
+
   # 7. CRITICAL: By default, Sophos only allows the API from specific IPs.
   # This command tells it to allow the API from EVERYWHERE on the LAN.
   # 8. Exit back to main menu
