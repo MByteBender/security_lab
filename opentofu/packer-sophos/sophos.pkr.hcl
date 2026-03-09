@@ -107,5 +107,5 @@ boot_command = [
 }
 
 build {
-  sources = ["source.proxmox-iso.ubuntu-10-04-desktop"]
+  sources = ["source.proxmox-iso.sophos-firewall"]
 }
