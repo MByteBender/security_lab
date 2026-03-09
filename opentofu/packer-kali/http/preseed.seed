@@ -21,6 +21,15 @@ d-i partman/confirm boolean true
 d-i partman/confirm_nooverwrite boolean true
 
 d-i preseed/early_command string umount /media || true
+# Disable the CD-ROM scan (this fixes your current error)
+d-i apt-setup/use_mirror boolean true
+d-i apt-setup/cdrom/set-first boolean false
+d-i apt-setup/no_mirror boolean false
+
+# This is the "Magic" line: tell it not to even look at the CD for extra suites
+d-i apt-setup/non-free boolean true
+d-i apt-setup/contrib boolean true
+d-i apt-setup/disable-cdrom-entries boolean true
 
 # Package selection (Standard Kali Desktop)
 tasksel tasksel/first multiselect standard, desktop-xfce, kali-linux-default
@@ -34,15 +43,7 @@ d-i grub-installer/bootdev string /dev/sda
 # Finish installation
 d-i finish-install/reboot_in_progress note
 
-# Disable the CD-ROM scan (this fixes your current error)
-d-i apt-setup/use_mirror boolean true
-d-i apt-setup/cdrom/set-first boolean false
-d-i apt-setup/no_mirror boolean false
 
-# This is the "Magic" line: tell it not to even look at the CD for extra suites
-d-i apt-setup/non-free boolean true
-d-i apt-setup/contrib boolean true
-d-i apt-setup/disable-cdrom-entries boolean true
 
 
 # Define the Kali Mirror
