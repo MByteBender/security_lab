@@ -91,13 +91,13 @@ boot_command = [
     "auto=true ",
     "priority=critical ",
     # We add a pause to let the virtual NIC "link up"
-    "debian-installer/locale=en_US.UTF-8 ",
-    "debian-installer/language=en ",
-    "debian-installer/country=US ",
-    "console-setup/ask_detect=false ",
-    "keyboard-configuration/xkb-keymap=us ",
-    "netcfg/get_domain=local ",
-    "hw-detect/load_firmware=false ",
+      "debian-installer/locale=en_US.UTF-8 ",
+  "debian-installer/language=en ",
+  "debian-installer/country=US ",
+  "console-setup/ask_detect=false ",
+  "keyboard-configuration/xkb-keymap=us ",
+      "hw-detect/load_firmware=false ",
+
     "netcfg/link_wait_timeout=60 ",
     "netcfg/get_hostname=kali ",
     "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
@@ -106,7 +106,6 @@ boot_command = [
     "initrd=initrd.gz ",
     "--- <enter>"
   ]
-
 
   ssh_username = "kali"
   ssh_password = var.kali_password
