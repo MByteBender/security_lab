@@ -80,7 +80,7 @@ machine = "q35"
 #    iso_storage_pool = "local" # Ensure 'local' allows 'ISO Image' in Proxmox
 #}
 
-boot = "order=ide0;scsi0"
+boot = "order=scsi0;ide0"
 
 http_directory = "http"
 
