@@ -84,3 +84,4 @@ d-i grub-installer/bootdev string default
 
 # If 'default' fails, use this to force the first VirtIO disk
 # d-i grub-installer/bootdev string /dev/vda
+d-i grub-installer/force-efi-extra-removable boolean true
