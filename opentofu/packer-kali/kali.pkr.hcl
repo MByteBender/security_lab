@@ -51,7 +51,7 @@ source "proxmox-iso" "kali-linux" {
 
   # Modern Hardware Settings
   qemu_agent      = true
-  scsi_controller = "virtio-scsi-pci"
+
   cores           = 2
   memory          = 4096 # Kali Desktop likes 4GB+
 
@@ -59,11 +59,11 @@ source "proxmox-iso" "kali-linux" {
     model  = "virtio" # Use virtio for modern Linux
     bridge = "vmbr0"
   }
-
+  scsi_controller = "virtio-scsi-pci"
   disks {
     disk_size    = "40G"
     storage_pool = "zfs-itsec"
-    type         = "virtio" # This makes the disk /dev/vda
+    type         = "scsi" # This makes the disk /dev/vda
   }
 
   # ISO Settings
@@ -72,13 +72,14 @@ source "proxmox-iso" "kali-linux" {
     iso_file = "local:iso/kali-linux-2025.4-installer-amd64.iso" # Update to your path
     unmount  = true
   }
-
+bios = "seabios"
+machine = "q35"
 #additional_iso_files {
 #    cd_files = ["./http/preseed.seed"]
 #    cd_label = "PRESEED"
 #    iso_storage_pool = "local" # Ensure 'local' allows 'ISO Image' in Proxmox
 #}
-bios = "seabios"
+
 boot = "order=ide0;scsi0"
 machine = "pc"
 http_directory = "http"

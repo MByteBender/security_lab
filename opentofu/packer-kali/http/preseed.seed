@@ -51,7 +51,7 @@ d-i pkgsel/upgrade select full-upgrade
 # Boot loader installation
 d-i grub-installer/only_debian boolean true
 d-i grub-installer/with_other_os boolean true
-d-i grub-installer/bootdev string /dev/vda
+d-i grub-installer/bootdev string /dev/sda
 
 
 
@@ -59,7 +59,7 @@ d-i grub-installer/bootdev string /dev/vda
 d-i grub-installer/bootdev string default
 
 # If 'default' fails, replace it with:
-# d-i grub-installer/bootdev string /dev/vda
+# d-i grub-installer/bootdev string /dev/sda
 # (Use /dev/vda if using VirtIO, or /dev/sda if using SCSI/SATA)
 
 
