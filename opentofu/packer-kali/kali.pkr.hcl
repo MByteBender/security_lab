@@ -86,25 +86,27 @@ http_directory = "http"
   # Boot Command for Kali Installer
   # This sequence selects 'Install', then feeds the preseed URL
 boot_command = [
-  "<esc><wait>",
-  "install ",
-  "auto=true ",
-  "priority=critical ",
-  "vga=788 ",
-  # These MUST be here to skip the early screens
-  "debian-installer/locale=en_US.UTF-8 ",
-  "debian-installer/language=en ",
-  "debian-installer/country=US ",
-  "console-setup/ask_detect=false ",
-  "keyboard-configuration/xkb-keymap=us ",
-  "netcfg/get_hostname=kali ",
-  "netcfg/get_domain=local ",
-  "hw-detect/load_firmware=false ",
-  # Point to the file
-  "preseed/file=/floppy/preseed.seed ",
-  "initrd=initrd.gz ",
-  "--- <enter>"
-]
+    "<esc><wait5>",
+    "install ",
+    "auto=true ",
+    "priority=critical ",
+    # We add a pause to let the virtual NIC "link up"
+    "debian-installer/locale=en_US.UTF-8 ",
+    "debian-installer/language=en ",
+    "debian-installer/country=US ",
+    "console-setup/ask_detect=false ",
+    "keyboard-configuration/xkb-keymap=us ",
+    "netcfg/get_domain=local ",
+    "hw-detect/load_firmware=false ",
+    "netcfg/link_wait_timeout=60 ",
+    "netcfg/get_hostname=kali ",
+    "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
+    "debian-installer/locale=en_US.UTF-8 ",
+    "keymap=us ",
+    "initrd=initrd.gz ",
+    "--- <enter>"
+  ]
+
 
   ssh_username = "kali"
   ssh_password = var.kali_password
