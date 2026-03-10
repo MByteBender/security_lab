@@ -76,8 +76,8 @@ http_directory = "http"
     "<wait2m><enter><wait3s>",
     "Packer123!<tab>Packer123!",
     "<enter><wait2s><enter>",
-    "<leftWinOn>r<wait2s>",
-    "powershell<enter><leftWinOff><wait2s>",
+    "<leftWin><wait2s>",
+    "powershell<enter><wait2s>",
     "netsh interface ip set address name=\"Local Area Connection\" static 172.16.50.140 255.255.255.0<enter>"
   ]
   unmount_iso          = true
