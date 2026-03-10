@@ -91,8 +91,8 @@ http_directory = "http"
 
     # 2. Configure WinRM for Basic Auth and Unencrypted traffic (standard for Packer)
     "powershell -Command \"winrm quickconfig -q\"<enter><wait2s>",
-    "winrm set winrm/config/service/auth '@{Basic="true"}'<enter><wait2s>",
-    "winrm set winrm/config/service '@{AllowUnencrypted="true"}'<enter><wait2s>",
+    "winrm set winrm/config/service/auth '@{Basic=\"true\"}'<enter><wait2s>",
+    "winrm set winrm/config/service '@{AllowUnencrypted=\"true\"}'<enter><wait2s>",
 
     # 3. Explicitly allow WinRM through Windows Firewall
     "netsh advfirewall firewall add rule name=\"WinRM 5985\" protocol=TCP dir=in localport=5985 action=allow<enter><wait2s>"
