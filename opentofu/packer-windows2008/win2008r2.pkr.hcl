@@ -87,7 +87,7 @@ http_directory = "http"
 
   ]
   unmount_iso          = true
-winrm_host     = "192.168.1.140"
+  winrm_host     = "172.16.50.140"
 }
 
 build {
