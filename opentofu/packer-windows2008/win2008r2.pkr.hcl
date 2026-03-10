@@ -20,7 +20,7 @@ variable "proxmox_api_token_secret" {
   sensitive = true
 }
 
-source "proxmox-iso" "win7" {
+source "proxmox-iso" "win2008r2" {
   proxmox_url              = var.proxmox_api_url
   username                 = var.proxmox_api_token_id
   token                    = var.proxmox_api_token_secret
