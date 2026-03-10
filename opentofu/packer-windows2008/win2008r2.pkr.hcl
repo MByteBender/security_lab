@@ -73,7 +73,7 @@ http_directory = "http"
     "<shift+f10><wait>",             # 3. Open the Command Prompt (The Magic Trick)
     # 4. Manually trigger the setup using Packer's built-in web server
     "setup.exe /unattend:http://{{ .HTTPIP }}:{{ .HTTPPort }}/Autounattend.xml<enter>",
-    "<wait3m><enter><wait3s>",
+    "<wait2m><enter><wait3s>",
     "Packer123!<tab>Packer123!",
     "<enter><wait2s><enter>"
   ]
