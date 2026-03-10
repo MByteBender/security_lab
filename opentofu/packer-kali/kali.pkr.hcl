@@ -91,22 +91,18 @@ boot_command = [
     "install ",
     "auto=true ",
     "priority=critical ",
-    # We add a pause to let the virtual NIC "link up"
-      "debian-installer/locale=en_US.UTF-8 ",
-  "debian-installer/language=en ",
-  "debian-installer/country=US ",
-  "console-setup/ask_detect=false ",
-  "keyboard-configuration/xkb-keymap=us ",
-      "hw-detect/load_firmware=false ",
-
+    "fb=false ", # Disables framebuffer which often causes the keymap corruption
+    "debian-installer/locale=en_US.UTF-8 ",
+    "console-setup/ask_detect=false ",
+    "keyboard-configuration/xkb-keymap=us ",
+    "hw-detect/load_firmware=false ",
     "netcfg/link_wait_timeout=60 ",
     "netcfg/get_hostname=kali ",
     "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
-    "debian-installer/locale=en_US.UTF-8 ",
-    "keymap=us ",
-    "initrd=initrd.gz ",
+    # REMOVED: "initrd=initrd.gz" (This was the cause of the Line 113 error)
+    # REMOVED: redundant locale/keymap lines
     "--- <enter>"
-  ]
+]
 
   ssh_username = "kali"
   ssh_password = var.kali_password
