@@ -55,6 +55,28 @@
     <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonStable">
         <ComputerName>win2k8-packer</ComputerName>
     </component>
+    <component name="Microsoft-Windows-TCPIP" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonStable">
+    <Interfaces>
+        <Interface wcm:action="add">
+            <Identifier>1</Identifier>
+            <Ipv4Settings>
+                <DhcpEnabled>false</DhcpEnabled>
+                <RouterDiscoveryEnabled>false</RouterDiscoveryEnabled>
+            </Ipv4Settings>
+            <UnicastIpAddresses>
+                <IpAddress wcm:action="add" wcm:keyValue="1">172.16.50.140/24</IpAddress>
+            </UnicastIpAddresses>
+            <Routes>
+                <Route wcm:action="add">
+                    <Identifier>0</Identifier>
+                    <Metric>20</Metric>
+                    <NextHopAddress>172.16.50.1</NextHopAddress>
+                    <Prefix>0.0.0.0/0</Prefix>
+                </Route>
+            </Routes>
+        </Interface>
+    </Interfaces>
+</component>
     <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonStable">
         <RunSynchronous>
             <RunSynchronousCommand wcm:action="add">
