@@ -78,3 +78,9 @@ d-i grub-installer/bootdev string /dev/sda
 # 9. Finishing the Installation
 d-i finish-install/reboot_in_progress note
 d-i preseed/early_command string umount /media || true
+
+# This is the "Magic" line: tell it to find the boot disk automatically
+d-i grub-installer/bootdev string default
+
+# If 'default' fails, use this to force the first VirtIO disk
+# d-i grub-installer/bootdev string /dev/vda
