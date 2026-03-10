@@ -72,7 +72,10 @@ http_directory = "http"
     "<wait30s>",                      # 2. Wait for the "Install Now" screen to load
     "<shift+f10><wait>",             # 3. Open the Command Prompt (The Magic Trick)
     # 4. Manually trigger the setup using Packer's built-in web server
-    "setup.exe /unattend:http://{{ .HTTPIP }}:{{ .HTTPPort }}/Autounattend.xml<enter>"
+    "setup.exe /unattend:http://{{ .HTTPIP }}:{{ .HTTPPort }}/Autounattend.xml<enter>",
+    "<wait4m><enter><wait3s>",
+    "Packer123!<tab>Packer123!",
+    "<enter><wait2s><enter>"
   ]
   unmount_iso          = true
 
