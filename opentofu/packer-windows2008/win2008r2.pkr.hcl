@@ -59,15 +59,18 @@ source "proxmox-iso" "win2008r2" {
     type              = "sata" # Matches virtio-scsi-pci
   }
 
-http_directory = "./http"
+additional_iso_files {
+    device           = "sata1"
+    iso_file         = "local:iso/your_scripts.iso"
+    unmount          = true
+  }
 
-  # Tell Windows where to find the file via the boot command
-  # We type a string that tells the installer to use the HTTP address
+  boot_wait = "10s"
   boot_command = [
-    "<esc><wait>",
-    "<esc><wait>",
-    "<enter><wait>",
-    "setup.exe /unattend:http://{{ .HTTPIP }}:{{ .HTTPPort }}/Autounattend.xml<enter>"
+    "<spacebar><wait>",             # Boot from CD
+    "<wait15s><shift+f10><wait>",   # Wait for Language screen, then open CMD
+    # We try D, E, and F just in case drive letters shift
+    "setup.exe /unattend:D:\\Autounattend.xml || setup.exe /unattend:E:\\Autounattend.xml || setup.exe /unattend:F:\\Autounattend.xml<enter>"
   ]
   unmount_iso          = true
 
