@@ -115,6 +115,11 @@
                     <CommandLine>cmd.exe /c netsh advfirewall firewall set rule group="remote administration" new enable=yes</CommandLine>
                     <Order>4</Order>
                 </SynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>2</Order>
+                    <Description>Wait for Network and Set IP</Description>
+                    <Path>powershell -Command "start-sleep -s 15; $iface = Get-WmiObject Win32_NetworkAdapterConfiguration | Where-Object {$_.Description -like '*Ethernet*' -or $_.Description -like '*Intel*'}; if ($iface) { $iface.EnableStatic('192.168.1.140', '255.255.255.0'); $iface.SetGateways('192.168.1.1'); $iface.SetDNSServerSearchOrder(@('8.8.8.8', '8.8.4.4')) }"</Path>
+                </RunSynchronousCommand>
             </FirstLogonCommands>
         </component>
     </settings>
