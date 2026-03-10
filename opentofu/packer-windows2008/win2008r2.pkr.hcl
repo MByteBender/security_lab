@@ -60,9 +60,9 @@ source "proxmox-iso" "win2008r2" {
   }
 
 additional_iso_files {
-    device           = "sata1"
-    iso_file         = "local:iso/your_scripts.iso"
-    unmount          = true
+    cd_files = ["./Autounattend.xml"]
+    iso_storage_pool = "local"
+    # This usually maps to 'sata1' or 'ide1' in Proxmox
   }
 
   boot_wait = "10s"
