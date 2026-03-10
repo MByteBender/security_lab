@@ -62,6 +62,6 @@ resource "proxmox_virtual_environment_vm" "kali" {
   disk {
     datastore_id = "zfs-itsec"
     interface    = "scsi0"
-    size         = 40      # Resize template disk to 40GB
+    size         = 60      # Resize template disk to 40GB
   }
 }
