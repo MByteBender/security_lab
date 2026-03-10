@@ -27,7 +27,7 @@ source "proxmox-iso" "win2008r2" {
   insecure_skip_tls_verify = true
 
   node                 = "pve"
-  vm_id                = "165"
+  vm_id                = "140"
   vm_name              = "win7-packer-template"
   pool                 = "IT-sec"
   template_description = "Windows 7 Professional with VirtIO"
