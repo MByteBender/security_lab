@@ -63,8 +63,9 @@ source "proxmox-iso" "kali-linux" {
   disks {
     disk_size    = "40G"
     storage_pool = "zfs-itsec"
-    type         = "scsi" # This makes the disk /dev/vda
+    type         = "virtio" # This makes the disk /dev/vda
   }
+
   # ISO Settings
   boot_iso {
     type     = "ide"
