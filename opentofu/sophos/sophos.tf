@@ -31,7 +31,7 @@ provider "proxmox" {
   insecure = true # Set to false if you have a valid SSL cert
 }
 
-resource "proxmox_virtual_environment_vm" "kali" {
+resource "proxmox_virtual_environment_vm" "sophos" {
   name      = "firewall"
   node_name = "pve"        # The name of your Proxmox node
   vm_id     = 171          # Optional: leave blank for next available ID

@@ -31,15 +31,15 @@ provider "proxmox" {
   insecure = true # Set to false if you have a valid SSL cert
 }
 
-resource "proxmox_virtual_environment_vm" "kali" {
-  name      = "firewall"
+resource "proxmox_virtual_environment_vm" "ubuntu" {
+  name      = "ubuntu"
   node_name = "pve"        # The name of your Proxmox node
   vm_id     = 151          # Optional: leave blank for next available ID
   pool_id      = "IT-sec"
 
   # --- CLONE SETTINGS ---
   clone {
-    vm_id = 170           # The ID of your Packer template
+    vm_id = 150           # The ID of your Packer template
     full  = true           # Use 'true' for a standalone copy, 'false' for a linked clone
   }
 
