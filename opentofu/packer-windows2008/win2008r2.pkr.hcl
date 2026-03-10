@@ -76,11 +76,10 @@ source "proxmox-iso" "win2008r2" {
   # For a "default" build without WinRM/SSH, you might just want it to finish.
   unmount_iso          = true
 
-  # enter
 }
 
 build {
-  sources = ["source.proxmox-iso.win2008r2"]]
+  sources = ["source.proxmox-iso.win2008r2"]
 
   # Optional: Install updates or software via PowerShell
   #provisioner "powershell" {
