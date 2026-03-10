@@ -33,29 +33,27 @@ source "proxmox-iso" "win7" {
   template_description = "Windows 7 Professional with VirtIO"
   
   # VM Hardware
-  cores                = 2
-  memory               = 4096
+  guest_os_type = "windows7srv-64"
+  memory        = 4096
+  cpus          = 2
   scsi_controller      = "virtio-scsi-single"
-  os                   = "win7"
-  
+  os                   = "win2k8"
+  disk_adapter_type    = "lsi-logic"
+  communicator         = "winrm"
+  winrm_username       = "Administrator"
+  winrm_password       = "Packer123!"
+  winrm_timeout        = "6h"
+
   # Network
   network_adapters {
     model  = "virtio"
     bridge = "vmbr0"
   }
 
-  iso_file = "local:iso/win7_64_bit.iso"
-
-  # enter
-  # wait
-  # enter name
-
+  iso_file = "local:iso/windows2008R2.iso"
 
   boot_command = [
-    "<wait1m>",
-    "<enter><wait15s>",
-    "<enter><wait150s>",
-    "<enter><wait5s><enter><wait5s><enter>",
+    "<wait10m>",
   ]
 
 
@@ -83,7 +81,7 @@ source "proxmox-iso" "win7" {
 }
 
 build {
-  sources = ["source.proxmox-iso.win7"]
+  sources = ["source.vmware-iso.win2008r2"]
 
   # Optional: Install updates or software via PowerShell
   #provisioner "powershell" {
