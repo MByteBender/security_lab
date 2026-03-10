@@ -78,7 +78,7 @@ source "proxmox-iso" "kali-linux" {
 #    cd_label = "PRESEED"
 #    iso_storage_pool = "local" # Ensure 'local' allows 'ISO Image' in Proxmox
 #}
-
+bios = "seabios"
 boot = "order=ide0;scsi0"
 
 http_directory = "http"
