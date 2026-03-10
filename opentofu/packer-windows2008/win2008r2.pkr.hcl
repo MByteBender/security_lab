@@ -79,7 +79,7 @@ http_directory = "http"
 
     "<leftSuper><wait10s>powershell<wait2s><enter><wait2s>",
     "netsh interface ip set address name=\"Local Area Connection\" source=static address=172.16.50.140 mask=255.255.255.0 gateway=172.16.50.1<enter>",
-    "netsh interface set interface name=\"Local Area Connection\" admin=disabled".
+    "netsh interface set interface name=\"Local Area Connection\" admin=disabled",
     "netsh interface set interface name=\"Local Area Connection\" admin=enabled"
     #"<ctrlOn><wait1s><esc><wait1s><ctrlOff>"
     #"<leftWin><wait1m>",
