@@ -80,7 +80,7 @@ http_directory = "http"
     "<leftSuper><wait10s>powershell<wait2s><enter><wait2s>",
     "netsh interface ip set address name=\"Local Area Connection\" source=static address=172.16.50.140 mask=255.255.255.0 gateway=172.16.50.1<enter><wait2s>",
     "netsh interface set interface name=\"Local Area Connection\" admin=disabled<enter><wait2s>",
-    "netsh interface set interface name=\"Local Area Connection\" admin=enabled<enter><wait2s>"
+    "netsh interface set interface name=\"Local Area Connection\" admin=enabled<enter><wait2s>",
     "netsh advfirewall firewall add rule name=\"Allow Ping\" protocol=ICMPV4 dir=in action=allow<enter><wait2s>"
     #"<ctrlOn><wait1s><esc><wait1s><ctrlOff>"
     #"<leftWin><wait1m>",
