@@ -53,5 +53,15 @@ d-i grub-installer/only_debian boolean true
 d-i grub-installer/with_other_os boolean true
 d-i grub-installer/bootdev string /dev/vda
 
+
+
+# This is the "magic" string that fixes 99% of Proxmox failures:
+d-i grub-installer/bootdev string default
+
+# If 'default' fails, replace it with:
+# d-i grub-installer/bootdev string /dev/vda
+# (Use /dev/vda if using VirtIO, or /dev/sda if using SCSI/SATA)
+
+
 # Finishing up the installation
 d-i finish-install/reboot_in_progress note
