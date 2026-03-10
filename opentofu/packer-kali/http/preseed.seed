@@ -2,6 +2,7 @@
 d-i debian-installer/locale string en_US
 d-i console-setup/ask_detect boolean false
 d-i keyboard-configuration/xkb-keymap select us
+# FIX: These two lines prevent the "Line 113" corruption
 d-i keyboard-configuration/layoutcode string us
 d-i keyboard-configuration/variantcode string
 
@@ -11,15 +12,13 @@ d-i netcfg/get_hostname string kali
 d-i netcfg/get_domain string local
 d-i netcfg/hostname string kali
 
-# Mirror settings (using Kali's official rolling repo)
+# Mirror settings
 d-i mirror/country string manual
 d-i mirror/http/hostname string http.kali.org
 d-i mirror/http/directory string /kali
 d-i mirror/http/proxy string
 
 # User accounts
-# Note: In newer Kali versions, 'root' is disabled by default. 
-# We create a 'kali' user with sudo privileges.
 d-i passwd/user-fullname string kali
 d-i passwd/username string kali
 d-i passwd/user-password password kali
@@ -32,7 +31,9 @@ d-i clock-setup/utc boolean true
 d-i time/zone string US/Eastern
 d-i clock-setup/ntp boolean true
 
+# Partitioning
 d-i partman-auto/method string lvm
+d-i partman-auto-lvm/guided_size string max
 d-i partman-auto/choose_recipe select atomic
 d-i partman-partitioning/default_label string msdos
 d-i partman-lvm/device_remove_lvm boolean true
@@ -43,13 +44,16 @@ d-i partman/choose_partition select finish
 d-i partman/confirm boolean true
 d-i partman/confirm_nooverwrite boolean true
 
-
 # Package selection
-# 'standard' and 'kali-linux-default' are usually what you want
 tasksel tasksel/first multiselect standard, kali-desktop-xfce, kali-linux-default
 d-i pkgsel/include string openssh-server, vim, wget, curl
 d-i pkgsel/upgrade select full-upgrade
 
+# Boot loader installation
+d-i grub-installer/only_debian boolean true
+d-i grub-installer/with_other_os boolean true
+# FIX: 'default' is more reliable than '/dev/sda' in Proxmox
+d-i grub-installer/bootdev string default
 
 # Finishing up the installation
 d-i finish-install/reboot_in_progress note
