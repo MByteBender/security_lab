@@ -65,7 +65,4 @@ resource "proxmox_virtual_environment_vm" "ubuntu" {
     size         = 40      # Resize template disk to 40GB
   }
 
-  agent {
-    enabled = false # Tell Proxmox not to look for the agent
-  }
 }
