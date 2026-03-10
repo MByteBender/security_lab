@@ -64,7 +64,7 @@ source "proxmox-iso" "win2008r2" {
 
   # ISOs: 1. Windows 7 ISO, 2. VirtIO Drivers ISO
   additional_iso_files {
-    cd_files = ["./Autounattend.xml"]
+    cd_files = ["./http/Autounattend.xml"]
     iso_storage_pool = "local"
   }
 
