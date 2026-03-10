@@ -52,15 +52,33 @@
             </UserData>
         </component>
     </settings>
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonStable">
+            <ComputerName>win2k8-packer</ComputerName>
+        </component>
+        <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonStable">
+            <RunSynchronous>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>1</Order>
+                    <Path>cmd.exe /c "net accounts /maxpwage:unlimited"</Path>
+                </RunSynchronousCommand>
+            </RunSynchronous>
+        </component>
+    </settings>
     <settings pass="oobeSystem">
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonStable">
             <AutoLogon>
-                <Password><Value>Packer123!</Value></Password>
+                <Password>
+                    <Value>Packer123!</Value>
+                </Password>
                 <Enabled>true</Enabled>
+                <LogonCount>5</LogonCount>
                 <Username>Administrator</Username>
             </AutoLogon>
             <UserAccounts>
-                <AdministratorPassword><Value>Packer123!</Value></AdministratorPassword>
+                <AdministratorPassword>
+                    <Value>Packer123!</Value>
+                </AdministratorPassword>
             </UserAccounts>
             <OOBE>
                 <HideEULAPage>true</HideEULAPage>
