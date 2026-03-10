@@ -78,7 +78,7 @@ http_directory = "http"
     "<enter><wait2s><enter>"
   ]
   unmount_iso          = true
-
+address = "192.168.1.140"
 }
 
 build {
