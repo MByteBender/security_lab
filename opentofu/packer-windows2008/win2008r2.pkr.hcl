@@ -78,7 +78,7 @@ http_directory = "http"
     "<enter><wait2s><enter>",
     "<leftWinOn>r<leftWinOff><wait2s>",
     "powershell<enter><wait2s>",
-    "netsh interface ip set address name="Local Area Connection" static 172.16.50.140 255.255.255.0<enter>"
+    "netsh interface ip set address name=\"Local Area Connection\" static 172.16.50.140 255.255.255.0<enter>"
   ]
   unmount_iso          = true
 winrm_host     = "192.168.1.140"
