@@ -64,16 +64,13 @@ additional_iso_files {
     iso_storage_pool = "local"
     # This usually maps to 'sata1' or 'ide1' in Proxmox
   }
-
+http_directory = "http"
   boot_wait = "10s"
 boot_command = [
-  "<spacebar><wait>",              # Boot from ISO
-  "<wait20s><shift+f10><wait>",    # Open CMD before starting setup
-  # Force the password and disable expiration/change requirements immediately
-  "net user Administrator Packer123! /expires:never /passwordreq:yes /passwordchg:no<enter>",
-  "<wait>wmic useraccount where name='Administrator' set passwordexpires=false<enter>",
-  "<wait>setup.exe /unattend:E:\\Autounattend.xml<enter>"
-]
+    "<spacebar><wait>",
+    "<wait20s><shift+f10><wait>",
+    "setup.exe /unattend:http://{{ .HTTPIP }}:{{ .HTTPPort }}/Autounattend.xml<enter>"
+  ]
   unmount_iso          = true
 
 }
