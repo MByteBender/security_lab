@@ -49,12 +49,10 @@ d-i pkgsel/include string openssh-server, vim, wget, curl
 d-i pkgsel/upgrade select full-upgrade
 
 # Boot loader installation
-d-i grub-installer/skip boolean true
-#d-i grub-installer/only_debian boolean true
-#d-i grub-installer/with_other_os boolean true
-#d-i grub-installer/bootdev string /dev/sda
-
-
+#-i grub-installer/skip boolean true
+d-i grub-installer/only_debian boolean true
+d-i grub-installer/with_other_os boolean true
+d-i grub-installer/bootdev string /dev/sda
 
 # This is the "magic" string that fixes 99% of Proxmox failures:
 #d-i grub-installer/bootdev string default
@@ -62,11 +60,6 @@ d-i grub-installer/skip boolean true
 # If 'default' fails, replace it with:
 # d-i grub-installer/bootdev string /dev/sda
 # (Use /dev/vda if using VirtIO, or /dev/sda if using SCSI/SATA)
-
-d-i preseed/late_command string \
-in-target apt-get install -y grub-pc; \
-in-target grub-install /dev/sda; \
-in-target update-grub
 
 # Finishing up the installation
 d-i finish-install/reboot_in_progress note
