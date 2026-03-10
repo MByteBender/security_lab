@@ -33,11 +33,10 @@ source "proxmox-iso" "win2008r2" {
   template_description = "Windows 7 Professional with VirtIO"
   
   # VM Hardware
-  guest_os_type = "windows7srv-64"
   memory        = 4096
-  cpus          = 2
+  cores          = 2
   scsi_controller      = "virtio-scsi-single"
-  os                   = "win2k8"
+  os                   = "win7"
   disk_adapter_type    = "lsi-logic"
   communicator         = "winrm"
   winrm_username       = "Administrator"
