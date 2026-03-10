@@ -48,6 +48,7 @@ source "proxmox-iso" "win2008r2" {
   network_adapters {
     model  = "e1000"
     bridge = "vmbr0"
+    firewall = false
   }
 
   iso_file = "local:iso/windows2008R2.iso"
@@ -58,12 +59,6 @@ source "proxmox-iso" "win2008r2" {
     storage_pool      = "zfs-itsec"
     type              = "sata" # Matches virtio-scsi-pci
   }
-
-ipconfig {
-  ip0 = "172.16.50.140/24"
-  gw0 = "172.16.50.1"
-}
-
 additional_iso_files {
     cd_files = ["./http/Autounattend.xml"]
     iso_storage_pool = "local"
