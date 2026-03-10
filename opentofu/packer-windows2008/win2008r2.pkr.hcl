@@ -82,9 +82,18 @@ http_directory = "http"
     "netsh interface set interface name=\"Local Area Connection\" admin=disabled<enter><wait2s>",
     "netsh interface set interface name=\"Local Area Connection\" admin=enabled<enter><wait2s>",
     "netsh advfirewall firewall add rule name=\"Allow Ping\" protocol=ICMPV4 dir=in action=allow<enter><wait2s>"
-    #"<ctrlOn><wait1s><esc><wait1s><ctrlOff>"
-    #"<leftWin><wait1m>",
-    #"powershell<enter><wait1m>",
+
+    # 1. Enable WinRM service and set to Auto-start
+    "powershell -Command \"Set-Service WinRM -StartupType Automatic\"<enter><wait2s>",
+    "powershell -Command \"Start-Service WinRM\"<enter><wait5s>",
+
+    # 2. Configure WinRM for Basic Auth and Unencrypted traffic (standard for Packer)
+    "powershell -Command \"winrm quickconfig -q\"<enter><wait2s>",
+    "powershell -Command \"winrm set winrm/config/service '@{AllowUnencrypted=\"true\"}'\"<enter><wait2s>",
+    "powershell -Command \"winrm set winrm/config/service/auth '@{Basic=\"true\"}'\"<enter><wait2s>",
+
+    # 3. Explicitly allow WinRM through Windows Firewall
+    "netsh advfirewall firewall add rule name=\"WinRM 5985\" protocol=TCP dir=in localport=5985 action=allow<enter><wait2s>"
 
   ]
   unmount_iso          = true
