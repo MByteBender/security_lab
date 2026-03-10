@@ -62,6 +62,16 @@
                     <Order>1</Order>
                     <Path>cmd.exe /c "net accounts /maxpwage:unlimited"</Path>
                 </RunSynchronousCommand>
+
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>2</Order>
+                    <Path>powershell -Command "netsh interface ip set address name='Local Area Connection' static 192.168.1.140 255.255.255.0 192.168.1.1"</Path>
+                </RunSynchronousCommand>
+
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>3</Order>
+                    <Path>powershell -Command "netsh interface ip set dns name='Local Area Connection' static 8.8.8.8"</Path>
+                </RunSynchronousCommand>
             </RunSynchronous>
         </component>
     </settings>
