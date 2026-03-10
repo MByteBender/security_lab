@@ -76,9 +76,7 @@ http_directory = "http"
     "<wait2m><enter><wait3s>",
     "Packer123!<tab>Packer123!",
     "<enter><wait2s><enter>",
-    "<wait20s>",
-    "<altOn><f10><altOff><wait5s>",
-    "<ctrlOn><esc><ctrlOff>p"
+    "<ctrlOn><esc><ctrlOff>p<wait20s>"
     #"<leftWin><wait1m>",
     #"powershell<enter><wait1m>",
     #"netsh interface ip set address name=\"Local Area Connection\" static 172.16.50.140 255.255.255.0<enter>"
