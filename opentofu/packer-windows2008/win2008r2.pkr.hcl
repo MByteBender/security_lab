@@ -28,7 +28,7 @@ source "proxmox-iso" "win2008r2" {
 
   node                 = "pve"
   vm_id                = "140"
-  vm_name              = "win7-packer-template"
+  vm_name              = "win2008R2-packer-template"
   pool                 = "IT-sec"
   template_description = "Windows 7 Professional with VirtIO"
   
@@ -64,14 +64,10 @@ source "proxmox-iso" "win2008r2" {
 
   # ISOs: 1. Windows 7 ISO, 2. VirtIO Drivers ISO
   additional_iso_files {
-    device                 = "sata1"
-    unmount                = true
-    cd_files               = ["./http/Autounattend.xml"]
-    iso_storage_pool       = "local"
+    cd_files = ["./Autounattend.xml"]
+    iso_storage_pool = "local"
   }
 
-  # Packer needs to know how to talk to the VM after install
-  # For a "default" build without WinRM/SSH, you might just want it to finish.
   unmount_iso          = true
 
 }
