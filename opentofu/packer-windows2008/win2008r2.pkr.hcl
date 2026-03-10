@@ -37,7 +37,6 @@ source "proxmox-iso" "win2008r2" {
   cores          = 2
   scsi_controller      = "virtio-scsi-single"
   os                   = "win7"
-  disk_adapter_type    = "lsi-logic"
   communicator         = "winrm"
   winrm_username       = "Administrator"
   winrm_password       = "Packer123!"
