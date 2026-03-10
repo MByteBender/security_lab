@@ -59,7 +59,7 @@ resource "proxmox_virtual_environment_vm" "kali" {
   # NOTE: Packer templates usually already have a disk.
   # Proxmox will automatically resize the disk if you specify a larger size here.
   disk {
-    datastore_id = "local-lvm"
+    datastore_id = "zfs-itsec"
     interface    = "scsi0"
     size         = 40      # Resize template disk to 40GB
   }
