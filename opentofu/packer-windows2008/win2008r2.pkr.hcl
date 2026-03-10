@@ -67,10 +67,11 @@ additional_iso_files {
 
   boot_wait = "10s"
 boot_command = [
-  "<spacebar><wait>",
-  "<wait20s><shift+f10><wait>",
-  # This command forces the password and disables the 'must change' flag globally
-  "net user Administrator Packer123! /expires:never /passwordreq:yes<enter>",
+  "<spacebar><wait>",              # Boot from ISO
+  "<wait20s><shift+f10><wait>",    # Open CMD before starting setup
+  # Force the password and disable expiration/change requirements immediately
+  "net user Administrator Packer123! /expires:never /passwordreq:yes /passwordchg:no<enter>",
+  "<wait>wmic useraccount where name='Administrator' set passwordexpires=false<enter>",
   "<wait>setup.exe /unattend:E:\\Autounattend.xml<enter>"
 ]
   unmount_iso          = true
