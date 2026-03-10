@@ -1,50 +1,23 @@
-d-i hw-detect/load_media_at_mount_debian_installer boolean false
-d-i ethdetect/prompt_missing_firmware boolean false
-d-i hw-detect/load_firmware boolean false
-
-# 1. Localization (Fixes Country/City prompts)
-d-i debian-installer/locale string en_US.UTF-8
-d-i debian-installer/language string en
-d-i debian-installer/country string US
-d-i localechooser/supported-locales multiselect en_US.UTF-8
-
-# 2. Keyboard (Ensure no prompts here)
+# Localization
+d-i debian-installer/locale string en_US
 d-i console-setup/ask_detect boolean false
 d-i keyboard-configuration/xkb-keymap select us
 
-# 3. Hardware (Fixes the Sound Card/Missing Firmware pause)
-d-i hw-detect/load_media_at_mount_debian_installer boolean true
-d-i ethdetect/prompt_missing_firmware boolean false
-d-i hw-detect/load_firmware boolean false
-
-# 4. Timezone (Fixes the City prompt)
-d-i clock-setup/utc boolean true
-d-i time/zone string US/Eastern
-d-i clock-setup/ntp boolean true
-
-# 2. Network and Mirror Settings
-# We set these early so Apt-Setup knows where to go
+# Network configuration
 d-i netcfg/choose_interface select auto
 d-i netcfg/get_hostname string kali
 d-i netcfg/get_domain string local
-d-i netcfg/link_wait_timeout string 60
+d-i netcfg/hostname string kali
 
+# Mirror settings (using Kali's official rolling repo)
 d-i mirror/country string manual
 d-i mirror/http/hostname string http.kali.org
 d-i mirror/http/directory string /kali
 d-i mirror/http/proxy string
 
-# 3. Disable CD-ROM Repo (Fixes your "Apt Configuration Failed" error)
-d-i apt-setup/use_mirror boolean true
-d-i apt-setup/cdrom/set-first boolean false
-d-i apt-setup/no_mirror boolean false
-d-i apt-setup/disable-cdrom-entries boolean true
-d-i apt-setup/non-free boolean true
-d-i apt-setup/contrib boolean true
-
-# 4. User Account Setup
-d-i passwd/root-login boolean false
-d-i passwd/make-user boolean true
+# User accounts
+# Note: In newer Kali versions, 'root' is disabled by default. 
+# We create a 'kali' user with sudo privileges.
 d-i passwd/user-fullname string kali
 d-i passwd/username string kali
 d-i passwd/user-password password kali
@@ -52,32 +25,35 @@ d-i passwd/user-password-again password kali
 d-i user-setup/allow-password-weak boolean true
 d-i user-setup/encrypt-home boolean false
 
-# 5. Clock and Timezone
+# Clock and time zone
 d-i clock-setup/utc boolean true
 d-i time/zone string US/Eastern
+d-i clock-setup/ntp boolean true
 
-# 6. Partitioning (Uses the whole disk automatically)
-d-i partman-auto/method string regular
+# Partitioning
+d-i partman-auto/method string lvm
+d-i partman-lvm/device_remove_lvm boolean true
+d-i partman-md/device_remove_md boolean true
+d-i partman-lvm/confirm boolean true
+d-i partman-lvm/confirm_nooverwrite boolean true
+d-i partman-auto-lvm/guided_size string max
 d-i partman-auto/choose_recipe select atomic
-d-i partman-partitioning/confirm_write_new_label boolean true
+d-i partman/default_filesystem string ext4
+d-i partman/confirm_write_new_label boolean true
 d-i partman/choose_partition select finish
 d-i partman/confirm boolean true
 d-i partman/confirm_nooverwrite boolean true
 
-# 7. Package Selection
-# This installs the standard desktop. If it's too slow, remove 'desktop-xfce'
-tasksel tasksel/first multiselect standard, desktop-xfce, kali-linux-default
-d-i pkgsel/include string qemu-guest-agent, ssh
+# Package selection
+# 'standard' and 'kali-linux-default' are usually what you want
+tasksel tasksel/first multiselect standard, kali-desktop-xfce, kali-linux-default
+d-i pkgsel/include string openssh-server, vim, wget, curl
 d-i pkgsel/upgrade select full-upgrade
 
-# 8. Bootloader Installation
+# Boot loader installation
 d-i grub-installer/only_debian boolean true
 d-i grub-installer/with_other_os boolean true
-# Explicitly target the VirtIO SCSI drive
-d-i grub-installer/bootdev string /dev/vda
+d-i grub-installer/bootdev string /dev/sda
 
-# 9. Finishing the Installation
+# Finishing up the installation
 d-i finish-install/reboot_in_progress note
-
-# This unmounts the preseed ISO/Floppy so the VM reboots cleanly into the OS
-d-i preseed/early_command string umount /media || true
