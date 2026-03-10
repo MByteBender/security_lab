@@ -46,7 +46,7 @@ source "proxmox-iso" "win2008r2" {
 
   # Network
   network_adapters {
-    model  = "virtio"
+    model  = "e1000"
     bridge = "vmbr0"
   }
 
