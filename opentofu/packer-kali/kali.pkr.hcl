@@ -61,11 +61,10 @@ source "proxmox-iso" "kali-linux" {
   }
 
   disks {
-    disk_size    = "40G" # Kali tools take up space
+    disk_size    = "40G"
     storage_pool = "zfs-itsec"
-    type         = "scsi"
+    type         = "scsi" # This makes the disk /dev/vda
   }
-
   # ISO Settings
   boot_iso {
     type     = "ide"
