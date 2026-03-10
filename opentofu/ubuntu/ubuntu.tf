@@ -57,6 +57,10 @@ resource "proxmox_virtual_environment_vm" "ubuntu" {
     bridge = "vmbr0"
   }
 
+  agent {
+    enabled = false # Tell Proxmox not to look for the agent
+  }
+
   # NOTE: Packer templates usually already have a disk.
   # Proxmox will automatically resize the disk if you specify a larger size here.
   disk {
