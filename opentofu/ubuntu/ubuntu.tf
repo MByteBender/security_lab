@@ -61,7 +61,6 @@ resource "proxmox_virtual_environment_vm" "ubuntu" {
   # Proxmox will automatically resize the disk if you specify a larger size here.
   disk {
     datastore_id = "zfs-itsec"
-    interface    = "virtio"
     size         = 40      # Resize template disk to 40GB
   }
 
