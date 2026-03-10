@@ -66,12 +66,13 @@ additional_iso_files {
   }
 
   boot_wait = "10s"
-  boot_command = [
-    "<spacebar><wait>",             # Boot from CD
-    "<wait15s><shift+f10><wait>",   # Wait for Language screen, then open CMD
-    # We try D, E, and F just in case drive letters shift
-    "setup.exe /unattend:D:\\Autounattend.xml || setup.exe /unattend:E:\\Autounattend.xml || setup.exe /unattend:F:\\Autounattend.xml<enter>"
-  ]
+boot_command = [
+  "<spacebar><wait>",
+  "<wait20s><shift+f10><wait>",
+  # This command forces the password and disables the 'must change' flag globally
+  "net user Administrator Packer123! /expires:never /passwordreq:yes<enter>",
+  "<wait>setup.exe /unattend:E:\\Autounattend.xml<enter>"
+]
   unmount_iso          = true
 
 }
