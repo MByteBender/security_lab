@@ -73,14 +73,11 @@ d-i pkgsel/upgrade select full-upgrade
 # 8. Bootloader Installation
 d-i grub-installer/only_debian boolean true
 d-i grub-installer/with_other_os boolean true
-d-i grub-installer/bootdev string /dev/sda
+# Explicitly target the VirtIO SCSI drive
+d-i grub-installer/bootdev string /dev/vda
 
 # 9. Finishing the Installation
 d-i finish-install/reboot_in_progress note
+
+# This unmounts the preseed ISO/Floppy so the VM reboots cleanly into the OS
 d-i preseed/early_command string umount /media || true
-
-# This is the "Magic" line: tell it to find the boot disk automatically
-d-i grub-installer/bootdev string default
-
-# If 'default' fails, use this to force the first VirtIO disk
-# d-i grub-installer/bootdev string /dev/vda
