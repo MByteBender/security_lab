@@ -55,5 +55,10 @@ d-i grub-installer/with_other_os boolean true
 # FIX: 'default' is more reliable than '/dev/sda' in Proxmox
 d-i grub-installer/bootdev string default
 
+# This runs at the very end of the install, before the reboot.
+d-i preseed/late_command string \
+    in-target systemctl enable ssh; \
+    in-target sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
 # Finishing up the installation
 d-i finish-install/reboot_in_progress note
