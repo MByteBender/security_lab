@@ -75,7 +75,7 @@ http_directory = "http"
     "setup.exe /unattend:http://{{ .HTTPIP }}:{{ .HTTPPort }}/Autounattend.xml<enter>",
     "<wait2m><enter><wait3s>",
     "Packer123!<tab>Packer123!",
-    "<enter><wait2s><enter>",
+    "<enter><wait2s><enter><wait5s>",
     "<ctrlOn><esc><ctrlOff>p<wait20s>"
     #"<leftWin><wait1m>",
     #"powershell<enter><wait1m>",
