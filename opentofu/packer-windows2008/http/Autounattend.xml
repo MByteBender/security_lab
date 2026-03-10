@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<unattend xmlns="urn:schemas-microsoft-com:unattend">
+<unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <settings pass="windowsPE">
+        <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonStable">
+            <SetupUILanguage>
+                <UILanguage>en-US</UILanguage>
+            </SetupUILanguage>
+            <InputLocale>en-US</InputLocale>
+            <SystemLocale>en-US</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>en-US</UserLocale>
+        </component>
         <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonStable">
             <DiskConfiguration>
                 <Disk wcm:action="add">
@@ -26,6 +35,12 @@
             </DiskConfiguration>
             <ImageInstall>
                 <OSImage>
+                    <InstallFrom>
+                        <MetaData wcm:action="add">
+                            <Key>/IMAGE/NAME</Key>
+                            <Value>Windows Server 2008 R2 SERVERENTERPRISE</Value>
+                        </MetaData>
+                    </InstallFrom>
                     <InstallTo>
                         <DiskID>0</DiskID>
                         <PartitionID>1</PartitionID>
@@ -54,6 +69,25 @@
                 <SkipMachineOOBE>true</SkipMachineOOBE>
                 <SkipUserOOBE>true</SkipUserOOBE>
             </OOBE>
+            <FirstLogonCommands>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c winrm quickconfig -q</CommandLine>
+                    <Description>Enable WinRM</Description>
+                    <Order>1</Order>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c winrm set winrm/config/service/auth @{Basic="true"}</CommandLine>
+                    <Order>2</Order>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c winrm set winrm/config/service @{AllowUnencrypted="true"}</CommandLine>
+                    <Order>3</Order>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c netsh advfirewall firewall set rule group="remote administration" new enable=yes</CommandLine>
+                    <Order>4</Order>
+                </SynchronousCommand>
+            </FirstLogonCommands>
         </component>
     </settings>
 </unattend>

@@ -65,12 +65,13 @@ additional_iso_files {
     # This usually maps to 'sata1' or 'ide1' in Proxmox
   }
 http_directory = "http"
+
   boot_wait = "10s"
-boot_command = [
-    "<spacebar><wait>",             # 1. Hit space to boot the ISO
-    "<wait30s>",                    # 2. Wait for the "Install Now" screen to load
-    "<shift+f10><wait>",           # 3. Open the Command Prompt
-    # 4. Type the manual setup command pointing to Packer's HTTP server
+  boot_command = [
+    "<spacebar><wait>",               # 1. Press any key to boot from CD
+    "<wait30s>",                      # 2. Wait for the "Install Now" screen to load
+    "<shift+f10><wait>",             # 3. Open the Command Prompt (The Magic Trick)
+    # 4. Manually trigger the setup using Packer's built-in web server
     "setup.exe /unattend:http://{{ .HTTPIP }}:{{ .HTTPPort }}/Autounattend.xml<enter>"
   ]
   unmount_iso          = true
