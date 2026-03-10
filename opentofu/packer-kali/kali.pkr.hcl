@@ -119,7 +119,7 @@ build {
     inline = [
       "apt-get update",
       "apt-get install -y qemu-guest-agent",
-      "systemctl enable qemu-guest-agent"
+      "systemctl enable qemu-guest-agent",
       "sudo apt install kali-desktop-xfce kali-linux-default -y"
     ]
   }
