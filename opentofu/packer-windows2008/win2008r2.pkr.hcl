@@ -75,9 +75,9 @@ http_directory = "http"
     "setup.exe /unattend:http://{{ .HTTPIP }}:{{ .HTTPPort }}/Autounattend.xml<enter>",
     "<wait2m><enter><wait3s>",
     "Packer123!<tab>Packer123!",
-    "<enter><wait2s><enter><wait5s>",
+    "<enter><wait2s><enter><wait10s>",
 
-    "<leftWinOn><wait1s>r<leftWinOff>p<wait20s>"
+    "<leftWinOn>r<wait4s><leftWinOff>p<wait20s>"
     #"<leftWin><wait1m>",
     #"powershell<enter><wait1m>",
     #"netsh interface ip set address name=\"Local Area Connection\" static 172.16.50.140 255.255.255.0<enter>"
