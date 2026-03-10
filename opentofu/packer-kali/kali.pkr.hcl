@@ -81,7 +81,7 @@ machine = "q35"
 #}
 
 boot = "order=ide0;scsi0"
-machine = "pc"
+
 http_directory = "http"
 
   # Boot Command for Kali Installer
