@@ -60,7 +60,7 @@ source "proxmox-iso" "win2008r2" {
   }
 
 additional_iso_files {
-    cd_files = ["./Autounattend.xml"]
+    cd_files = ["./http/Autounattend.xml"]
     iso_storage_pool = "local"
     # This usually maps to 'sata1' or 'ide1' in Proxmox
   }
