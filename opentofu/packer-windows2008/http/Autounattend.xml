@@ -55,28 +55,6 @@
     <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonStable">
         <ComputerName>win2k8-packer</ComputerName>
     </component>
-    <component name="Microsoft-Windows-TCPIP" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonStable">
-    <Interfaces>
-        <Interface wcm:action="add">
-            <Identifier>1</Identifier>
-            <Ipv4Settings>
-                <DhcpEnabled>false</DhcpEnabled>
-                <RouterDiscoveryEnabled>false</RouterDiscoveryEnabled>
-            </Ipv4Settings>
-            <UnicastIpAddresses>
-                <IpAddress wcm:action="add" wcm:keyValue="1">172.16.50.140/24</IpAddress>
-            </UnicastIpAddresses>
-            <Routes>
-                <Route wcm:action="add">
-                    <Identifier>0</Identifier>
-                    <Metric>20</Metric>
-                    <NextHopAddress>172.16.50.1</NextHopAddress>
-                    <Prefix>0.0.0.0/0</Prefix>
-                </Route>
-            </Routes>
-        </Interface>
-    </Interfaces>
-</component>
     <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonStable">
         <RunSynchronous>
             <RunSynchronousCommand wcm:action="add">
@@ -86,17 +64,16 @@
 
             <RunSynchronousCommand wcm:action="add">
                 <Order>2</Order>
-                <Path>cmd.exe /c "netsh interface ip set address name="Local Area Connection" static 172.16.50.140 255.255.255.0 172.16.50.1 1"</Path>
+                <Path>cmd.exe /c "timeout /t 10 &amp;&amp; netsh interface ip set address name="Local Area Connection" source=static addr=172.16.50.140 mask=255.255.255.0 gateway=172.16.50.1 1"</Path>
             </RunSynchronousCommand>
 
             <RunSynchronousCommand wcm:action="add">
                 <Order>3</Order>
-                <Path>cmd.exe /c "netsh interface ip set dns name="Local Area Connection" static 8.8.8.8"</Path>
+                <Path>cmd.exe /c "netsh interface ip set dns name="Local Area Connection" source=static addr=8.8.8.8"</Path>
             </RunSynchronousCommand>
         </RunSynchronous>
     </component>
 </settings>
-
     <settings pass="oobeSystem">
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonStable">
             <AutoLogon>
