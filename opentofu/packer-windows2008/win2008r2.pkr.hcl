@@ -52,11 +52,6 @@ source "proxmox-iso" "win2008r2" {
 
   iso_file = "local:iso/windows2008R2.iso"
 
-  boot_command = [
-    "<wait10m>",
-  ]
-
-
   # Disks
   disks {
     disk_size         = "40G"
