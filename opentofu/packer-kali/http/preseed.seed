@@ -2,6 +2,8 @@
 d-i debian-installer/locale string en_US
 d-i console-setup/ask_detect boolean false
 d-i keyboard-configuration/xkb-keymap select us
+d-i keyboard-configuration/layoutcode string us
+d-i keyboard-configuration/variantcode string
 
 # Network configuration
 d-i netcfg/choose_interface select auto
@@ -48,18 +50,6 @@ tasksel tasksel/first multiselect standard, kali-desktop-xfce, kali-linux-defaul
 d-i pkgsel/include string openssh-server, vim, wget, curl
 d-i pkgsel/upgrade select full-upgrade
 
-# Boot loader installation
-#-i grub-installer/skip boolean true
-d-i grub-installer/only_debian boolean true
-d-i grub-installer/with_other_os boolean true
-d-i grub-installer/bootdev string /dev/sda
-
-# This is the "magic" string that fixes 99% of Proxmox failures:
-#d-i grub-installer/bootdev string default
-
-# If 'default' fails, replace it with:
-# d-i grub-installer/bootdev string /dev/sda
-# (Use /dev/vda if using VirtIO, or /dev/sda if using SCSI/SATA)
 
 # Finishing up the installation
 d-i finish-install/reboot_in_progress note
