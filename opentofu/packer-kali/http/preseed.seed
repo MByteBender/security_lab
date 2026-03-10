@@ -1,3 +1,7 @@
+d-i hw-detect/load_media_at_mount_debian_installer boolean false
+d-i ethdetect/prompt_missing_firmware boolean false
+d-i hw-detect/load_firmware boolean false
+
 # 1. Localization (Fixes Country/City prompts)
 d-i debian-installer/locale string en_US.UTF-8
 d-i debian-installer/language string en
