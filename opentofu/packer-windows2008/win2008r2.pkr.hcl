@@ -78,10 +78,11 @@ http_directory = "http"
     "<enter><wait2s><enter><wait10s>",
 
     "<leftSuper><wait10s>powershell<wait2s><enter>",
+    "netsh interface ip set address name=\"Local Area Connection\" static 172.16.50.140 255.255.255.0<enter>"
     #"<ctrlOn><wait1s><esc><wait1s><ctrlOff>"
     #"<leftWin><wait1m>",
     #"powershell<enter><wait1m>",
-    #"netsh interface ip set address name=\"Local Area Connection\" static 172.16.50.140 255.255.255.0<enter>"
+
   ]
   unmount_iso          = true
 winrm_host     = "192.168.1.140"
