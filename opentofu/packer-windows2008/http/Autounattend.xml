@@ -116,6 +116,11 @@
                     <CommandLine>cmd.exe /c winrm set winrm/config/service @{AllowUnencrypted="true"}</CommandLine>
                     <Order>5</Order>
                 </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>1</Order>
+                    <Description>Set Static IP</Description>
+                    <CommandLine>cmd /c netsh interface ip set address name="Local Area Connection" static 172.16.50.140 255.255.255.0</CommandLine>
+                </SynchronousCommand>
             </FirstLogonCommands>
         </component>
     </settings>
