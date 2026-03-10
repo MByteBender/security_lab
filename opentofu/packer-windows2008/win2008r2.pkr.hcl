@@ -84,12 +84,11 @@ winrm_host     = "192.168.1.140"
 build {
   sources = ["source.proxmox-iso.win2008r2"]
 
-  # Optional: Install updates or software via PowerShell
-  #provisioner "powershell" {
-  #  inline = [
-  #    "dir env:",
-  #    "Get-Service"
-  #  ]
-  #}
+provisioner "powershell" {
+    inline = [
+      "Write-Host 'Packer successfully connected via WinRM!'",
+      "Get-Service | Where-Object {$_.Status -eq 'Running'}"
+    ]
+  }
 }
 
