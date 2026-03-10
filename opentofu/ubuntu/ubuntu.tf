@@ -62,7 +62,7 @@ resource "proxmox_virtual_environment_vm" "ubuntu" {
   disk {
     datastore_id = "zfs-itsec"
     interface    = "scsi0"
-    size         = 40      # Resize template disk to 40GB
+    size         = 20      # Resize template disk to 40GB
   }
 
 }
