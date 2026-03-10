@@ -64,4 +64,8 @@ resource "proxmox_virtual_environment_vm" "kali" {
     interface    = "scsi0"
     size         = 60      # Resize template disk to 40GB
   }
+
+  agent {
+    enabled = false # Tell Proxmox not to look for the agent
+  }
 }
