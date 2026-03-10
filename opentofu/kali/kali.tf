@@ -34,7 +34,8 @@ provider "proxmox" {
 resource "proxmox_virtual_environment_vm" "kali" {
   name      = "kali"
   node_name = "pve"        # The name of your Proxmox node
-  vm_id     = 181          # Optional: leave blank for next available ID
+  vm_id     = 191          # Optional: leave blank for next available ID
+  pool                 = "IT-sec"
 
   # --- CLONE SETTINGS ---
   clone {
