@@ -64,12 +64,16 @@ source "proxmox-iso" "win2008r2" {
     type              = "sata" # Matches virtio-scsi-pci
   }
 
-  # ISOs: 1. Windows 7 ISO, 2. VirtIO Drivers ISO
-  additional_iso_files {
-    cd_files = ["./http/Autounattend.xml"]
-    iso_storage_pool = "local"
-  }
+http_directory = "./http"
 
+  # Tell Windows where to find the file via the boot command
+  # We type a string that tells the installer to use the HTTP address
+  boot_command = [
+    "<esc><wait>",
+    "<esc><wait>",
+    "<enter><wait>",
+    "setup.exe /unattend:http://{{ .HTTPIP }}:{{ .HTTPPort }}/Autounattend.xml<enter>"
+  ]
   unmount_iso          = true
 
 }
