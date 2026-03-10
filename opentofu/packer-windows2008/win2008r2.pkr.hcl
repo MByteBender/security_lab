@@ -59,6 +59,11 @@ source "proxmox-iso" "win2008r2" {
     type              = "sata" # Matches virtio-scsi-pci
   }
 
+ipconfig {
+  ip0 = "172.16.50.140/24"
+  gw0 = "172.16.50.1"
+}
+
 additional_iso_files {
     cd_files = ["./http/Autounattend.xml"]
     iso_storage_pool = "local"
