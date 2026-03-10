@@ -80,7 +80,7 @@ source "proxmox-iso" "win2008r2" {
 }
 
 build {
-  sources = ["source.vmware-iso.win2008r2"]
+  sources = ["source.proxmox-iso.win2008r2"]]
 
   # Optional: Install updates or software via PowerShell
   #provisioner "powershell" {
