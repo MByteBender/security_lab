@@ -77,7 +77,7 @@ http_directory = "http"
     "Packer123!<tab>Packer123!",
     "<enter><wait2s><enter>",
     "<wait20s>",
-    "<wait20s><leftWinOn>r<leftWinOff>p"
+    "<wait20s><leftWinOn>r<leftWinOff>p",
     "<wait20s><leftWinOn>r<wait1s>p"
     #"<leftWin><wait1m>",
     #"powershell<enter><wait1m>",
