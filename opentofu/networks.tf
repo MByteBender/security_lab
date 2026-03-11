@@ -31,52 +31,30 @@ provider "proxmox" {
   insecure = true # Set to false if you have a valid SSL cert
 }
 
-# LAN network
-resource "proxmox_virtual_environment_network_linux_bridge" "lan" {
-  node_name = "pve"    # Your Proxmox node name
-  name      = "vmbr10"  # The name of the new bridge
-
-  # The IPv4 address for the Proxmox host on this bridge
-  address   = "10.0.10.0/24"
-
-  # Enables VLAN tagging for VMs
-  vlan_aware = true
-
-  comment = "General VLAN Bridge managed by OpenTofu"
+# 1. Define the SDN Zone (The 'Container')
+resource "proxmox_virtual_environment_network_sdn_zone" "internal_zone" {
+  name = "internal"
+  type = "simple"
 }
 
-# DMZ network
-resource "proxmox_virtual_environment_network_linux_bridge" "dmz" {
-  node_name = "pve"    # Your Proxmox node name
-  name      = "vmbr20"  # The name of the new bridge
+# 2. Define the 4 Isolated Networks
+resource "proxmox_virtual_environment_network_sdn_vnet" "isolated_nets" {
+  for_each = toset(["net101", "net102", "net103", "net104"])
 
-  # The IPv4 address for the Proxmox host on this bridge
-  address   = "10.0.20.0/24"
-
-  # Enables VLAN tagging for VMs
-  vlan_aware = true
-
-  comment = "General VLAN Bridge managed by OpenTofu"
+  name    = each.value
+  zone_id = proxmox_virtual_environment_network_sdn_zone.internal_zone.id
 }
 
-# fake Internet network
-resource "proxmox_virtual_environment_network_linux_bridge" "extern" {
-  node_name = "pve"    # Your Proxmox node name
-  name      = "vmbr30"  # The name of the new bridge
+# 3. (Optional) Define IP ranges for them
+resource "proxmox_virtual_environment_network_sdn_subnet" "subnets" {
+  for_each = {
+    "net101" = "10.0.1.0/24"
+    "net102" = "10.0.2.0/24"
+    "net103" = "10.0.3.0/24"
+    "net104" = "10.0.4.0/24"
+  }
 
-  # The IPv4 address for the Proxmox host on this bridge
-  address   = "10.0.30.0/24"
-
-  comment = "General VLAN Bridge managed by OpenTofu"
-}
-
-# Management network
-resource "proxmox_virtual_environment_network_linux_bridge" "management" {
-  node_name = "pve"    # Your Proxmox node name
-  name      = "vmbr192"  # The name of the new bridge
-
-  # The IPv4 address for the Proxmox host on this bridge
-  address   = "192.168.0.0/24"
-
-  comment = "General VLAN Bridge managed by OpenTofu"
+  vnet_id = each.key
+  cidr    = each.value
+  # No gateway defined = No internet/inter-vnet routing = Total Isolation
 }
