@@ -31,7 +31,7 @@ provider "proxmox" {
   insecure = true # Set to false if you have a valid SSL cert
 }
 
-resource "proxmox_virtual_environment_vm" "ubuntu_desktop" {
+resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
   name      = "ubuntu_desktop"
   node_name = "pve"        # The name of your Proxmox node
   vm_id     = 153          # Optional: leave blank for next available ID
