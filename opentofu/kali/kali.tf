@@ -54,7 +54,15 @@ resource "proxmox_virtual_environment_vm" "kali" {
   }
 
   network_device {
-    bridge = "vmbr110"
+    bridge = "vmbr130"
+  }
+
+  network_device {
+    bridge = "vmbr140"
+  }
+
+  agent {
+    enabled = false # Tell Proxmox not to look for the agent
   }
 
   # NOTE: Packer templates usually already have a disk.

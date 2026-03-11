@@ -54,7 +54,19 @@ resource "proxmox_virtual_environment_vm" "sophos" {
   }
 
   network_device {
-    bridge = "vmbr0"
+    bridge = "vmbr110"
+  }
+
+  network_device {
+    bridge = "vmbr120"
+  }
+
+  network_device {
+    bridge = "vmbr130"
+  }
+
+  network_device {
+    bridge = "vmbr140"
   }
 
   # NOTE: Packer templates usually already have a disk.

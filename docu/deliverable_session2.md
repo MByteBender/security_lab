@@ -8,7 +8,7 @@
 
 ```mermaid
 graph TD
-    subgraph Internet_Untrusted [Extern: 10.0.0.0/24 – Untrusted]
+    subgraph Internet_Untrusted [Extern: 10.0.30.0/24 – Untrusted]
         Kali[Kali Linux - Attacker]
     end
 
@@ -27,7 +27,7 @@ graph TD
         SIEM[SIEM: Wazuh]
     end
 
-    subgraph Configuration [Setup: 192.168.0.0/24]
+    subgraph Configuration [Setup: 10.0.40.0/24]
         Ansible[Ansible Control Node]
         NetBox[NetBox IPAM]
     end

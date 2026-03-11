@@ -55,8 +55,12 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
 
   network_device {
     model  = "e1000"
-    bridge = "vmbr0"
+    bridge = "vmbr120"
     firewall = false
+  }
+
+  network_device {
+    bridge = "vmbr140"
   }
 
   agent {

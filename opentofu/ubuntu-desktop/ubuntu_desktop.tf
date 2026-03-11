@@ -54,7 +54,11 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
   }
 
   network_device {
-    bridge = "vmbr0"
+    bridge = "vmbr110"
+  }
+
+  network_device {
+    bridge = "vmbr140"
   }
 
   agent {
