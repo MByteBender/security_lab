@@ -32,7 +32,7 @@ provider "proxmox" {
 }
 
 resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
-  name      = "ubuntu_desktop"
+  name      = "ubuntuDesktop"
   node_name = "pve"        # The name of your Proxmox node
   vm_id     = 153          # Optional: leave blank for next available ID
   pool_id      = "IT-sec"
