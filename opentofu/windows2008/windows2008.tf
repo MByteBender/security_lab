@@ -53,7 +53,7 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
     dedicated = 4096       # RAM in MB
   }
 
-  network_adapters {
+  network_device {
     model  = "e1000"
     bridge = "vmbr0"
     firewall = false
