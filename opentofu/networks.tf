@@ -32,21 +32,52 @@ provider "proxmox" {
 }
 
 
-# Create 4 isolated bridges using the v0.70+ resource naming
-resource "proxmox_virtual_environment_hardware_network_bridge" "isolated_nets" {
-  for_each = toset(["10", "20", "30", "40"])
 
-  node_name = "pve"
-  name      = "vmbr${each.value}"
-
-  # No ports = isolated
-  comment   = "Isolated network ${each.value}"
+# --- 1. Variables for your specific setup ---
+variable "pve_host_ip" {
+  default = "192.168.1.100" # CHANGE THIS to your Proxmox IP
 }
 
-# The Apply resource also likely changed names to:
-resource "proxmox_virtual_environment_node_network_config" "apply" {
-  node_name = "pve"
-  apply     = true
+variable "pve_user" {
+  default = "root" # Networking requires root/sudo access
+}
 
-  depends_on = [proxmox_virtual_environment_hardware_network_bridge.isolated_nets]
+# --- 2. The 4 Isolated Bridges ---
+# We use a null_resource to bypass the "Invalid Resource Type" errors
+resource "null_resource" "create_isolated_bridges" {
+  for_each = toset(["10", "20", "30", "40"])
+
+  provisioner "remote-exec" {
+    inline = [
+      # 1. Create the bridge if it doesn't exist (vmbr10, vmbr20, etc.)
+      # We don't assign 'bridge_ports', which ensures they are isolated "islands".
+      "pvesh create /nodes/pve/network --interface vmbr${each.value} --type bridge --comments 'Tofu-Isolated-Net-${each.value}' || true",
+
+      # 2. Apply the networking changes to make them active immediately
+      "pvesh set /nodes/pve/network"
+    ]
+
+    connection {
+      type     = "ssh"
+      user     = var.pve_user
+      host     = var.pve_host_ip
+      # You must have SSH keys set up or use a password here
+      private_key = file("~/.ssh/id_rsa")
+    }
+  }
+}
+
+# --- 3. Example VM using one of these networks ---
+resource "proxmox_virtual_environment_vm" "isolated_vm" {
+  name      = "secure-vm-01"
+  node_name = "pve"
+
+  # Ensure the bridge is created BEFORE the VM tries to join it
+  depends_on = [null_resource.create_isolated_bridges]
+
+  network_device {
+    bridge = "vmbr10" # This links it to the first isolated network
+  }
+
+  # ... add your disk, cpu, and memory settings below ...
 }
