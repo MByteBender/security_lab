@@ -1,5 +1,38 @@
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "bpg/proxmox"
+      version = "0.70.0" # Use the latest stable version
+    }
+  }
+}
+
+variable "proxmox_api_url" {
+  type = string
+}
+
+variable "proxmox_api_token_id" {
+  type = string
+}
+
+variable "proxmox_api_token_secret" {
+  type    = string
+  sensitive = true
+}
+
+variable "proxmox_api_token" {
+  type    = string
+  sensitive = true
+}
+
+provider "proxmox" {
+  endpoint = var.proxmox_api_url
+  api_token = var.proxmox_api_token
+  insecure = true # Set to false if you have a valid SSL cert
+}
+
 # LAN network
-resource "proxmox_virtual_environment_network_linux_bridge" "vlan_bridge" {
+resource "proxmox_virtual_environment_network_linux_bridge" "lan" {
   node_name = "pve"    # Your Proxmox node name
   name      = "Intern"  # The name of the new bridge
 
@@ -13,7 +46,7 @@ resource "proxmox_virtual_environment_network_linux_bridge" "vlan_bridge" {
 }
 
 # DMZ network
-resource "proxmox_virtual_environment_network_linux_bridge" "vlan_bridge" {
+resource "proxmox_virtual_environment_network_linux_bridge" "dmz" {
   node_name = "pve"    # Your Proxmox node name
   name      = "DMZ"  # The name of the new bridge
 
@@ -27,7 +60,7 @@ resource "proxmox_virtual_environment_network_linux_bridge" "vlan_bridge" {
 }
 
 # fake Internet network
-resource "proxmox_virtual_environment_network_linux_bridge" "vlan_bridge" {
+resource "proxmox_virtual_environment_network_linux_bridge" "extern" {
   node_name = "pve"    # Your Proxmox node name
   name      = "Extern"  # The name of the new bridge
 
@@ -38,7 +71,7 @@ resource "proxmox_virtual_environment_network_linux_bridge" "vlan_bridge" {
 }
 
 # Management network
-resource "proxmox_virtual_environment_network_linux_bridge" "vlan_bridge" {
+resource "proxmox_virtual_environment_network_linux_bridge" "management" {
   node_name = "pve"    # Your Proxmox node name
   name      = "Management"  # The name of the new bridge
 
