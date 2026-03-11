@@ -30,24 +30,25 @@ provider "proxmox" {
   api_token = var.proxmox_api_token
   insecure = true # Set to false if you have a valid SSL cert
 }
-# 1. Create the 'Simple' Zone (The container for your 4 networks)
-resource "proxmox_virtual_environment_sdn_zone_simple" "internal_zone" {
-  id      = "internal" # Note: 'id' is often used instead of 'name' in newer bpg versions
-  nodes   = ["pve"]    # Which nodes can see this network
+
+
+# Create 4 isolated bridges
+resource "proxmox_virtual_environment_network_linux_bridge" "isolated_nets" {
+  for_each = toset(["10", "20", "30", "40"])
+
+  node_name = "pve"
+  name      = "vmbr${each.value}"
+
+  # Crucial for isolation: DO NOT put anything in 'bridge_ports'
+  # This makes it a "Virtual Switch" that doesn't touch physical wires.
+  comment   = "Isolated network ${each.value}"
 }
 
-# 2. Create the 4 Isolated VNets
-resource "proxmox_virtual_environment_sdn_vnet" "isolated_nets" {
-  for_each = toset(["net101", "net102", "net103", "net104"])
+# This is the "Magic Button" that applies the changes to the system
+resource "proxmox_virtual_environment_network_config" "apply_changes" {
+  node_name = "pve"
+  apply     = true
 
-  id      = each.value
-  zone_id = proxmox_virtual_environment_sdn_zone_simple.internal_zone.id
-}
-
-# 3. The 'Magic' Step: This resource triggers the reload
-# so you don't have to click "Apply" in the GUI.
-resource "proxmox_virtual_environment_sdn_applier" "apply_sdn" {
-  # This tells Proxmox to actually push the config to the nodes
-  # It depends on the VNets being finished first.
-  depends_on = [proxmox_virtual_environment_sdn_vnet.isolated_nets]
+  # Ensure this only runs AFTER the bridges are created
+  depends_on = [proxmox_virtual_environment_network_linux_bridge.isolated_nets]
 }
