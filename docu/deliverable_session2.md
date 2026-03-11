@@ -12,7 +12,7 @@ _mermaid code_
 %% Use the following code in mermaid.live to get the architecture diagram
 
 graph TD
-    subgraph Internet_Untrusted [Extern: 10.0.30.0/24 – Untrusted]
+    subgraph Internet_Untrusted [Untrusted: 10.0.30.0/24 30]
         Kali[Kali Linux - Attacker]
     end
 
@@ -27,11 +27,11 @@ graph TD
         UbuntuDesktop[Linux Ubuntu Client - Unpatched]
     end
 
-    subgraph SIEM_Zone [Mng.: 10.0.30.0/24 30]
+    subgraph SIEM_Zone [Mng.: 10.0.255.0/24 255]
         SIEM[SIEM: Graylog/Elastic]
     end
 
-    subgraph Configuration [Setup: 10.0.40.0/24]
+    subgraph Configuration [Setup: 10.0.40.0/24 40]
         Ansible[Ansible Control Node]
         NetBox[NetBox IPAM]
     end
@@ -72,26 +72,26 @@ graph TD
 
 | Host                     | IP-Bereich  | OS                          | Rolle                                       | Installierte Services                                                                                     |
 | ------------------------ | ----------- | --------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| **Kali Linux**           | 10.0.0.x    | Kali Linux (Rolling)        | Angreifer                                   | Nmap, Nuclei, OpenVAS, Metasploit, Burp Suite, SSH                                                        |
+| **Kali Linux**           | 10.0.30.x   | Kali Linux (Rolling)        | Angreifer                                   | Nmap, Nuclei, OpenVAS, Metasploit, Burp Suite, SSH                                                        |
 | **Linux Router**         | Multi-homed | Debian/Ubuntu               | Router (kein Firewall-Regelwerk in Phase 1) | iptables (nur Forwarding), SSH, Syslog-Forwarding                                                         |
 | **Win Server 2008**      | 10.0.20.x   | Windows Server 2008 R2      | Webserver / DMZ-Target                      | IIS / Apache, PHP, MySQL, DVWA (Damn Vulnerable Web App), SMB (Filesharing), RDP                          |
 | **Windows 7 Client**     | 10.0.10.x   | Windows 7 (ungepatcht)      | LAN-Client / Target                         | SMB (Filesharing), RDP, Printserver (Windows Druckdienst), SSH (optional via Cygwin/OpenSSH), Wazuh Agent |
 | **Ubuntu Desktop**       | 10.0.10.x   | Ubuntu Desktop (ungepatcht) | LAN-Client / Target                         | SSH, Samba (Filesharing), VNC (Screensharing), CUPS (Printserver), Wazuh Agent                            |
 | **Wazuh SIEM**           | 10.0.255.x  | Ubuntu Server               | SIEM / XDR                                  | Wazuh Manager, Wazuh Dashboard (Kibana-basiert), Elasticsearch                                            |
-| **Ansible Control Node** | 192.168.0.x | Ubuntu Server               | Provisioning                                | Ansible, SSH                                                                                              |
-| **NetBox**               | 192.168.0.x | Ubuntu Server               | IPAM                                        | NetBox, PostgreSQL, Redis                                                                                 |
+| **Ansible Control Node** | 10.0.40.x   | Ubuntu Server               | Provisioning                                | Ansible, SSH                                                                                              |
+| **NetBox**               | 10.0.40.x   | Ubuntu Server               | IPAM                                        | NetBox, PostgreSQL, Redis                                                                                 |
 
 ---
 
 ### Netzwerksegmente
 
-| Segment              | Subnetz        | Zweck                                      |
-| -------------------- | -------------- | ------------------------------------------ |
-| Extern / Untrusted   | 10.0.30.0/24   | Angreifer (Kali) – simuliert Internet      |
-| DMZ                  | 10.0.20.0/24   | Öffentlich erreichbare Dienste (Webserver) |
-| Intern / LAN         | 10.0.10.0/24   | Interne Clients (Win7, Ubuntu)             |
-| Management           | 10.0.255.0/24  | SIEM / Monitoring – nur intern erreichbar  |
-| Setup / Provisioning | 192.168.0.0/24 | Ansible, NetBox – Out-of-Band-Management   |
+| Segment              | Subnetz       | VLAN | Zweck                                      |
+| -------------------- | ------------- | ---- | ------------------------------------------ |
+| Intern / LAN         | 10.0.10.0/24  | 10   | Interne Clients (Win7, Ubuntu)             |
+| DMZ                  | 10.0.20.0/24  | 20   | Öffentlich erreichbare Dienste (Webserver) |
+| Extern / Untrusted   | 10.0.30.0/24  | 30   | Angreifer (Kali) – simuliert Internet      |
+| Setup / Provisioning | 10.0.40.0/24  | 40   | Ansible, NetBox – Out-of-Band-Management   |
+| Management           | 10.0.255.0/24 | 255  | SIEM / Monitoring – nur intern erreichbar  |
 
 ---
 
