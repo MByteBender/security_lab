@@ -30,31 +30,24 @@ provider "proxmox" {
   api_token = var.proxmox_api_token
   insecure = true # Set to false if you have a valid SSL cert
 }
-
-# 1. Define the SDN Zone (The 'Container')
-resource "proxmox_virtual_environment_network_sdn_zone" "internal_zone" {
-  name = "internal"
-  type = "simple"
+# 1. Create the 'Simple' Zone (The container for your 4 networks)
+resource "proxmox_virtual_environment_sdn_zone_simple" "internal_zone" {
+  id      = "internal" # Note: 'id' is often used instead of 'name' in newer bpg versions
+  nodes   = ["pve"]    # Which nodes can see this network
 }
 
-# 2. Define the 4 Isolated Networks
-resource "proxmox_virtual_environment_network_sdn_vnet" "isolated_nets" {
+# 2. Create the 4 Isolated VNets
+resource "proxmox_virtual_environment_sdn_vnet" "isolated_nets" {
   for_each = toset(["net101", "net102", "net103", "net104"])
 
-  name    = each.value
-  zone_id = proxmox_virtual_environment_network_sdn_zone.internal_zone.id
+  id      = each.value
+  zone_id = proxmox_virtual_environment_sdn_zone_simple.internal_zone.id
 }
 
-# 3. (Optional) Define IP ranges for them
-resource "proxmox_virtual_environment_network_sdn_subnet" "subnets" {
-  for_each = {
-    "net101" = "10.0.1.0/24"
-    "net102" = "10.0.2.0/24"
-    "net103" = "10.0.3.0/24"
-    "net104" = "10.0.4.0/24"
-  }
-
-  vnet_id = each.key
-  cidr    = each.value
-  # No gateway defined = No internet/inter-vnet routing = Total Isolation
+# 3. The 'Magic' Step: This resource triggers the reload
+# so you don't have to click "Apply" in the GUI.
+resource "proxmox_virtual_environment_sdn_applier" "apply_sdn" {
+  # This tells Proxmox to actually push the config to the nodes
+  # It depends on the VNets being finished first.
+  depends_on = [proxmox_virtual_environment_sdn_vnet.isolated_nets]
 }
