@@ -54,7 +54,7 @@ resource "proxmox_virtual_environment_vm" "kali" {
   }
 
   network_device {
-    bridge = "vmbr0"
+    bridge = "vmbr110"
   }
 
   # NOTE: Packer templates usually already have a disk.
