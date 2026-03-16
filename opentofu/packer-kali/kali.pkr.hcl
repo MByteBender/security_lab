@@ -71,16 +71,21 @@ source "proxmox-iso" "kali-template" {
   # Packer starts an HTTP server and serves ./http/ so the installer can fetch
   # preseed.cfg before partitioning starts — no second CD needed.
   http_directory    = "./http"
-  # Bind to all interfaces so the Proxmox VM can reach the HTTP server
-  # regardless of which NIC the machine running `packer build` uses.
+  # Bind to all interfaces so the Proxmox VM can reach the HTTP server.
   http_bind_address = "0.0.0.0"
+  # Fixed port so you can open exactly this port in UFW on the management server:
+  #   sudo ufw allow 8802/tcp
+  http_port_min     = 8802
+  http_port_max     = 8802
 
   # Wait for the ISOLINUX menu to fully render, then drop to the boot: prompt.
   # "install" is the ISOLINUX label for the text installer in the Kali ISO.
-  boot_wait = "10s"
+  # "auto" (standalone) sets auto-install/enable=true in the Debian installer.
+  # "auto=true" is NOT valid in modern Debian/Kali installer (Debian 12 based).
+  boot_wait = "15s"
   boot_command = [
     "<esc><wait2>",
-    "install auto=true priority=critical url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<enter>"
+    "install auto preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<enter>"
   ]
 
   # SSH access — provisioner connects after installer reboots
