@@ -2,82 +2,80 @@ terraform {
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
-      version = "0.70.0" # Use the latest stable version
+      version = "0.70.0"
     }
   }
 }
+
+# --- 1. Variables (Populated by your .tfvars file) ---
 
 variable "proxmox_api_url" {
   type = string
 }
 
-variable "proxmox_api_token_id" {
-  type = string
-}
-
-variable "proxmox_api_token_secret" {
-  type    = string
-  sensitive = true
-}
-
 variable "proxmox_api_token" {
-  type    = string
+  type      = string
   sensitive = true
 }
+
+# The name of your Proxmox node (e.g., "pve")
+variable "pve_node_name" {
+  type    = string
+  default = "pve"
+}
+
+# --- 2. Provider Configuration ---
 
 provider "proxmox" {
-  endpoint = var.proxmox_api_url
+  endpoint  = var.proxmox_api_url
   api_token = var.proxmox_api_token
-  insecure = true # Set to false if you have a valid SSL cert
+  insecure  = true
 }
 
+# --- 3. The 4 Isolated Bridges ---
 
-
-# --- 1. Variables for your specific setup ---
-variable "pve_host_ip" {
-  default = "192.168.1.100" # CHANGE THIS to your Proxmox IP
-}
-
-variable "pve_user" {
-  default = "root" # Networking requires root/sudo access
-}
-
-# --- 2. The 4 Isolated Bridges ---
-# We use a null_resource to bypass the "Invalid Resource Type" errors
-resource "null_resource" "create_isolated_bridges" {
+resource "proxmox_virtual_environment_network_linux_bridge" "isolated_nets" {
   for_each = toset(["10", "20", "30", "40"])
 
-  provisioner "remote-exec" {
-    inline = [
-      # 1. Create the bridge if it doesn't exist (vmbr10, vmbr20, etc.)
-      # We don't assign 'bridge_ports', which ensures they are isolated "islands".
-      "pvesh create /nodes/pve/network --interface vmbr${each.value} --type bridge --comments 'Tofu-Isolated-Net-${each.value}' || true",
+  node_name = var.pve_node_name
+  name      = "vmbr${each.value}"
 
-      # 2. Apply the networking changes to make them active immediately
-      "pvesh set /nodes/pve/network"
-    ]
-
-    connection {
-      type     = "ssh"
-      user     = var.pve_user
-      host     = var.pve_host_ip
-      # You must have SSH keys set up or use a password here
-      private_key = file("~/.ssh/id_rsa")
-    }
-  }
+  # Empty bridge_ports = Internal-only virtual switch (no physical exit)
+  comment   = "Tofu-Isolated-Net-${each.value}"
 }
 
-# --- 3. Example VM using one of these networks ---
-resource "proxmox_virtual_environment_vm" "isolated_vm" {
-  name      = "secure-vm-01"
-  node_name = "pve"
+# --- 4. The Apply Step ---
+# This is CRITICAL. It tells Proxmox to commit the bridge changes.
+# It uses your API token, but the token MUST have 'Administrator' role at path '/'
 
-  # Ensure the bridge is created BEFORE the VM tries to join it
-  depends_on = [null_resource.create_isolated_bridges]
+resource "proxmox_virtual_environment_network_config" "apply_changes" {
+  node_name = var.pve_node_name
+  apply     = true
+
+  depends_on = [proxmox_virtual_environment_network_linux_bridge.isolated_nets]
+}
+
+# --- 5. Example VM ---
+
+resource "proxmox_virtual_environment_vm" "isolated_vm" {
+  name      = "kali-isolated"
+  node_name = var.pve_node_name
+
+  # Wait for the network to be live before creating the VM
+  depends_on = [proxmox_virtual_environment_network_config.apply_changes]
 
   network_device {
-    bridge = "vmbr10" # This links it to the first isolated network
+    bridge = "vmbr10"
   }
 
-  # ... add your disk, cpu, and memory settings below ...
+  # Minimal VM settings (adjust to your needs)
+  cpu {
+    cores = 2
+  }
+  memory {
+    dedicated = 2048
+  }
+  agent {
+    enabled = true
+  }
 }
