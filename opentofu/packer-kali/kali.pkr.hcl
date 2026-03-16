@@ -68,19 +68,18 @@ source "proxmox-iso" "kali-template" {
     type         = "virtio"
   }
 
-  # Preseed CD — Kali uses the Debian installer which reads preseed/file=/cdrom/preseed.cfg
-  additional_iso_files {
-    cd_files         = ["./http/preseed.cfg", "./http/meta-data"]
-    cd_label         = "PRESEED"
-    iso_storage_pool = "local"
-    unmount          = true
-  }
+  # Packer starts an HTTP server on the machine running `packer build` and
+  # serves everything in ./http/. The installer fetches preseed.cfg over the
+  # network before partitioning starts — no second CD needed.
+  # IMPORTANT: {{ .HTTPIP }} must be reachable from the Proxmox VM network.
+  http_directory = "./http"
 
-  # ISOLINUX boot menu — Escape drops to a boot: prompt
-  boot_wait = "5s"
+  # Wait for the ISOLINUX menu to fully render, then drop to the boot: prompt.
+  # "install" is the ISOLINUX label for the text installer in the Kali ISO.
+  boot_wait = "10s"
   boot_command = [
     "<esc><wait2>",
-    "auto priority=critical preseed/file=/cdrom/preseed.cfg<enter>"
+    "install auto=true priority=critical preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<enter>"
   ]
 
   # SSH access — provisioner connects after installer reboots
