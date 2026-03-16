@@ -13,10 +13,7 @@ variable "proxmox_api_token" {
     type = string
     sensitive = true
 }
-variable "pve_node_name" {
-    type = string
-    default = "pve"
-}
+
 
 # --- 2. Provider ---
 provider "proxmox" {
