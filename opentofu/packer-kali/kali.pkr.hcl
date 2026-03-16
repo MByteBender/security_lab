@@ -16,111 +16,136 @@ variable "proxmox_api_token_id" {
 }
 
 variable "proxmox_api_token_secret" {
-  type    = string
-  sensitive = true
-}
-
-variable "ubuntu_password" {
-  type    = string
-  sensitive = true
-}
-
-variable "ubuntu_password_plain" {
-  type    = string
+  type      = string
   sensitive = true
 }
 
 variable "kali_password" {
-  type = string
-  default = "kali"
+  type      = string
+  sensitive = true
+  default   = "kali"
 }
 
-source "proxmox-iso" "kali-linux" {
+source "proxmox-iso" "kali-template" {
   # Proxmox Connection
   proxmox_url              = var.proxmox_api_url
   username                 = var.proxmox_api_token_id
   token                    = var.proxmox_api_token_secret
   insecure_skip_tls_verify = true
 
+  qemu_agent = true
+
   # VM Specs
   node                 = "pve"
-  vm_id                = "190"
-  vm_name              = "kali-packer-template"
+  vm_id                = "160"
+  vm_name              = "kali-template"
   pool                 = "IT-sec"
-  template_description = "Kali Linux Rolling via Packer"
+  template_description = "Kali Linux 2025.4 with Nuclei and OpenVAS/GVM — built via Packer"
 
-  # Modern Hardware Settings
-  qemu_agent      = true
-
-  cores           = 2
-  memory          = 4096 # Kali Desktop likes 4GB+
-
-  network_adapters {
-    model  = "virtio" # Use virtio for modern Linux
-    bridge = "vmbr0"
-  }
-  scsi_controller = "virtio-scsi-pci"
-  disks {
-    disk_size    = "40G"
-    storage_pool = "zfs-itsec"
-    type         = "scsi" # This makes the disk /dev/vda
-  }
-
-  # ISO Settings
+  # Boot from disk first, then ISO
+  boot = "order=virtio0;scsi0"
   boot_iso {
-    type     = "ide"
-    iso_file = "local:iso/kali-linux-2025.4-installer-amd64.iso" # Update to your path
+    type     = "scsi"
+    iso_file = "local:iso/kali-linux-2025.4-installer-amd64.iso"
     unmount  = true
   }
-bios = "seabios"
-machine = "q35"
-#additional_iso_files {
-#    cd_files = ["./http/preseed.seed"]
-#    cd_label = "PRESEED"
-#    iso_storage_pool = "local" # Ensure 'local' allows 'ISO Image' in Proxmox
-#}
 
-boot = "order=scsi0;ide0"
+  scsi_controller = "virtio-scsi-pci"
 
-http_directory = "http"
+  # OpenVAS/GVM is memory-hungry — 4 GB minimum recommended
+  cores  = 4
+  memory = 6016
 
-  # Boot Command for Kali Installer
-  # This sequence selects 'Install', then feeds the preseed URL
-boot_command = [
-    "<esc><wait5>",
-    "install ",
-    "auto=true ",
-    "priority=critical ",
-    "fb=false ", # Disables framebuffer which often causes the keymap corruption
-    "debian-installer/locale=en_US.UTF-8 ",
-    "console-setup/ask_detect=false ",
-    "keyboard-configuration/xkb-keymap=us ",
-    "hw-detect/load_firmware=false ",
-    "netcfg/link_wait_timeout=60 ",
-    "netcfg/get_hostname=kali ",
-    "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
-    # REMOVED: "initrd=initrd.gz" (This was the cause of the Line 113 error)
-    # REMOVED: redundant locale/keymap lines
-    "--- <enter>"
-]
+  network_adapters {
+    model  = "virtio"
+    bridge = "vmbr0"
+  }
 
+  # 60 GB to accommodate GVM NVT feeds and Kali tool suite
+  disks {
+    disk_size    = "60G"
+    storage_pool = "zfs-itsec"
+    type         = "virtio"
+  }
+
+  # Packer starts an HTTP server and serves ./http/ so the installer can fetch
+  # preseed.cfg before partitioning starts — no second CD needed.
+  http_directory    = "./http"
+  # Bind to all interfaces so the Proxmox VM can reach the HTTP server.
+  http_bind_address = "0.0.0.0"
+  # Fixed port so you can open exactly this port in UFW on the management server:
+  #   sudo ufw allow 8802/tcp
+  http_port_min     = 8802
+  http_port_max     = 8802
+
+  # Wait for the ISOLINUX menu to fully render, then drop to the boot: prompt.
+  # "install" is the ISOLINUX label for the text installer in the Kali ISO.
+  # "auto" (standalone) sets auto-install/enable=true in the Debian installer.
+  # "auto=true" is NOT valid in modern Debian/Kali installer (Debian 12 based).
+  boot_wait = "15s"
+  boot_command = [
+    "<esc><wait2>",
+    "install auto preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg"
+  ]
+
+  # SSH access — provisioner connects after installer reboots
   ssh_username = "kali"
   ssh_password = var.kali_password
-  ssh_timeout  = "60m"
+  # gvm-setup downloads NVT feeds which can take 30–60 min
+  ssh_timeout = "90m"
 }
 
 build {
-  sources = ["source.proxmox-iso.kali-linux"]
+  sources = ["source.proxmox-iso.kali-template"]
 
+  # -----------------------------------------------------------------------
+  # 1. Base system update
+  # -----------------------------------------------------------------------
   provisioner "shell" {
-    # Kali uses passwordless sudo for the default user in many cases,
-    # but here we provide the password for the sudo -S command
-    execute_command = "echo '${var.kali_password}' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
     inline = [
-      "apt-get update",
-      "apt-get install -y qemu-guest-agent",
-      "systemctl enable qemu-guest-agent",
-      "sudo apt install kali-desktop-xfce kali-linux-default -y"
+      "sudo apt-get update -y",
+      "sudo apt-get upgrade -y",
+      "sudo apt-get install -y qemu-guest-agent curl wget git"
+    ]
+  }
+
+  # -----------------------------------------------------------------------
+  # 2. Nuclei — fast, template-based vulnerability scanner by ProjectDiscovery
+  #    https://docs.projectdiscovery.io/quickstart
+  # -----------------------------------------------------------------------
+  provisioner "shell" {
+    inline = [
+      # nuclei is available directly in the Kali repositories
+      "sudo apt-get install -y nuclei",
+      # Pull the latest community templates after install
+      "nuclei -update-templates || true"
+    ]
+  }
+
+  # -----------------------------------------------------------------------
+  # 3. OpenVAS / GVM — open-source vulnerability assessment (like Nessus)
+  #    https://www.openvas.org
+  # -----------------------------------------------------------------------
+  provisioner "shell" {
+    inline = [
+      "sudo apt-get install -y gvm",
+      # gvm-setup initialises the PostgreSQL databases and downloads NVT feeds.
+      # This step takes 30–60 minutes depending on network speed.
+      "sudo gvm-setup",
+      # Verify the setup completed cleanly
+      "sudo gvm-check-setup"
+    ]
+    # Allow up to 80 minutes for gvm-setup to download feeds
+    timeout = "80m"
+  }
+
+  # -----------------------------------------------------------------------
+  # 4. Template cleanup
+  # -----------------------------------------------------------------------
+  provisioner "shell" {
+    inline = [
+      "sudo apt-get clean",
+      "sudo truncate -s 0 /etc/machine-id"
     ]
   }
 }
