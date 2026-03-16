@@ -26,7 +26,6 @@ provider "proxmox" {
 resource "proxmox_virtual_environment_network_linux_bridge" "isolated_nets" {
   for_each = toset(["10", "20", "30", "40"])
 
-  node_name = var.pve_node_name
   name      = "vmbr${each.value}"
 
   # No bridge_ports = Internal only
@@ -38,7 +37,6 @@ resource "proxmox_virtual_environment_network_linux_bridge" "isolated_nets" {
 # proxmox_virtual_environment_node_network_config
 
 resource "proxmox_virtual_environment_node_network_config" "apply_changes" {
-  node_name = var.pve_node_name
 
   # This tells Proxmox to actually commit the bridge changes
   check = false # Skip the 'dry-run' check
