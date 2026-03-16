@@ -85,7 +85,7 @@ source "proxmox-iso" "kali-template" {
   boot_wait = "15s"
   boot_command = [
     "<esc><wait2>",
-    "install auto preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<enter>"
+    #"install auto preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<enter>"
   ]
 
   # SSH access — provisioner connects after installer reboots
