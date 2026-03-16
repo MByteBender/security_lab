@@ -77,7 +77,7 @@ source "proxmox-iso" "ubuntu-server" {
   additional_iso_files {
     cd_files         = ["./http/user-data", "./http/meta-data"]
     cd_label         = "cidata"
-    iso_storage_pool = "local" # Change to your ISO storage name
+    iso_storage_pool = "local"
     unmount          = true
   }
 
