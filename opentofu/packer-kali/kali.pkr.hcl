@@ -68,18 +68,19 @@ source "proxmox-iso" "kali-template" {
     type         = "virtio"
   }
 
-  # Packer starts an HTTP server on the machine running `packer build` and
-  # serves everything in ./http/. The installer fetches preseed.cfg over the
-  # network before partitioning starts — no second CD needed.
-  # IMPORTANT: {{ .HTTPIP }} must be reachable from the Proxmox VM network.
-  http_directory = "./http"
+  # Packer starts an HTTP server and serves ./http/ so the installer can fetch
+  # preseed.cfg before partitioning starts — no second CD needed.
+  http_directory    = "./http"
+  # Bind to all interfaces so the Proxmox VM can reach the HTTP server
+  # regardless of which NIC the machine running `packer build` uses.
+  http_bind_address = "0.0.0.0"
 
   # Wait for the ISOLINUX menu to fully render, then drop to the boot: prompt.
   # "install" is the ISOLINUX label for the text installer in the Kali ISO.
   boot_wait = "10s"
   boot_command = [
     "<esc><wait2>",
-    "install auto=true priority=critical preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<enter>"
+    "install auto=true priority=critical url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<enter>"
   ]
 
   # SSH access — provisioner connects after installer reboots
