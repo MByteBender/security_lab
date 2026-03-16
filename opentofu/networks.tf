@@ -9,8 +9,14 @@ terraform {
 
 # --- 1. Variables ---
 variable "proxmox_api_url" { type = string }
-variable "proxmox_api_token" { type = string; sensitive = true }
-variable "pve_node_name" { type = string; default = "pve" }
+variable "proxmox_api_token" {
+    type = string
+    sensitive = true
+}
+variable "pve_node_name" {
+    type = string
+    default = "pve"
+}
 
 # --- 2. Provider ---
 provider "proxmox" {
