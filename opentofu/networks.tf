@@ -27,11 +27,11 @@ provider "proxmox" {
 # --- 2. Create the 4 Isolated Bridges ---
 resource "proxmox_virtual_environment_network_linux_bridge" "isolated_nets" {
   for_each = {
-      "110" = "10.0.10.0/24"
-      "120" = "10.0.20.0/24"
-      "130" = "10.0.30.0/24"
-      "140" = "10.0.40.0/24"
-      "1255" = "10.0.255.0/24"
+      "110" = "10.0.10.1/24"
+      "120" = "10.0.20.1/24"
+      "130" = "10.0.30.1/24"
+      "140" = "10.0.40.1/24"
+      "1255" = "10.0.255.1/24"
   }
 
   node_name = var.pve_node_name
