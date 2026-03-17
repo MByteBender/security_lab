@@ -2,67 +2,54 @@ terraform {
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
-      version = "0.70.0" # Use the latest stable version
+      version = "0.70.0"
     }
   }
 }
 
-variable "proxmox_api_url" {
-  type = string
-}
-
-variable "proxmox_api_token_id" {
-  type = string
-}
-
-variable "proxmox_api_token_secret" {
-  type    = string
-  sensitive = true
-}
-
+# --- 1. Variables ---
+variable "proxmox_api_url" { type = string }
 variable "proxmox_api_token" {
-  type    = string
-  sensitive = true
+    type = string
+    sensitive = true
+}
+variable "pve_node_name" {
+    type = string
+    default = "pve"
 }
 
 provider "proxmox" {
-  endpoint = var.proxmox_api_url
+  endpoint  = var.proxmox_api_url
   api_token = var.proxmox_api_token
-  insecure = true # Set to false if you have a valid SSL cert
+  insecure  = true
 }
 
+# --- 2. Create the 4 Isolated Bridges ---
+resource "proxmox_virtual_environment_network_linux_bridge" "isolated_nets" {
+  for_each = toset(["10", "20", "30", "40"])
 
-
-# --- 1. Variables for your specific setup ---
-variable "pve_host_ip" {
-  default = "192.168.1.100" # CHANGE THIS to your Proxmox IP
+  node_name = var.pve_node_name
+  name      = "vmbr${each.value}"
+  comment   = "Tofu-Isolated-Net-${each.value}"
 }
 
-variable "pve_user" {
-  default = "root" # Networking requires root/sudo access
-}
+# --- 3. The "Token-Based" Apply (The Workaround) ---
+# Since the provider resource is missing, we use curl to hit the API 'Apply' endpoint.
+# This uses your Token just like the rest of Tofu.
 
-# --- 2. The 4 Isolated Bridges ---
-# We use a null_resource to bypass the "Invalid Resource Type" errors
-resource "null_resource" "create_isolated_bridges" {
-  for_each = toset(["10", "20", "30", "40", "255"])
-
-  provisioner "remote-exec" {
-    inline = [
-      # 1. Create the bridge if it doesn't exist (vmbr10, vmbr20, etc.)
-      # We don't assign 'bridge_ports', which ensures they are isolated "islands".
-      "pvesh create /nodes/pve/network --interface vmbr1${each.value} --type bridge --comments 'Tofu-Isolated-Net-${each.value}' --address 10.0.${each.value}.0 --netmask 255.255.255.0 || true",
-
-      # 2. Apply the networking changes to make them active immediately
-      "pvesh set /nodes/pve/network"
-    ]
-
-    connection {
-      type     = "ssh"
-      user     = var.pve_user
-      host     = var.pve_host_ip
-      # You must have SSH keys set up or use a password here
-      private_key = file("~/.ssh/id_rsa")
-    }
+resource "null_resource" "apply_network_via_api" {
+  # This triggers every time a bridge is created or changed
+  triggers = {
+    bridge_ids = join(",", [for b in proxmox_virtual_environment_network_linux_bridge.isolated_nets : b.id])
   }
+
+  provisioner "local-exec" {
+    command = <<EOT
+      curl -X POST "${var.proxmox_api_url}/nodes/${var.pve_node_name}/network" \
+        -H "Authorization: PVEAPIToken=${var.proxmox_api_token}" \
+        -k
+    EOT
+  }
+
+  depends_on = [proxmox_virtual_environment_network_linux_bridge.isolated_nets]
 }
