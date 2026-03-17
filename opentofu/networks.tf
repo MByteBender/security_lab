@@ -26,11 +26,19 @@ provider "proxmox" {
 
 # --- 2. Create the 4 Isolated Bridges ---
 resource "proxmox_virtual_environment_network_linux_bridge" "isolated_nets" {
-  for_each = toset(["10", "20", "30", "40"])
+  for_each = {
+      "110" = "10.0.10.0/24"
+      "120" = "10.0.20.0/24"
+      "130" = "10.0.30.0/24"
+      "140" = "10.0.40.0/24"
+      "1255" = "10.0.255.0/24"
+  }
 
   node_name = var.pve_node_name
   name      = "vmbr${each.value}"
   comment   = "Tofu-Isolated-Net-${each.value}"
+  address   = each.value
+
 }
 
 # --- 3. The "Token-Based" Apply (The Workaround) ---
