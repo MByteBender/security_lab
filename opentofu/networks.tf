@@ -45,13 +45,13 @@ variable "pve_user" {
 # --- 2. The 4 Isolated Bridges ---
 # We use a null_resource to bypass the "Invalid Resource Type" errors
 resource "null_resource" "create_isolated_bridges" {
-  for_each = toset(["10", "20", "30", "40"])
+  for_each = toset(["10", "20", "30", "40", "255"])
 
   provisioner "remote-exec" {
     inline = [
       # 1. Create the bridge if it doesn't exist (vmbr10, vmbr20, etc.)
       # We don't assign 'bridge_ports', which ensures they are isolated "islands".
-      "pvesh create /nodes/pve/network --interface vmbr${each.value} --type bridge --comments 'Tofu-Isolated-Net-${each.value}' || true",
+      "pvesh create /nodes/pve/network --interface vmbr1${each.value} --type bridge --comments 'Tofu-Isolated-Net-${each.value}' --address 10.0.${each.value}.0 --netmask 255.255.255.0 || true",
 
       # 2. Apply the networking changes to make them active immediately
       "pvesh set /nodes/pve/network"
@@ -65,19 +65,4 @@ resource "null_resource" "create_isolated_bridges" {
       private_key = file("~/.ssh/id_rsa")
     }
   }
-}
-
-# --- 3. Example VM using one of these networks ---
-resource "proxmox_virtual_environment_vm" "isolated_vm" {
-  name      = "secure-vm-01"
-  node_name = "pve"
-
-  # Ensure the bridge is created BEFORE the VM tries to join it
-  depends_on = [null_resource.create_isolated_bridges]
-
-  network_device {
-    bridge = "vmbr10" # This links it to the first isolated network
-  }
-
-  # ... add your disk, cpu, and memory settings below ...
 }
