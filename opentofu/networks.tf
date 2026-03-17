@@ -35,8 +35,8 @@ resource "proxmox_virtual_environment_network_linux_bridge" "isolated_nets" {
   }
 
   node_name = var.pve_node_name
-  name      = "vmbr${each.value}"
-  comment   = "Tofu-Isolated-Net-${each.value}"
+  name      = "vmbr${each.key}"
+  comment   = "Tofu-Isolated-Net-${each.key}"
   address   = each.value
 
 }
