@@ -67,6 +67,7 @@ resource "proxmox_virtual_environment_vm" "wazuh" {
   }
 
   initialization {
+    datastore_id = "zfs-itsec"
     # eth0 - Management
     ip_config {
       ipv4 {
@@ -89,7 +90,7 @@ resource "proxmox_virtual_environment_vm" "wazuh" {
   }
 
   agent {
-    enabled = false
+    enabled = true
   }
 
   disk {
