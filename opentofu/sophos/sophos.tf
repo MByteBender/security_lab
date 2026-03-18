@@ -34,12 +34,12 @@ provider "proxmox" {
 resource "proxmox_virtual_environment_vm" "sophos" {
   name      = "firewall"
   node_name = "pve"        # The name of your Proxmox node
-  vm_id     = 171          # Optional: leave blank for next available ID
+  vm_id     = 121          # Optional: leave blank for next available ID
   pool_id      = "IT-sec"
 
   # --- CLONE SETTINGS ---
   clone {
-    vm_id = 170           # The ID of your Packer template
+    vm_id = 120           # The ID of your Packer template
     full  = true           # Use 'true' for a standalone copy, 'false' for a linked clone
   }
 

@@ -34,12 +34,12 @@ provider "proxmox" {
 resource "proxmox_virtual_environment_vm" "ubuntu" {
   name      = "ubuntu"
   node_name = "pve"        # The name of your Proxmox node
-  vm_id     = 151          # Optional: leave blank for next available ID
+  vm_id     = 131          # Optional: leave blank for next available ID
   pool_id      = "IT-sec"
 
   # --- CLONE SETTINGS ---
   clone {
-    vm_id = 150           # The ID of your Packer template
+    vm_id = 130           # The ID of your Packer template
     full  = true           # Use 'true' for a standalone copy, 'false' for a linked clone
   }
 

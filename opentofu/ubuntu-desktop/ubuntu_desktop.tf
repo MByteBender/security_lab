@@ -34,12 +34,12 @@ provider "proxmox" {
 resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
   name      = "ubuntuDesktop"
   node_name = "pve"        # The name of your Proxmox node
-  vm_id     = 153          # Optional: leave blank for next available ID
+  vm_id     = 141          # Optional: leave blank for next available ID
   pool_id      = "IT-sec"
 
   # --- CLONE SETTINGS ---
   clone {
-    vm_id = 152           # The ID of your Packer template
+    vm_id = 140           # The ID of your Packer template
     full  = true           # Use 'true' for a standalone copy, 'false' for a linked clone
   }
 

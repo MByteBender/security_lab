@@ -34,12 +34,12 @@ provider "proxmox" {
 resource "proxmox_virtual_environment_vm" "win7" {
   name      = "win7"
   node_name = "pve"        # The name of your Proxmox node
-  vm_id     = 166          # Optional: leave blank for next available ID
+  vm_id     = 151          # Optional: leave blank for next available ID
   pool_id      = "IT-sec"
 
   # --- CLONE SETTINGS ---
   clone {
-    vm_id = 165           # The ID of your Packer template
+    vm_id = 150           # The ID of your Packer template
     full  = true           # Use 'true' for a standalone copy, 'false' for a linked clone
   }
 
