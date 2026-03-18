@@ -61,26 +61,3 @@ resource "proxmox_virtual_environment_network_linux_bridge" "management" {
       proxmox_virtual_environment_network_linux_bridge.setup
   ]
 }
-
-
-# --- 3. The "Token-Based" Apply (The Workaround) ---
-# Since the provider resource is missing, we use curl to hit the API 'Apply' endpoint.
-# This uses your Token just like the rest of Tofu.
-
-resource "null_resource" "apply_network_via_api" {
-  provisioner "local-exec" {
-    command = <<EOT
-      sleep 20 && curl -X POST "${var.proxmox_api_url}/nodes/${var.pve_node_name}/network" \
-        -H "Authorization: PVEAPIToken=${var.proxmox_api_token}" \
-        -k
-    EOT
-  }
-
-  depends_on = [
-      proxmox_virtual_environment_network_linux_bridge.lan,
-      proxmox_virtual_environment_network_linux_bridge.dmz,
-      proxmox_virtual_environment_network_linux_bridge.extern,
-      proxmox_virtual_environment_network_linux_bridge.setup,
-      proxmox_virtual_environment_network_linux_bridge.management
-  ]
-}
