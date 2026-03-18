@@ -130,6 +130,9 @@ build {
       "apt-get install -y gvm",
       "gvm-setup",
       "runuser -u _gvm -- gvmd --user=admin --new-password=${var.openvas_password}",
+      "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 greenbone-feed-sync --type nasl",
+      "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 greenbone-feed-sync --type scap",
+      "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 greenbone-feed-sync --type cert",
       "apt-get install -y nuclei"
     ]
   }
