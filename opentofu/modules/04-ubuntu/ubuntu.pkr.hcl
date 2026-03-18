@@ -46,42 +46,35 @@ source "proxmox-iso" "ubuntu-server" {
   pool                 = "IT-sec"
   template_description = "Ubuntu Server 24.04 LTS built via Packer"
 
-  # Set the Hard Drive (virtio0) as the FIRST priority
-  boot = "order=virtio0;scsi0"
-  boot_iso {
-        type         = "scsi"                 # Or "ide" depending on your preference
-        iso_file     = "local:iso/ubuntu-25.10-live-server-amd64.iso"
-        unmount      = true                   # Automatically removes the "CD" when finished
-    }
-  # Optional: un-comment to download automatically
-  # iso_url = "https://releases.ubuntu.com/24.04/ubuntu-24.04-live-server-amd64.iso"
-  # iso_checksum = "file:https://releases.ubuntu.com/24.04/SHA256SUMS"
-
-  scsi_controller = "virtio-scsi-pci"
-
   cores   = 2
   memory  = 2048
 
   network_adapters {
     model  = "virtio"
-    bridge = "vmbr0"
+    bridge = "vmbr140"
   }
 
+  scsi_controller = "virtio-scsi-pci"
   disks {
     disk_size         = "20G"
     storage_pool      = "zfs-itsec"
     type              = "virtio"
   }
 
-  # Cloud-Init "Autoinstall" Logic
+  boot = "order=virtio0;scsi0"
+  boot_iso {
+        type         = "scsi"
+        iso_file     = "local:iso/ubuntu-25.10-live-server-amd64.iso"
+        unmount      = true
+    }
+
   additional_iso_files {
     cd_files         = ["./http/user-data", "./http/meta-data"]
     cd_label         = "cidata"
-    iso_storage_pool = "local" # Change to your ISO storage name
+    iso_storage_pool = "local"
     unmount          = true
   }
 
-  # Update the boot command to look at /cdrom/ instead of http
   boot_command = [
     "<wait><esc><wait>c<wait>",
     "linux /casper/vmlinuz autoinstall noprompt --- ds=nocloud;s=/cdrom/",
@@ -91,7 +84,6 @@ source "proxmox-iso" "ubuntu-server" {
     "boot<enter>"
   ]
 
-  # SSH settings so Packer can log in to finish the setup
   ssh_username = "ubuntu"
   ssh_password = "ubuntu"
   ssh_timeout  = "20m"

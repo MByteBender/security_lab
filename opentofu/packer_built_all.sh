@@ -5,6 +5,7 @@ set -e
 
 # Get the absolute path to credentials
 VARS_FILE="$(pwd)/credentials.pkrvars.hcl"
+cd "modules"
 
 for dir in */; do
     dir=${dir%/}

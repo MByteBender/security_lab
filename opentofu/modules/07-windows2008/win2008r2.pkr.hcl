@@ -31,43 +31,34 @@ source "proxmox-iso" "win2008r2" {
   vm_name              = "win2008R2-packer-template"
   pool                 = "IT-sec"
   template_description = "Windows 7 Professional with VirtIO"
-  
+  os                   = "win7"
+
   # VM Hardware
   memory        = 4096
   cores          = 2
-  scsi_controller      = "virtio-scsi-single"
-  os                   = "win7"
-  communicator         = "winrm"
 
-  winrm_username       = "Administrator"
-  winrm_password       = "Packer123!"
-  winrm_timeout        = "6h"
-  winrm_host     = "172.16.50.140"
-
-  boot = "order=sata0;ide2"
-
-  # Network
   network_adapters {
     model  = "e1000"
-    bridge = "vmbr0"
+    bridge = "vmbr140"
     firewall = false
   }
 
-  iso_file = "local:iso/windows2008R2.iso"
-
-  # Disks
+  scsi_controller      = "virtio-scsi-single"
   disks {
     disk_size         = "40G"
     storage_pool      = "zfs-itsec"
-    type              = "sata" # Matches virtio-scsi-pci
+    type              = "sata"
   }
-additional_iso_files {
+
+  iso_file = "local:iso/windows2008R2.iso"
+  boot = "order=sata0;ide2"
+  unmount_iso          = true
+  additional_iso_files {
     cd_files = ["./http/Autounattend.xml"]
     iso_storage_pool = "local"
-    # This usually maps to 'sata1' or 'ide1' in Proxmox
   }
-http_directory = "http"
 
+  http_directory = "http"
   boot_wait = "10s"
   boot_command = [
     "<spacebar><wait>",               # 1. Press any key to boot from CD
@@ -98,8 +89,12 @@ http_directory = "http"
     "netsh advfirewall firewall add rule name=\"WinRM 5985\" protocol=TCP dir=in localport=5985 action=allow<enter><wait2s>"
 
   ]
-  unmount_iso          = true
 
+  communicator         = "winrm"
+  winrm_username       = "Administrator"
+  winrm_password       = "Packer123!"
+  winrm_timeout        = "6h"
+  winrm_host     = "172.16.50.140"
 }
 
 build {

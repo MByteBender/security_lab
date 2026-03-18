@@ -37,8 +37,7 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
   token                    = var.proxmox_api_token_secret
   insecure_skip_tls_verify = true
 
-  # Legacy 10.04 Settings
-  qemu_agent = false # 10.04 lacks a modern guest agent by default
+  qemu_agent = false
 
   node                 = "pve"
   vm_id                = "140"
@@ -46,32 +45,29 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
   pool                 = "IT-sec"
   template_description = "Ubuntu 10.04 Desktop (Alternate ISO) via Packer"
 
-  boot = "order=ide0;ide1"
-
-  boot_iso {
-    type     = "ide"
-    iso_file = "local:iso/ubuntu-10.04.4-alternate-i386.iso"
-    unmount  = true
-  }
-
-  # Hardware Compatibility (10.04 is happier with these)
-  scsi_controller = "lsi"
   cores           = 2
   memory          = 2048
 
   network_adapters {
     model  = "e1000"
-    bridge = "vmbr0"
+    bridge = "vmbr140"
   }
 
+  scsi_controller = "lsi"
   disks {
     disk_size    = "20G"
     storage_pool = "zfs-itsec"
     type         = "ide"
   }
 
-# This creates a second CD drive.
-additional_iso_files {
+  boot = "order=ide0;ide1"
+  boot_iso {
+    type     = "ide"
+    iso_file = "local:iso/ubuntu-10.04.4-alternate-i386.iso"
+    unmount  = true
+  }
+
+  additional_iso_files {
     cd_files = [
       "./http/preseed.seed",
       "./http/openssh-client_5.3p1-3ubuntu3_amd64.deb",
@@ -81,28 +77,26 @@ additional_iso_files {
     iso_storage_pool = "local"
   }
 
-http_directory = "http"
-
-  # Force Packer to bind to an address the VM can reach (0.0.0.0 is safest)
+  http_directory = "http"
   http_bind_address = "0.0.0.0"
-boot_command = [
-  "<wait15>",
-  "<enter><wait><f6><wait><esc>",
-  "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-  "install ",
-  "auto=true ",
-  "priority=critical ",
-  "locale=en_US ",
-  "kbd-chooser/method=us ",
-  "netcfg/disable_dhcp=true ",
-  "netcfg/get_ipaddress=172.16.50.56 ",
-  "netcfg/get_netmask=255.255.255.0 ",
-  "netcfg/get_gateway=172.16.50.1 ",
-  "netcfg/get_nameservers=8.8.8.8 ",
-  "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
-  "initrd=/install/initrd.gz ",
-  "-- <enter>"
-]
+  boot_command = [
+    "<wait15>",
+    "<enter><wait><f6><wait><esc>",
+    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+    "install ",
+    "auto=true ",
+    "priority=critical ",
+    "locale=en_US ",
+    "kbd-chooser/method=us ",
+    "netcfg/disable_dhcp=true ",
+    "netcfg/get_ipaddress=172.16.50.56 ",
+    "netcfg/get_netmask=255.255.255.0 ",
+    "netcfg/get_gateway=172.16.50.1 ",
+    "netcfg/get_nameservers=8.8.8.8 ",
+    "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
+    "initrd=/install/initrd.gz ",
+    "-- <enter>"
+  ]
 
   ssh_username = "ubuntu"
   ssh_password = "ubuntu" # Must match what you put in preseed.seed

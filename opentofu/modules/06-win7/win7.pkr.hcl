@@ -31,26 +31,25 @@ source "proxmox-iso" "win7" {
   vm_name              = "win7-packer-template"
   pool                 = "IT-sec"
   template_description = "Windows 7 Professional with VirtIO"
+  os                   = "win7"
 
   # VM Hardware
   cores                = 2
   memory               = 4096
-  scsi_controller      = "virtio-scsi-single"
-  os                   = "win7"
 
-  # Network
   network_adapters {
     model  = "virtio"
-    bridge = "vmbr0"
+    bridge = "vmbr140"
+  }
+
+  scsi_controller      = "virtio-scsi-single"
+  disks {
+    disk_size         = "40G"
+    storage_pool      = "zfs-itsec"
+    type              = "sata"
   }
 
   iso_file = "local:iso/win7_64_bit.iso"
-
-  # enter
-  # wait
-  # enter name
-
-
   boot_command = [
     "<wait1m>",
     "<enter><wait15s>",
@@ -58,15 +57,6 @@ source "proxmox-iso" "win7" {
     "<enter><wait5s><enter><wait5s><enter>",
   ]
 
-
-  # Disks
-  disks {
-    disk_size         = "40G"
-    storage_pool      = "zfs-itsec"
-    type              = "sata" # Matches virtio-scsi-pci
-  }
-
-  # ISOs: 1. Windows 7 ISO, 2. VirtIO Drivers ISO
   additional_iso_files {
     device                 = "sata1"
     unmount                = true

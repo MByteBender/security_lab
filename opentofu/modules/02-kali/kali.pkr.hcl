@@ -45,48 +45,39 @@ source "proxmox-iso" "kali-linux" {
   # VM Specs
   node                 = "pve"
   vm_id                = "110"
-  vm_name              = "kali-packer-template"
+  vm_name              = "kali-template"
   pool                 = "IT-sec"
   template_description = "Kali Linux Rolling via Packer"
-
-  # Modern Hardware Settings
   qemu_agent      = true
 
+  # Hardware Settings
   cores           = 2
-  memory          = 4096 # Kali Desktop likes 4GB+
+  memory          = 4096
 
   network_adapters {
-    model  = "virtio" # Use virtio for modern Linux
-    bridge = "vmbr0"
+    model  = "virtio"
+    bridge = "vmbr140"
   }
+
   scsi_controller = "virtio-scsi-pci"
   disks {
     disk_size    = "40G"
     storage_pool = "zfs-itsec"
-    type         = "scsi" # This makes the disk /dev/vda
+    type         = "scsi"
   }
 
-  # ISO Settings
   boot_iso {
     type     = "ide"
-    iso_file = "local:iso/kali-linux-2025.4-installer-amd64.iso" # Update to your path
+    iso_file = "local:iso/kali-linux-2025.4-installer-amd64.iso"
     unmount  = true
   }
-bios = "seabios"
-machine = "q35"
-#additional_iso_files {
-#    cd_files = ["./http/preseed.seed"]
-#    cd_label = "PRESEED"
-#    iso_storage_pool = "local" # Ensure 'local' allows 'ISO Image' in Proxmox
-#}
 
-boot = "order=scsi0;ide0"
+  bios = "seabios"
+  machine = "q35"
+  boot = "order=scsi0;ide0"
 
-http_directory = "http"
-
-  # Boot Command for Kali Installer
-  # This sequence selects 'Install', then feeds the preseed URL
-boot_command = [
+  http_directory = "http"
+  boot_command = [
     "<esc><wait5>",
     "install ",
     "auto=true ",
@@ -102,7 +93,7 @@ boot_command = [
     # REMOVED: "initrd=initrd.gz" (This was the cause of the Line 113 error)
     # REMOVED: redundant locale/keymap lines
     "--- <enter>"
-]
+  ]
 
   ssh_username = "kali"
   ssh_password = var.kali_password

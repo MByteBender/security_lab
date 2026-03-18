@@ -45,22 +45,15 @@ source "proxmox-iso" "sophos-firewall" {
   pool                 = "IT-sec"
   template_description = "Sophos FW 21.0.1 MR-1 - Auto-Configured for Lab"
 
-  boot_iso {
-    type     = "ide"
-    iso_file = "local:iso/SW-21.0.1_MR-1-277.iso"
-    unmount  = true
-  }
-
-  scsi_controller = "virtio-scsi-single"
   cores           = 4
   memory          = 6016
 
   network_adapters {
-
     model  = "virtio"
-    bridge = "vmbr0" # Port1 (LAN)
+    bridge = "vmbr140"
   }
 
+  scsi_controller = "virtio-scsi-single"
   disks {
     disk_size    = "60G"
     storage_pool = "zfs-itsec"
@@ -69,41 +62,43 @@ source "proxmox-iso" "sophos-firewall" {
     io_thread    = true
   }
 
-  # --- THE AUTOMATION SECTION ---
+  boot_iso {
+    type     = "ide"
+    iso_file = "local:iso/SW-21.0.1_MR-1-277.iso"
+    unmount  = true
+  }
 
-  # 1. No SSH needed for Sophos
-  communicator = "none"
-
-  # 2. Detailed Keystroke Sequence
   boot_wait = "30s"
-boot_command = [
-  # 1. Wait long enough for the 'Password' prompt to be solid
-  "y<enter>",
-  "<wait2m>y<enter>",
+  boot_command = [
+    # 1. Wait long enough for the 'Password' prompt to be solid
+    "y<enter>",
+    "<wait2m>y<enter>",
 
-  "<wait70s>y<enter>",
+    "<wait70s>y<enter>",
 
-  # 2. Clear any junk and attempt login
-  "<wait15s>admin<enter>",
+    # 2. Clear any junk and attempt login
+    "<wait15s>admin<enter>",
 
-  # 3. Handle the 'Accept EULA' screen if it appears
-  "<wait5s>a",
+    # 3. Handle the 'Accept EULA' screen if it appears
+    "<wait5s>a",
 
-  "<wait10s>1<enter>",
-  "<wait2s>1<enter>",
-  "<wait2s><enter>",
-  "<wait2s><enter>y<enter>",
-  "<wait2s>${var.vm_ip}<enter>",
-  "<enter><wait10s>",
-  "<enter>n<enter>",
-  "<wait5s>0<enter>",
+    "<wait10s>1<enter>",
+    "<wait2s>1<enter>",
+    "<wait2s><enter>",
+    "<wait2s><enter>y<enter>",
+    "<wait2s>${var.vm_ip}<enter>",
+    "<enter><wait10s>",
+    "<enter>n<enter>",
+    "<wait5s>0<enter>",
 
-  # Currently not needed
-  # 5. Now we should be at the Main Menu (1-7). Select 4 for Device Console.
-  #"<wait10s>4<enter>",
-  # 6. Type the enable command. We use <wait> to ensure the console is ready.
-  #"<wait6s>enableremote serverip 172.16.50.180 port 22<enter>",
-]
+    # Currently not needed
+    # 5. Now we should be at the Main Menu (1-7). Select 4 for Device Console.
+    #"<wait10s>4<enter>",
+    # 6. Type the enable command. We use <wait> to ensure the console is ready.
+    #"<wait6s>enableremote serverip 172.16.50.180 port 22<enter>",
+  ]
+
+  communicator = "none"
 }
 
 build {
