@@ -18,12 +18,6 @@ variable "pve_node_name" {
     default = "pve"
 }
 
-provider "proxmox" {
-  endpoint  = var.proxmox_api_url
-  api_token = var.proxmox_api_token
-  insecure  = true
-}
-
 # --- 2. Create the 4 Isolated Bridges ---
 resource "proxmox_virtual_environment_network_linux_bridge" "isolated_nets" {
   for_each = toset(["110", "120", "130", "140", "1255"])
@@ -46,7 +40,7 @@ resource "null_resource" "apply_network_via_api" {
 
   provisioner "local-exec" {
     command = <<EOT
-      curl -X POST "${var.proxmox_api_url}/nodes/${var.pve_node_name}/network" \
+      sleep 2 && curl -X POST "${var.proxmox_api_url}/nodes/${var.pve_node_name}/network" \
         -H "Authorization: PVEAPIToken=${var.proxmox_api_token}" \
         -k
     EOT
