@@ -44,7 +44,7 @@ source "proxmox-iso" "kali-linux" {
 
   # VM Specs
   node                 = "pve"
-  vm_id                = "190"
+  vm_id                = "110"
   vm_name              = "kali-packer-template"
   pool                 = "IT-sec"
   template_description = "Kali Linux Rolling via Packer"

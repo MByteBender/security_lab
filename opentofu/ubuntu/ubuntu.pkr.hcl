@@ -41,7 +41,7 @@ source "proxmox-iso" "ubuntu-server" {
 
   # VM Specs for the Build
   node                 = "pve"
-  vm_id                = "150"
+  vm_id                = "130"
   vm_name              = "ubuntu-template"
   pool                 = "IT-sec"
   template_description = "Ubuntu Server 24.04 LTS built via Packer"

@@ -41,7 +41,7 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
   qemu_agent = false # 10.04 lacks a modern guest agent by default
 
   node                 = "pve"
-  vm_id                = "152"
+  vm_id                = "140"
   vm_name              = "ubuntu-10-04-desktop-alt"
   pool                 = "IT-sec"
   template_description = "Ubuntu 10.04 Desktop (Alternate ISO) via Packer"
