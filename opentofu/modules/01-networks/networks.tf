@@ -35,7 +35,7 @@ resource "proxmox_virtual_environment_network_linux_bridge" "isolated_nets" {
 resource "null_resource" "apply_network_via_api" {
   # This triggers every time a bridge is created or changed
   triggers = {
-    sha256(join(",", [for b in proxmox_virtual_environment_network_linux_bridge.isolated_nets : b.id]))
+    all_bridge_ids = sha256(join(",", [for b in proxmox_virtual_environment_network_linux_bridge.isolated_nets : b.id]))
   }
 
   provisioner "local-exec" {
