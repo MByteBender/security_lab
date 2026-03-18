@@ -16,6 +16,12 @@ variable "proxmox_api_token" {
   sensitive = true
 }
 
+provider "proxmox" {
+  endpoint  = var.proxmox_api_url
+  api_token = var.proxmox_api_token
+  insecure  = true
+}
+
 # ---------------------------------------------------------
 # 1. The Network Layer
 # This module "owns" the bridges. We point to your folder.
