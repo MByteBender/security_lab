@@ -34,23 +34,23 @@ provider "proxmox" {
 resource "proxmox_virtual_environment_vm" "kali" {
   name      = "kali"
   node_name = "pve"        # The name of your Proxmox node
-  vm_id     = 191          # Optional: leave blank for next available ID
+  vm_id     = 113          # Optional: leave blank for next available ID
   pool_id      = "IT-sec"
 
   # --- CLONE SETTINGS ---
   clone {
-    vm_id = 190           # The ID of your Packer template
+    vm_id = 112           # The ID of your Packer template
     full  = true           # Use 'true' for a standalone copy, 'false' for a linked clone
   }
 
   # --- HARDWARE SPECS ---
   cpu {
-    cores = 2
+    cores = 3
     type  = "host"         # 'host' provides best performance for Linux guests
   }
 
   memory {
-    dedicated = 4096       # RAM in MB
+    dedicated = 9032       # RAM in MB
   }
 
   network_device {
@@ -62,6 +62,6 @@ resource "proxmox_virtual_environment_vm" "kali" {
   disk {
     datastore_id = "zfs-itsec"
     interface    = "scsi0"
-    size         = 40      # Resize template disk to 40GB
+    size         = 60      # Resize template disk to 40GB
   }
 }

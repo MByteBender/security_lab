@@ -35,6 +35,11 @@ variable "kali_password" {
   default = "kali"
 }
 
+variable "openvas_password" {
+  type      = string
+  sensitive = true
+}
+
 source "proxmox-iso" "kali-linux" {
   # Proxmox Connection
   proxmox_url              = var.proxmox_api_url
@@ -44,7 +49,7 @@ source "proxmox-iso" "kali-linux" {
 
   # VM Specs
   node                 = "pve"
-  vm_id                = "190"
+  vm_id                = "112"
   vm_name              = "kali-packer-template"
   pool                 = "IT-sec"
   template_description = "Kali Linux Rolling via Packer"
@@ -52,8 +57,8 @@ source "proxmox-iso" "kali-linux" {
   # Modern Hardware Settings
   qemu_agent      = true
 
-  cores           = 2
-  memory          = 4096 # Kali Desktop likes 4GB+
+  cores           = 3
+  memory          = 9032 # Kali Desktop likes 4GB+
 
   network_adapters {
     model  = "virtio" # Use virtio for modern Linux
@@ -61,7 +66,7 @@ source "proxmox-iso" "kali-linux" {
   }
   scsi_controller = "virtio-scsi-pci"
   disks {
-    disk_size    = "40G"
+    disk_size    = "60G"
     storage_pool = "zfs-itsec"
     type         = "scsi" # This makes the disk /dev/vda
   }
@@ -83,6 +88,7 @@ machine = "q35"
 boot = "order=scsi0;ide0"
 
 http_directory = "http"
+
 
   # Boot Command for Kali Installer
   # This sequence selects 'Install', then feeds the preseed URL
@@ -120,7 +126,11 @@ build {
       "apt-get update",
       "apt-get install -y qemu-guest-agent",
       "systemctl enable qemu-guest-agent",
-      "sudo apt install kali-desktop-xfce kali-linux-default -y"
+      "apt-get install -y kali-desktop-xfce kali-linux-default",
+      "apt-get install -y gvm",
+      "gvm-setup",
+      "runuser -u _gvm -- gvmd --user=admin --new-password=${var.openvas_password}",
+      "apt-get install -y nuclei"
     ]
   }
 }
