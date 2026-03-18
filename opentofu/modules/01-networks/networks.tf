@@ -40,7 +40,7 @@ resource "null_resource" "apply_network_via_api" {
 
   provisioner "local-exec" {
     command = <<EOT
-      sleep 2 && curl -X POST "${var.proxmox_api_url}/nodes/${var.pve_node_name}/network" \
+      sleep 5 && curl -X POST "${var.proxmox_api_url}/nodes/${var.pve_node_name}/network" \
         -H "Authorization: PVEAPIToken=${var.proxmox_api_token}" \
         -k
     EOT
