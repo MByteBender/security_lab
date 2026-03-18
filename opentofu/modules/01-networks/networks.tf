@@ -29,24 +29,37 @@ resource "proxmox_virtual_environment_network_linux_bridge" "dmz" {
   node_name = var.pve_node_name
   name      = "vmbr120"
   comment   = "Tofu-Isolated-Net-120"
+  depends_on = [
+      proxmox_virtual_environment_network_linux_bridge.lan
+  ]
 }
 
 resource "proxmox_virtual_environment_network_linux_bridge" "extern" {
   node_name = var.pve_node_name
   name      = "vmbr130"
   comment   = "Tofu-Isolated-Net-130"
+  depends_on = [
+      proxmox_virtual_environment_network_linux_bridge.dmz
+  ]
 }
 
 resource "proxmox_virtual_environment_network_linux_bridge" "setup" {
   node_name = var.pve_node_name
   name      = "vmbr140"
   comment   = "Tofu-Isolated-Net-140"
+  depends_on = [
+      proxmox_virtual_environment_network_linux_bridge.extern
+  ]
 }
 
 resource "proxmox_virtual_environment_network_linux_bridge" "management" {
   node_name = var.pve_node_name
   name      = "vmbr1255"
   comment   = "Tofu-Isolated-Net-1255"
+
+  depends_on = [
+      proxmox_virtual_environment_network_linux_bridge.setup
+  ]
 }
 
 
@@ -68,7 +81,6 @@ resource "null_resource" "apply_network_via_api" {
       proxmox_virtual_environment_network_linux_bridge.dmz,
       proxmox_virtual_environment_network_linux_bridge.extern,
       proxmox_virtual_environment_network_linux_bridge.setup,
-      proxmox_virtual_environment_network_linux_bridge.management,
-
+      proxmox_virtual_environment_network_linux_bridge.management
   ]
 }
