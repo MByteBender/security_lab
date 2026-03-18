@@ -40,7 +40,7 @@ module "kali" {
 }
 
 module "sophos" {
-  source     = "./modules/02-sophos"
+  source     = "./modules/03-sophos"
   proxmox_api_url   = var.proxmox_api_url
   proxmox_api_token = var.proxmox_api_token
   name              = "sophosFirewall"
@@ -50,7 +50,7 @@ module "sophos" {
 }
 
 module "ubuntu" {
-  source     = "./modules/03-ubuntu"
+  source     = "./modules/04-ubuntu"
   proxmox_api_url   = var.proxmox_api_url
   proxmox_api_token = var.proxmox_api_token
   name              = "ubuntu"
@@ -60,7 +60,7 @@ module "ubuntu" {
 }
 
 module "ubuntuDesktop" {
-  source     = "./modules/05-ubuntu-desktop"
+  source     = "./modules/06-ubuntu-desktop"
   proxmox_api_url   = var.proxmox_api_url
   proxmox_api_token = var.proxmox_api_token
   name              = "ubuntuDesktop"
@@ -70,7 +70,7 @@ module "ubuntuDesktop" {
 }
 
 module "win7" {
-  source     = "./modules/06-win7"
+  source     = "./modules/07-win7"
   proxmox_api_url   = var.proxmox_api_url
   proxmox_api_token = var.proxmox_api_token
   name              = "win7"
@@ -80,7 +80,7 @@ module "win7" {
 }
 
 module "windows2008" {
-  source     = "./modules/07-windows2008"
+  source     = "./modules/08-windows2008"
   proxmox_api_url   = var.proxmox_api_url
   proxmox_api_token = var.proxmox_api_token
   name              = "windows2008Server"
