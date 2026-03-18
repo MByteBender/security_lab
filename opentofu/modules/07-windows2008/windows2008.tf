@@ -28,12 +28,6 @@ variable "clone_vm_id" {
   type = string
 }
 
-provider "proxmox" {
-  endpoint = var.proxmox_api_url
-  api_token = var.proxmox_api_token
-  insecure = true # Set to false if you have a valid SSL cert
-}
-
 resource "proxmox_virtual_environment_vm" "windowsServer" {
   name      = var.name
   node_name = "pve"        # The name of your Proxmox node
