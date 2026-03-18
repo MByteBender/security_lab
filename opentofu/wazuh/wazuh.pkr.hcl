@@ -86,7 +86,7 @@ source "proxmox-iso" "wazuh-server" {
 
   # SSH settings so Packer can log in to finish the setup
   ssh_username = "wazuh"
-  ssh_password = "ubuntu"
+  ssh_password = "wazuh"
   ssh_timeout  = "40m"
 }
 
