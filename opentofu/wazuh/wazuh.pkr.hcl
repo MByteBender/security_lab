@@ -23,7 +23,7 @@ variable "proxmox_api_token_secret" {
 variable "wazuh_admin_password" {
   type      = string
   sensitive = true
-  default   = "Wazuh_Admin1!"  # Change this or override via .pkrvars.hcl
+  default   = "Wazuh-Admin1."  # Change this or override via .pkrvars.hcl
 }
 
 source "proxmox-iso" "wazuh-server" {
