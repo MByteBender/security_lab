@@ -31,7 +31,7 @@ resource "proxmox_virtual_environment_network_linux_bridge" "isolated_nets" {
       "120" = "10.0.20.1/24"
       "130" = "10.0.30.1/24"
       "140" = "10.0.40.1/24"
-      "1254" = "10.0.254.1/24"
+      "150" = "10.0.50.1/24"
   }
 
   node_name = var.pve_node_name
