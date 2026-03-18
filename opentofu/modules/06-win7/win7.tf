@@ -11,18 +11,21 @@ variable "proxmox_api_url" {
   type = string
 }
 
-variable "proxmox_api_token_id" {
-  type = string
-}
-
-variable "proxmox_api_token_secret" {
-  type    = string
-  sensitive = true
-}
-
 variable "proxmox_api_token" {
   type    = string
   sensitive = true
+}
+
+variable "vm_id" {
+  type = string
+}
+
+variable "name" {
+  type = string
+}
+
+variable "clone_vm_id" {
+  type = string
 }
 
 provider "proxmox" {
@@ -31,15 +34,15 @@ provider "proxmox" {
   insecure = true # Set to false if you have a valid SSL cert
 }
 
-resource "proxmox_virtual_environment_vm" "kali" {
-  name      = "kali"
+resource "proxmox_virtual_environment_vm" "win7" {
+  name      = var.name
   node_name = "pve"        # The name of your Proxmox node
-  vm_id     = 111          # Optional: leave blank for next available ID
+  vm_id     = var.vm_id
   pool_id      = "IT-sec"
 
   # --- CLONE SETTINGS ---
   clone {
-    vm_id = 110           # The ID of your Packer template
+    vm_id = var.clone_vm_id
     full  = true           # Use 'true' for a standalone copy, 'false' for a linked clone
   }
 
@@ -54,7 +57,7 @@ resource "proxmox_virtual_environment_vm" "kali" {
   }
 
   network_device {
-    bridge = "vmbr130"
+    bridge = "vmbr110"
   }
 
   network_device {
@@ -71,5 +74,7 @@ resource "proxmox_virtual_environment_vm" "kali" {
     datastore_id = "zfs-itsec"
     interface    = "scsi0"
     size         = 40      # Resize template disk to 40GB
+    file_format  = "raw"
   }
+
 }

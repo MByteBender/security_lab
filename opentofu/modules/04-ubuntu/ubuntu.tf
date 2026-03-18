@@ -11,19 +11,23 @@ variable "proxmox_api_url" {
   type = string
 }
 
-variable "proxmox_api_token_id" {
-  type = string
-}
-
-variable "proxmox_api_token_secret" {
-  type    = string
-  sensitive = true
-}
-
 variable "proxmox_api_token" {
   type    = string
   sensitive = true
 }
+
+variable "vm_id" {
+  type = string
+}
+
+variable "name" {
+  type = string
+}
+
+variable "clone_vm_id" {
+  type = string
+}
+
 
 provider "proxmox" {
   endpoint = var.proxmox_api_url
@@ -31,15 +35,15 @@ provider "proxmox" {
   insecure = true # Set to false if you have a valid SSL cert
 }
 
-resource "proxmox_virtual_environment_vm" "sophos" {
-  name      = "firewall"
+resource "proxmox_virtual_environment_vm" "ubuntu" {
+  name      = var.name
   node_name = "pve"        # The name of your Proxmox node
-  vm_id     = 121          # Optional: leave blank for next available ID
+  vm_id     = var.vm_id
   pool_id      = "IT-sec"
 
   # --- CLONE SETTINGS ---
   clone {
-    vm_id = 120           # The ID of your Packer template
+    vm_id = var.clone_vm_id
     full  = true           # Use 'true' for a standalone copy, 'false' for a linked clone
   }
 
@@ -54,19 +58,15 @@ resource "proxmox_virtual_environment_vm" "sophos" {
   }
 
   network_device {
-    bridge = "vmbr110"
-  }
-
-  network_device {
-    bridge = "vmbr120"
-  }
-
-  network_device {
-    bridge = "vmbr130"
-  }
-
-  network_device {
     bridge = "vmbr140"
+  }
+
+  network_device {
+    bridge = "vmbr1255"
+  }
+
+  agent {
+    enabled = false # Tell Proxmox not to look for the agent
   }
 
   # NOTE: Packer templates usually already have a disk.
@@ -74,10 +74,8 @@ resource "proxmox_virtual_environment_vm" "sophos" {
   disk {
     datastore_id = "zfs-itsec"
     interface    = "scsi0"
-    size         = 60      # Resize template disk to 40GB
+    size         = 20      # Resize template disk to 40GB
+    file_format  = "raw"
   }
 
-  agent {
-    enabled = false # Tell Proxmox not to look for the agent
-  }
 }

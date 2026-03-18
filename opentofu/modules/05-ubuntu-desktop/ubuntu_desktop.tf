@@ -11,18 +11,21 @@ variable "proxmox_api_url" {
   type = string
 }
 
-variable "proxmox_api_token_id" {
-  type = string
-}
-
-variable "proxmox_api_token_secret" {
-  type    = string
-  sensitive = true
-}
-
 variable "proxmox_api_token" {
   type    = string
   sensitive = true
+}
+
+variable "vm_id" {
+  type = string
+}
+
+variable "name" {
+  type = string
+}
+
+variable "clone_vm_id" {
+  type = string
 }
 
 provider "proxmox" {
@@ -31,15 +34,15 @@ provider "proxmox" {
   insecure = true # Set to false if you have a valid SSL cert
 }
 
-resource "proxmox_virtual_environment_vm" "win7" {
-  name      = "win7"
+resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
+  name      = var.name
   node_name = "pve"        # The name of your Proxmox node
-  vm_id     = 151          # Optional: leave blank for next available ID
+  vm_id     = var.vm_id
   pool_id      = "IT-sec"
 
   # --- CLONE SETTINGS ---
   clone {
-    vm_id = 150           # The ID of your Packer template
+    vm_id = var.clone_vm_id
     full  = true           # Use 'true' for a standalone copy, 'false' for a linked clone
   }
 

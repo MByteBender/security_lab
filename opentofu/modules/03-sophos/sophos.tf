@@ -11,18 +11,21 @@ variable "proxmox_api_url" {
   type = string
 }
 
-variable "proxmox_api_token_id" {
-  type = string
-}
-
-variable "proxmox_api_token_secret" {
-  type    = string
-  sensitive = true
-}
-
 variable "proxmox_api_token" {
   type    = string
   sensitive = true
+}
+
+variable "vm_id" {
+  type = string
+}
+
+variable "name" {
+  type = string
+}
+
+variable "clone_vm_id" {
+  type = string
 }
 
 provider "proxmox" {
@@ -31,15 +34,15 @@ provider "proxmox" {
   insecure = true # Set to false if you have a valid SSL cert
 }
 
-resource "proxmox_virtual_environment_vm" "ubuntu" {
-  name      = "ubuntu"
+resource "proxmox_virtual_environment_vm" "sophos" {
+  name      = var.name
   node_name = "pve"        # The name of your Proxmox node
-  vm_id     = 131          # Optional: leave blank for next available ID
+  vm_id     = var.vm_id
   pool_id      = "IT-sec"
 
   # --- CLONE SETTINGS ---
   clone {
-    vm_id = 130           # The ID of your Packer template
+    vm_id = var.clone_vm_id           # The ID of your Packer template
     full  = true           # Use 'true' for a standalone copy, 'false' for a linked clone
   }
 
@@ -54,15 +57,19 @@ resource "proxmox_virtual_environment_vm" "ubuntu" {
   }
 
   network_device {
-    bridge = "vmbr140"
+    bridge = "vmbr110"
   }
 
   network_device {
-    bridge = "vmbr1255"
+    bridge = "vmbr120"
   }
 
-  agent {
-    enabled = false # Tell Proxmox not to look for the agent
+  network_device {
+    bridge = "vmbr130"
+  }
+
+  network_device {
+    bridge = "vmbr140"
   }
 
   # NOTE: Packer templates usually already have a disk.
@@ -70,8 +77,10 @@ resource "proxmox_virtual_environment_vm" "ubuntu" {
   disk {
     datastore_id = "zfs-itsec"
     interface    = "scsi0"
-    size         = 20      # Resize template disk to 40GB
-    file_format  = "raw"
+    size         = 60      # Resize template disk to 40GB
   }
 
+  agent {
+    enabled = false # Tell Proxmox not to look for the agent
+  }
 }
