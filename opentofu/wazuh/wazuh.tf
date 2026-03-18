@@ -51,8 +51,41 @@ resource "proxmox_virtual_environment_vm" "wazuh" {
     dedicated = 8192
   }
 
+  # NOTE: ip_config blocks are assigned sequentially to network_device blocks.
+  # The order here MUST match the order of the ip_config blocks below.
+  # eth0 → Management → 10.0.255.10/24
   network_device {
-    bridge = "vmbr0"
+    bridge = "Management"
+  }
+  # eth1 → Intern → 10.0.10.10/24
+  network_device {
+    bridge = "Intern"
+  }
+  # eth2 → DMZ → 10.0.20.10/24
+  network_device {
+    bridge = "DMZ"
+  }
+
+  initialization {
+    # eth0 - Management
+    ip_config {
+      ipv4 {
+        address = "10.0.255.10/24"
+        gateway = "10.0.255.1"
+      }
+    }
+    # eth1 - Intern
+    ip_config {
+      ipv4 {
+        address = "10.0.10.10/24"
+      }
+    }
+    # eth2 - DMZ
+    ip_config {
+      ipv4 {
+        address = "10.0.20.10/24"
+      }
+    }
   }
 
   agent {
