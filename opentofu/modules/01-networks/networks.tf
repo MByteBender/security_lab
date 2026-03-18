@@ -55,11 +55,6 @@ resource "proxmox_virtual_environment_network_linux_bridge" "management" {
 # This uses your Token just like the rest of Tofu.
 
 resource "null_resource" "apply_network_via_api" {
-  # This triggers every time a bridge is created or changed
-  triggers = {
-    all_bridge_ids = sha256(join(",", [for b in proxmox_virtual_environment_network_linux_bridge.isolated_nets : b.id]))
-  }
-
   provisioner "local-exec" {
     command = <<EOT
       sleep 20 && curl -X POST "${var.proxmox_api_url}/nodes/${var.pve_node_name}/network" \
@@ -68,5 +63,12 @@ resource "null_resource" "apply_network_via_api" {
     EOT
   }
 
-  depends_on = [proxmox_virtual_environment_network_linux_bridge.isolated_nets]
+  depends_on = [
+      proxmox_virtual_environment_network_linux_bridge.lan,
+      proxmox_virtual_environment_network_linux_bridge.dmz,
+      proxmox_virtual_environment_network_linux_bridge.extern,
+      proxmox_virtual_environment_network_linux_bridge.setup,
+      proxmox_virtual_environment_network_linux_bridge.management,
+
+  ]
 }
