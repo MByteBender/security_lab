@@ -95,7 +95,7 @@ module "windows2008" {
   depends_on = [module.networks]
 }
 
-module "windows2008" {
+module "wazuh" {
   source     = "./modules/08-wazuh"
   proxmox_api_url   = var.proxmox_api_url
   proxmox_api_token = var.proxmox_api_token
