@@ -55,6 +55,8 @@ resource "proxmox_virtual_environment_vm" "management" {
 
   provisioner "local-exec" {
     command = <<EOT
+        sleep 20
+
         INTERFACE=$(ip -o link show | grep -i "aa:bb:cc:11:22:33" | awk -F': ' '{print $2}')
         ip addr add 10.0.40.5 dev $INTERFACE
         ip link set $INTERFACE up
