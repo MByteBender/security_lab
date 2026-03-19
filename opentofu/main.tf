@@ -95,3 +95,12 @@ module "windows2008" {
   depends_on = [module.networks]
 }
 
+module "windows2008" {
+  source     = "./modules/08-wazuh"
+  proxmox_api_url   = var.proxmox_api_url
+  proxmox_api_token = var.proxmox_api_token
+  name              = "wazuh"
+  vm_id             = 171
+  clone_vm_id       = 170
+  depends_on = [module.networks]
+}
