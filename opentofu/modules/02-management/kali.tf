@@ -24,11 +24,6 @@ variable "name" {
   type = string
 }
 
-variable "clone_vm_id" {
-  type = string
-}
-
-
 resource "proxmox_virtual_environment_vm" "management" {
   name      = var.name
   node_name = "pve"
