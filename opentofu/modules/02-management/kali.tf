@@ -38,7 +38,7 @@ resource "proxmox_virtual_environment_vm" "management" {
 
   # ADD the new network interface
   network_device {
-    bridge = proxmox_virtual_environment_network_linux_bridge.new_vnet.name
+    bridge = "vmbr0"
   }
 
   provisioner "local-exec" {
