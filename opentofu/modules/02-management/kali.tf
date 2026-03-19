@@ -29,16 +29,17 @@ resource "proxmox_virtual_environment_vm" "management" {
   node_name = "pve"
   vm_id     = var.vm_id
 
+  network_device {
+    bridge = "vmbr0"
+  }
 
-  # Keep your existing network (the one you are currently using)
   network_device {
     bridge = "vmbr140"
     mac_address = "AA:BB:CC:11:22:33"
   }
 
-  # ADD the new network interface
-  network_device {
-    bridge = "vmbr0"
+  lifecycle {
+    ignore_changes = all
   }
 
   provisioner "local-exec" {
