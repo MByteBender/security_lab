@@ -25,12 +25,6 @@ variable "proxmox_api_token" {
   sensitive = true
 }
 
-provider "proxmox" {
-  endpoint  = var.proxmox_api_url
-  api_token = var.proxmox_api_token
-  insecure  = true
-}
-
 resource "proxmox_virtual_environment_vm" "wazuh" {
   name      = "wazuh"
   node_name = "pve"
