@@ -1,0 +1,55 @@
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "bpg/proxmox"
+      version = "0.70.0" # Use the latest stable version
+    }
+  }
+}
+
+variable "proxmox_api_url" {
+  type = string
+}
+
+variable "proxmox_api_token" {
+  type    = string
+  sensitive = true
+}
+
+variable "vm_id" {
+  type = string
+}
+
+variable "name" {
+  type = string
+}
+
+variable "clone_vm_id" {
+  type = string
+}
+
+
+resource "proxmox_virtual_environment_vm" "management" {
+  name      = var.name
+  node_name = "pve"
+  vm_id     = var.vm_id
+
+
+  # Keep your existing network (the one you are currently using)
+  network_device {
+    bridge = "vmbr140"
+    mac_address = "AA:BB:CC:11:22:33"
+  }
+
+  # ADD the new network interface
+  network_device {
+    bridge = proxmox_virtual_environment_network_linux_bridge.new_vnet.name
+  }
+
+  provisioner "local-exec" {
+    command = <<EOT
+        INTERFACE=$(ip -o link show | grep -i "aa:bb:cc:11:22:33" | awk -F': ' '{print $2}')
+        ip addr add 10.0.40.5 dev $INTERFACE
+        ip link set $INTERFACE up
+  }
+}

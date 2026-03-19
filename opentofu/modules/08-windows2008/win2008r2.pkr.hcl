@@ -45,7 +45,7 @@ source "proxmox-iso" "win2008r2" {
 
   scsi_controller      = "virtio-scsi-single"
   disks {
-    disk_size         = "40G"
+    disk_size         = "10G"
     storage_pool      = "zfs-itsec"
     type              = "sata"
   }

@@ -55,7 +55,7 @@ source "proxmox-iso" "sophos-firewall" {
 
   scsi_controller = "virtio-scsi-single"
   disks {
-    disk_size    = "60G"
+    disk_size    = "10G"
     storage_pool = "zfs-itsec"
     type         = "scsi"
     discard      = true

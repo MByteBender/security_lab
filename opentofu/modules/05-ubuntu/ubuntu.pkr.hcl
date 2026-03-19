@@ -56,7 +56,7 @@ source "proxmox-iso" "ubuntu-server" {
 
   scsi_controller = "virtio-scsi-pci"
   disks {
-    disk_size         = "20G"
+    disk_size         = "10G"
     storage_pool      = "zfs-itsec"
     type              = "virtio"
   }
