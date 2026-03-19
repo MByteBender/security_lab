@@ -77,6 +77,7 @@ source "proxmox-iso" "kali-linux" {
   boot = "order=scsi0;ide0"
 
   http_directory = "http"
+  http_bind_address = "10.0.40.5"
   boot_command = [
     "<esc><wait5>",
     "install ",
