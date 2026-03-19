@@ -36,7 +36,7 @@ module "management" {
   source     = "./modules/02-management"
   proxmox_api_url   = var.proxmox_api_url
   proxmox_api_token = var.proxmox_api_token
-  name              = "kali"
+  name              = "Management"
   vm_id             = 100
   depends_on        = [module.networks]
 }
