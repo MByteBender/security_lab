@@ -11,28 +11,31 @@ variable "proxmox_api_url" {
   type = string
 }
 
-variable "proxmox_api_token_id" {
-  type = string
-}
-
-variable "proxmox_api_token_secret" {
-  type    = string
-  sensitive = true
-}
-
 variable "proxmox_api_token" {
   type    = string
   sensitive = true
 }
 
+variable "vm_id" {
+  type = string
+}
+
+variable "name" {
+  type = string
+}
+
+variable "clone_vm_id" {
+  type = string
+}
+
 resource "proxmox_virtual_environment_vm" "wazuh" {
-  name      = "wazuh"
+  name      = var.name
   node_name = "pve"
-  vm_id     = 171
+  vm_id     = var.vm_id
   pool_id   = "IT-sec"
 
   clone {
-    vm_id = 170
+    vm_id = var.clone_vm_id
     full  = true
   }
 
