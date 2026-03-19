@@ -88,6 +88,7 @@ source "proxmox-iso" "kali-linux" {
     "keyboard-configuration/xkb-keymap=us ",
     "hw-detect/load_firmware=false ",
     "netcfg/link_wait_timeout=60 ",
+    "netcfg/disable_autoconfig=true",
     "netcfg/get_ipaddress=10.0.40.110 ",
     "netcfg/get_netmask=255.255.255.0 ",
     "netcfg/get_gateway=10.0.40.1 ",
