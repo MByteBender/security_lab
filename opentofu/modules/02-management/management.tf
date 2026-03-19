@@ -35,6 +35,7 @@ resource "proxmox_virtual_environment_vm" "management" {
 
   network_device {
     bridge = "vmbr140"
+    model   = "virtio"
     mac_address = "AA:BB:CC:11:22:33"
   }
 
@@ -53,13 +54,18 @@ resource "proxmox_virtual_environment_vm" "management" {
     ]
   }
 
+}
+
+resource "null_resource" "configure_network" {
+  triggers = {
+    mac = "AA:BB:CC:11:22:33"
+  }
+
   provisioner "local-exec" {
     command = <<EOT
-        sleep 20
-
-        INTERFACE=$(ip -o link show | grep -i "aa:bb:cc:11:22:33" | awk -F': ' '{print $2}')
-        ip addr add 10.0.40.5 dev $INTERFACE
-        ip link set $INTERFACE up
+      INTERFACE=$(ip -o link show | grep -i "aa:bb:cc:11:22:33" | awk -F': ' '{print $2}')
+      ip addr add 10.0.40.5 dev $INTERFACE || true
+      ip link set $INTERFACE up
     EOT
   }
 }
