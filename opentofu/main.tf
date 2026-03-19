@@ -51,7 +51,7 @@ module "kali" {
   name              = "kali"
   vm_id             = 111
   clone_vm_id       = 110
-  depends_on        = [module.networks]
+  depends_on        = [module.networks, module.management]
 }
 
 module "sophos" {
@@ -61,7 +61,7 @@ module "sophos" {
   name              = "sophosFirewall"
   vm_id             = 121
   clone_vm_id       = 120
-  depends_on = [module.networks]
+  depends_on        = [module.networks, module.management]
 }
 
 module "ubuntu" {
@@ -71,7 +71,7 @@ module "ubuntu" {
   name              = "ubuntu"
   vm_id             = 131
   clone_vm_id       = 130
-  depends_on = [module.networks]
+  depends_on        = [module.networks, module.management]
 }
 
 module "ubuntuDesktop" {
@@ -81,7 +81,7 @@ module "ubuntuDesktop" {
   name              = "ubuntuDesktop"
   vm_id             = 141
   clone_vm_id       = 140
-  depends_on = [module.networks]
+  depends_on        = [module.networks, module.management]
 }
 
 module "win7" {
@@ -91,7 +91,7 @@ module "win7" {
   name              = "win7"
   vm_id             = 151
   clone_vm_id       = 150
-  depends_on = [module.networks]
+  depends_on        = [module.networks, module.management]
 }
 
 module "windows2008" {
@@ -101,7 +101,7 @@ module "windows2008" {
   name              = "windows2008Server"
   vm_id             = 161
   clone_vm_id       = 160
-  depends_on = [module.networks]
+  depends_on        = [module.networks, module.management]
 }
 
 module "wazuh" {
@@ -111,5 +111,5 @@ module "wazuh" {
   name              = "wazuh"
   vm_id             = 171
   clone_vm_id       = 170
-  depends_on = [module.networks]
+  depends_on        = [module.networks, module.management]
 }
