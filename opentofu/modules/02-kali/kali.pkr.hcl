@@ -89,12 +89,6 @@ source "proxmox-iso" "kali-linux" {
     "keyboard-configuration/xkb-keymap=us ",
     "hw-detect/load_firmware=false ",
     "netcfg/link_wait_timeout=60 ",
-    "netcfg/disable_autoconfig=true ",
-    "netcfg/get_ipaddress=10.0.40.110 ",
-    "netcfg/get_netmask=255.255.255.0 ",
-    "netcfg/get_gateway=10.0.40.5 ",
-    "netcfg/get_nameservers=8.8.8.8 ",
-    "netcfg/confirm_static=true ",
     "netcfg/get_hostname=kali ",
     "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
     # REMOVED: "initrd=initrd.gz" (This was the cause of the Line 113 error)
