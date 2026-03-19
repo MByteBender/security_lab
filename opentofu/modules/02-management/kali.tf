@@ -39,7 +39,14 @@ resource "proxmox_virtual_environment_vm" "management" {
   }
 
   lifecycle {
-    ignore_changes = all
+    ignore_changes = [
+      cores,
+      cpu,
+      memory,
+      node_name,
+      # Add anything else OpenTofu keeps trying to "reset"
+      # that you want to keep manual.
+    ]
   }
 
   provisioner "local-exec" {
