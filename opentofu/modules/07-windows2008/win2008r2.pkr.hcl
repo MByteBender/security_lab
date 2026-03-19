@@ -94,7 +94,7 @@ source "proxmox-iso" "win2008r2" {
   winrm_username       = "Administrator"
   winrm_password       = "Packer123!"
   winrm_timeout        = "6h"
-  winrm_host     = "172.16.50.140"
+  winrm_host     = "10.0.40.160"
 }
 
 build {
