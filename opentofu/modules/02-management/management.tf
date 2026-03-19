@@ -63,7 +63,9 @@ resource "null_resource" "configure_network" {
 
   provisioner "local-exec" {
     command = <<EOT
+      sleep 20
       INTERFACE=$(ip -o link show | grep -i "aa:bb:cc:11:22:33" | awk -F': ' '{print $2}')
+      echo $INTERFACE
       ip addr add 10.0.40.5 dev $INTERFACE || true
       ip link set dev $INTERFACE up
     EOT
