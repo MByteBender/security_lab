@@ -40,7 +40,7 @@ resource "proxmox_virtual_environment_vm" "management" {
 
   lifecycle {
     ignore_changes = [
-      cores,
+      core,
       cpu,
       memory,
       node_name,
