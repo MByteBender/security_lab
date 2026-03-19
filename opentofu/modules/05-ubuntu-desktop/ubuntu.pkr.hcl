@@ -101,7 +101,7 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
   ssh_username = "ubuntu"
   ssh_password = "ubuntu" # Must match what you put in preseed.seed
   ssh_timeout  = "45m"      # Desktop installs take longer than server
-  ssh_host = "172.16.50.56"
+  ssh_host = "10.0.40.140"
 
 
   # 2. Allow the older Key Exchange methods
