@@ -65,7 +65,7 @@ resource "null_resource" "configure_network" {
     command = <<EOT
       INTERFACE=$(ip -o link show | grep -i "aa:bb:cc:11:22:33" | awk -F': ' '{print $2}')
       ip addr add 10.0.40.5 dev $INTERFACE || true
-      ip link set $INTERFACE up
+      ip link set dev $INTERFACE up
     EOT
   }
 }
