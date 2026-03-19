@@ -51,7 +51,7 @@ resource "proxmox_virtual_environment_vm" "ubuntu" {
   }
 
   network_device {
-    bridge = "vmbr140"
+    bridge = "vmbr0"
   }
 
   network_device {
