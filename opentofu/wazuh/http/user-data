@@ -1,0 +1,27 @@
+#cloud-config
+autoinstall:
+  version: 1
+  packages:
+    - qemu-guest-agent
+  locale: en_US.UTF-8
+  keyboard:
+    layout: at
+  # Identity handles the user creation in 24.04/25.10
+  identity:
+    hostname: wazuh-server
+    username: wazuh
+    password: "$6$OnrbLo1/RiNGFUys$.oyHWZesHJ2MxR9j0hgHmFxAYj5U04dHQMAZQ1rD95QmDIhAqTtXowk1Cc.jg9LsXzN8h2HV49F4whbukPnDX0"
+  user-data:
+    users:
+      - name: wazuh
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        shell: /bin/bash
+        ssh_authorized_keys:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOS5QC57tSdwCYdpOYyUpAVrFMN2ocHCTaaVOIcwlDFl security lab mgmt server
+  # the pub key here is the one to tristans sl_mgmt identiy file
+  ssh:
+    install-server: true
+    allow-pw: true
+  storage:
+    layout:
+      name: direct

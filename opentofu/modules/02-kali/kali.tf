@@ -42,12 +42,12 @@ resource "proxmox_virtual_environment_vm" "kali" {
 
   # --- HARDWARE SPECS ---
   cpu {
-    cores = 2
+    cores = 3
     type  = "host"         # 'host' provides best performance for Linux guests
   }
 
   memory {
-    dedicated = 4096       # RAM in MB
+    dedicated = 9032       # RAM in MB
   }
 
   network_device {
@@ -67,6 +67,6 @@ resource "proxmox_virtual_environment_vm" "kali" {
   disk {
     datastore_id = "zfs-itsec"
     interface    = "scsi0"
-    size         = 40      # Resize template disk to 40GB
+    size         = 60      # Resize template disk to 40GB
   }
 }

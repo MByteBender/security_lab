@@ -35,6 +35,11 @@ variable "kali_password" {
   default = "kali"
 }
 
+variable "openvas_password" {
+  type      = string
+  sensitive = true
+}
+
 source "proxmox-iso" "kali-linux" {
   # Proxmox Connection
   proxmox_url              = var.proxmox_api_url
@@ -51,8 +56,8 @@ source "proxmox-iso" "kali-linux" {
   qemu_agent      = true
 
   # Hardware Settings
-  cores           = 2
-  memory          = 4096
+  cores           = 3
+  memory          = 9032 # Kali Desktop likes 4GB+
 
   network_adapters {
     model  = "virtio"
@@ -61,7 +66,7 @@ source "proxmox-iso" "kali-linux" {
 
   scsi_controller = "virtio-scsi-pci"
   disks {
-    disk_size    = "40G"
+    disk_size    = "60G"
     storage_pool = "zfs-itsec"
     type         = "scsi"
   }
@@ -111,7 +116,14 @@ build {
       "apt-get update",
       "apt-get install -y qemu-guest-agent",
       "systemctl enable qemu-guest-agent",
-      "sudo apt install kali-desktop-xfce kali-linux-default -y"
+      "apt-get install -y kali-desktop-xfce kali-linux-default",
+      "apt-get install -y gvm",
+      "gvm-setup",
+      "runuser -u _gvm -- gvmd --user=admin --new-password=${var.openvas_password}",
+      "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 greenbone-feed-sync --type nasl",
+      "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 greenbone-feed-sync --type scap",
+      "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 greenbone-feed-sync --type cert",
+      "apt-get install -y nuclei"
     ]
   }
 }

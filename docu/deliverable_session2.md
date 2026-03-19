@@ -28,7 +28,7 @@ graph TD
     end
 
     subgraph SIEM_Zone [Mng.: 10.0.255.0/24 255]
-        SIEM[SIEM: Graylog/Elastic]
+        SIEM[SIEM: Wazuh]
     end
 
     subgraph Configuration [Setup: 10.0.40.0/24 40]
@@ -74,7 +74,7 @@ graph TD
 | ------------------------ | ----------- | --------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | **Kali Linux**           | 10.0.30.x   | Kali Linux (Rolling)        | Angreifer                                   | Nmap, Nuclei, OpenVAS, Metasploit, Burp Suite, SSH                                                        |
 | **Linux Router**         | Multi-homed | Debian/Ubuntu               | Router (kein Firewall-Regelwerk in Phase 1) | iptables (nur Forwarding), SSH, Syslog-Forwarding                                                         |
-| **Win Server 2008**      | 10.0.20.x   | Windows Server 2008 R2      | Webserver / DMZ-Target                      | IIS / Apache, PHP, MySQL, DVWA (Damn Vulnerable Web App), SMB (Filesharing), RDP                          |
+| **Win Server 2008**      | 10.0.20.x   | Windows Server 2008 R2      | Webserver / DMZ-Target                      | IIS / Apache, PHP, MySQL, Owasp juice shop, SMB (Filesharing), RDP                          |
 | **Windows 7 Client**     | 10.0.10.x   | Windows 7 (ungepatcht)      | LAN-Client / Target                         | SMB (Filesharing), RDP, Printserver (Windows Druckdienst), SSH (optional via Cygwin/OpenSSH), Wazuh Agent |
 | **Ubuntu Desktop**       | 10.0.10.x   | Ubuntu Desktop (ungepatcht) | LAN-Client / Target                         | SSH, Samba (Filesharing), VNC (Screensharing), CUPS (Printserver), Wazuh Agent                            |
 | **Wazuh SIEM**           | 10.0.255.x  | Ubuntu Server               | SIEM / XDR                                  | Wazuh Manager, Wazuh Dashboard (Kibana-basiert), Elasticsearch                                            |
