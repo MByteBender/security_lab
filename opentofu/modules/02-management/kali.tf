@@ -39,6 +39,7 @@ resource "proxmox_virtual_environment_vm" "management" {
   }
 
   lifecycle {
+    prevent_destroy = true
     ignore_changes = [
       cpu,
       memory,
