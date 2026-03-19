@@ -51,7 +51,7 @@ source "proxmox-iso" "ubuntu-server" {
 
   network_adapters {
     model  = "virtio"
-    bridge = "vmbr140"
+    bridge = "vmbr0"
   }
 
   scsi_controller = "virtio-scsi-pci"
