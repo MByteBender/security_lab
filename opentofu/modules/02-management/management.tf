@@ -29,7 +29,6 @@ resource "proxmox_virtual_environment_vm" "management" {
   node_name = "pve"
   vm_id     = var.vm_id
   reboot = false
-  reboot_after_update = false
 
   network_device {
     bridge = "vmbr0"
