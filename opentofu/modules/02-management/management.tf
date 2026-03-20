@@ -28,7 +28,6 @@ resource "proxmox_virtual_environment_vm" "management" {
   name      = var.name
   node_name = "pve"
   vm_id     = var.vm_id
-  reboot = false
 
   network_device {
     bridge = "vmbr0"
@@ -50,6 +49,7 @@ resource "proxmox_virtual_environment_vm" "management" {
       network_device,
       disk,
       bios,
+
       # Add anything else OpenTofu keeps trying to "reset"
       # that you want to keep manual.
     ]
