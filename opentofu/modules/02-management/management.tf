@@ -42,13 +42,14 @@ resource "proxmox_virtual_environment_vm" "management" {
   lifecycle {
     prevent_destroy = true
     ignore_changes = [
-      cpu,
-      memory,
-      node_name,
-      scsi_hardware,
-      network_device,
-      disk,
-      bios,
+      all
+      #cpu,
+      #memory,
+      #node_name,
+      #scsi_hardware,
+      #network_device,
+      #disk,
+      #bios,
 
       # Add anything else OpenTofu keeps trying to "reset"
       # that you want to keep manual.
