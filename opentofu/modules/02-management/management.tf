@@ -46,7 +46,7 @@ resource "proxmox_virtual_environment_vm" "management" {
       memory,
       node_name,
       scsi_hardware,
-      network_device,
+      network_device[0],
       disk,
       bios,
 
