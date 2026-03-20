@@ -47,7 +47,7 @@ resource "proxmox_virtual_environment_vm" "management" {
       memory,
       node_name,
       scsi_hardware,
-      network_device[0],
+      network_device,
       disk,
       bios,
       # Add anything else OpenTofu keeps trying to "reset"
