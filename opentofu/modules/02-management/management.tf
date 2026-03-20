@@ -30,10 +30,6 @@ resource "proxmox_virtual_environment_vm" "management" {
   vm_id     = var.vm_id
   reboot = false
 
-  operating_system {
-    hotplug = ["network", "disk", "cpu"]
-  }
-
   network_device {
     bridge = "vmbr0"
   }
