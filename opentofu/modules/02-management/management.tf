@@ -28,7 +28,11 @@ resource "proxmox_virtual_environment_vm" "management" {
   name      = var.name
   node_name = "pve"
   vm_id     = var.vm_id
-  hotplug = "network,disk,cpu"
+  reboot = false
+
+  operating_system {
+    hotplug = ["network", "disk", "cpu"]
+  }
 
   network_device {
     bridge = "vmbr0"
