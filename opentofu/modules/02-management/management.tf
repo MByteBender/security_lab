@@ -28,7 +28,10 @@ resource "proxmox_virtual_environment_vm" "management" {
   name      = var.name
   node_name = "pve"
   vm_id     = var.vm_id
-  agent = 1
+  agent {
+    enabled = true
+    timeout = "2m" # Optional: gives the agent time to start up
+  }
 
   network_device {
     bridge = "vmbr0"
