@@ -41,8 +41,8 @@ resource "proxmox_virtual_environment_vm" "management" {
 
   lifecycle {
     prevent_destroy = true
-    ignore_changes = [
-      all
+    ignore_changes = all
+    #[
       #cpu,
       #memory,
       #node_name,
@@ -53,7 +53,7 @@ resource "proxmox_virtual_environment_vm" "management" {
 
       # Add anything else OpenTofu keeps trying to "reset"
       # that you want to keep manual.
-    ]
+    #]
   }
 
 }
