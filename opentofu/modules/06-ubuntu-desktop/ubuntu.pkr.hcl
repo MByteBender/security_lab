@@ -82,25 +82,23 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
   http_port_min    = 8069
 http_port_max    = 8069
 boot_command = [
-  "<wait15>",
-  "<enter><wait><f6><wait><esc>",
+  "<wait10><enter><wait5><f6><wait5><esc><wait5>",
   "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
   "install ",
   "auto=true ",
   "priority=critical ",
-  "locale=en_US ",
-  "kbd-chooser/method=us ",
-  "netcfg/disable_dhcp=true ",
-  "netcfg/confirm_static=true ",
-  "netcfg/choose_interface=eth0 ",
-  "netcfg/get_ipaddress=10.0.40.140 ",
-  "netcfg/get_netmask=255.255.255.0 ",
-  "netcfg/get_gateway=10.0.40.1 ",
-  "netcfg/get_nameservers=8.8.8.8 ",
-  "netcfg/link_wait_timeout=10 ",
-  # Change the line below:
-  "preseed/url=http<wait>:<wait>//10.0.40.5<wait>:<wait>{{ .HTTPPort }}<wait>/preseed.seed ",
-  "initrd=/install/initrd.gz ",
+  "netcfg<slash>choose_interface=auto ",
+  "netcfg<slash>disable_dhcp=true ",
+  "netcfg<slash>get_ipaddress=10.0.40.140 ",
+  "netcfg<slash>get_netmask=255.255.255.0 ",
+  # POINT GATEWAY TO SELF TO PREVENT CRASH
+  "netcfg<slash>get_gateway=10.0.40.140 ",
+  "netcfg<slash>get_nameservers=10.0.40.5 ",
+  "netcfg<slash>confirm_static=true ",
+  "netcfg<slash>get_hostname=ubuntu ",
+  # USE ALIASES FOR THE URL
+  "preseed<slash>url=http<colon><slash><slash>10<dot>0<dot>40<dot>5<colon>{{ .HTTPPort }}<slash>preseed.seed ",
+  "initrd=<slash>install<slash>initrd.gz ",
   "-- <enter>"
 ]
 
