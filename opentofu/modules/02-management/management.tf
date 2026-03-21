@@ -62,6 +62,7 @@ resource "null_resource" "configure_network" {
       echo $INTERFACE
       ip addr add 10.0.40.5 dev $INTERFACE || true
       ip link set dev $INTERFACE up
+      ip route add 10.0.40.0/24 dev ens19
     EOT
   }
 }

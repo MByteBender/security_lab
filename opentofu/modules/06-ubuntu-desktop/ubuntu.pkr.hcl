@@ -58,6 +58,16 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
     unmount  = true
   }
 
+additional_iso_files {
+    cd_files = [
+      "./http/preseed.seed",
+      "./http/openssh-client_5.3p1-3ubuntu3_amd64.deb",
+      "./http/openssh-server_5.3p1-3ubuntu3_amd64.deb",
+    ]
+    cd_label = "PRESEED"
+    iso_storage_pool = "local"
+  }
+
   http_directory = "http"
   http_bind_address = "10.0.40.5"
   http_port_min = 8069
