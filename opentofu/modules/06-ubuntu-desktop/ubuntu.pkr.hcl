@@ -99,7 +99,7 @@ boot_command = [
   "netcfg/get_nameservers=8.8.8.8 ",
   "netcfg/link_wait_timeout=10 ",
   # Change the line below:
-  "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
+  "preseed/url=http<wait>:<wait>//10.0.40.5<wait>:<wait>{{ .HTTPPort }}<wait>/preseed.seed ",
   "initrd=/install/initrd.gz ",
   "-- <enter>"
 ]
