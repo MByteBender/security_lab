@@ -55,7 +55,7 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
 
   scsi_controller = "lsi"
   disks {
-    disk_size    = "15G"
+    disk_size    = "20G"
     storage_pool = "zfs-itsec"
     type         = "ide"
   }
@@ -92,7 +92,6 @@ boot_command = [
   "netcfg/get_gateway=10.0.40.5 ",
   "netcfg/get_nameservers=8.8.8.8 ",
   # Change the line below:
-  "preseed/early_command=\"while ! mount /dev/sr1 /media; do sleep 1; done\" ",
   "preseed/file=/media/preseed.seed ",
   "initrd=/install/initrd.gz ",
   "-- <enter>"
