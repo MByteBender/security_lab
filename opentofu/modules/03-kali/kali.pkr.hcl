@@ -66,7 +66,7 @@ source "proxmox-iso" "kali-linux" {
 
   scsi_controller = "virtio-scsi-pci"
   disks {
-    disk_size    = "20G"
+    disk_size    = "30G"
     storage_pool = "zfs-itsec"
     type         = "scsi"
   }
