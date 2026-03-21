@@ -72,7 +72,7 @@ boot_command = [
     "install ",
     "auto=true ",
     "priority=critical ",
-    "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
+    "preseed/url=http://10.0.40.5:{{ .HTTPPort }}/preseed.seed ",
     "netcfg/disable_autoconfig=true ",
     "netcfg/disable_dhcp=true ",
     "netcfg/get_ipaddress=10.0.40.140 ",
