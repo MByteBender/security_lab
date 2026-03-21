@@ -88,7 +88,6 @@ boot_command = [
   "auto=true ",
   "priority=critical ",
   # FORCE the kernel to wait for the network hardware
-  "netcfg/choose_interface=auto ",
   "netcfg/get_ipaddress=10.0.40.140 ",
   "netcfg/get_netmask=255.255.255.0 ",
   "netcfg/get_gateway=10.0.40.1 ",
