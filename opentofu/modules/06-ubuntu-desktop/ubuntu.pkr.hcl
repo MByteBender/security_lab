@@ -77,26 +77,25 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
     iso_storage_pool = "local"
   }
 
-  http_directory = "http"
-  http_bind_address = "10.0.40.5"
-  boot_command = [
-    "<wait15>",
-    "<enter><wait><f6><wait><esc>",
-    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-    "install ",
-    "auto=true ",
-    "priority=critical ",
-    "locale=en_US ",
-    "kbd-chooser/method=us ",
-    "netcfg/disable_dhcp=true ",
-    "netcfg/get_ipaddress=10.0.40.140 ",
-    "netcfg/get_netmask=255.255.255.0 ",
-    "netcfg/get_gateway=10.0.40.5 ",
-    "netcfg/get_nameservers=8.8.8.8 ",
-    "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
-    "initrd=/install/initrd.gz ",
-    "-- <enter>"
-  ]
+boot_command = [
+  "<wait15>",
+  "<enter><wait><f6><wait><esc>",
+  "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+  "install ",
+  "auto=true ",
+  "priority=critical ",
+  "locale=en_US ",
+  "kbd-chooser/method=us ",
+  "netcfg/disable_dhcp=true ",
+  "netcfg/get_ipaddress=10.0.40.140 ",
+  "netcfg/get_netmask=255.255.255.0 ",
+  "netcfg/get_gateway=10.0.40.5 ",
+  "netcfg/get_nameservers=8.8.8.8 ",
+  # Change the line below:
+  "preseed/file=/media/preseed.seed ",
+  "initrd=/install/initrd.gz ",
+  "-- <enter>"
+]
 
   ssh_username = "ubuntu"
   ssh_password = "ubuntu" # Must match what you put in preseed.seed
