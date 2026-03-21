@@ -7,46 +7,26 @@ packer {
   }
 }
 
-variable "proxmox_api_url" {
-  type = string
-}
-
-variable "proxmox_api_token_id" {
-  type = string
-}
-
-variable "proxmox_api_token_secret" {
-  type    = string
-  sensitive = true
-}
-
-variable "ubuntu_password" {
-  type    = string
-  sensitive = true
-}
-
-variable "ubuntu_password_plain" {
-  type    = string
-  sensitive = true
-}
+variable "proxmox_api_url"               { type = string }
+variable "proxmox_api_token_id"          { type = string }
+variable "proxmox_api_token_secret"      { type = string, sensitive = true }
+variable "ubuntu_password"               { type = string, sensitive = true }
+variable "ubuntu_password_plain"         { type = string, sensitive = true }
 
 source "proxmox-iso" "ubuntu-10-04-desktop" {
-  # Proxmox Connection
   proxmox_url              = var.proxmox_api_url
   username                 = var.proxmox_api_token_id
   token                    = var.proxmox_api_token_secret
   insecure_skip_tls_verify = true
 
-  qemu_agent = false
-
   node                 = "pve"
   vm_id                = "140"
   vm_name              = "ubuntu-10-04-desktop-alt"
   pool                 = "IT-sec"
-  template_description = "Ubuntu 10.04 Desktop (Alternate ISO) via Packer"
+  template_description = "Ubuntu 10.04 Desktop Alternate via Packer"
 
-  cores           = 2
-  memory          = 2048
+  cores   = 2
+  memory  = 2048
 
   network_adapters {
     model  = "e1000"
@@ -54,67 +34,55 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
   }
 
   scsi_controller = "lsi"
+
   disks {
+    type         = "scsi"
     disk_size    = "20G"
     storage_pool = "zfs-itsec"
-    type         = "ide"
   }
 
-  boot = "order=ide0;ide1"
+  boot = "order=ide0"
+
   boot_iso {
     type     = "ide"
     iso_file = "local:iso/ubuntu-10.04.4-alternate-i386.iso"
     unmount  = true
   }
 
-  /*additional_iso_files {
-    cd_files = [
-      "./http/preseed.seed",
-      "./http/openssh-client_5.3p1-3ubuntu3_amd64.deb",
-      "./http/openssh-server_5.3p1-3ubuntu3_amd64.deb",
-    ]
-    cd_label = "PRESEED"
-    iso_storage_pool = "local"
-  }*/
-
   http_directory = "http"
   http_bind_address = "10.0.40.5"
-  http_port_min    = 8069
-http_port_max    = 8069
-boot_command = [
-  "<wait10><enter><wait5><f6><wait5><esc><wait5>",
-  "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-  "install ",
-  "auto=true ",
-  "priority=critical ",
-  "netcfg/choose_interface=auto ",
-  "netcfg/disable_dhcp=true ",
-  "netcfg/get_ipaddress=10.0.40.140 ",
-  "netcfg/get_netmask=255.255.255.0 ",
-  # POINT GATEWAY TO SELF TO PREVENT CRASH
-  "netcfg/get_gateway=10.0.40.140 ",
-  "netcfg/get_nameservers=10.0.40.5 ",
-  "netcfg/confirm_static=true ",
-  "netcfg/get_hostname=ubuntu ",
-  # USE ALIASES FOR THE URL
-  "preseed/url=http://10.0.40.5:{{ .HTTPPort }}/preseed.seed ",
-  "initrd=/install/initrd.gz ",
-  "-- <enter>"
-]
+  http_port_min = 8069
+  http_port_max = 8069
+
+  boot_wait = "5s"
+
+  boot_command = [
+    "<esc><wait>",
+    "install auto=true priority=critical ",
+    "preseed/url=http://10.0.40.5:{{ .HTTPPort }}/preseed.seed ",
+    "netcfg/disable_dhcp=true ",
+    "netcfg/get_ipaddress=10.0.40.140 ",
+    "netcfg/get_netmask=255.255.255.0 ",
+    "netcfg/get_gateway=10.0.40.140 ",
+    "netcfg/get_nameservers=10.0.40.5 ",
+    "netcfg/get_hostname=ubuntu ",
+    "debian-installer/allow_unauthenticated=true ",
+    "apt-setup/use_mirror=false ",
+    "mirror/http/hostname=none ",
+    "mirror/http/directory=/ ",
+    "--<enter>"
+  ]
 
   ssh_username = "ubuntu"
-  ssh_password = "ubuntu" # Must match what you put in preseed.seed
-  ssh_timeout  = "45m"      # Desktop installs take longer than server
-  ssh_host = "10.0.40.140"
+  ssh_password = "ubuntu"
+  ssh_timeout  = "45m"
+  ssh_host     = "10.0.40.140"
 
-
-  # 2. Allow the older Key Exchange methods
   ssh_key_exchange_algorithms = [
     "diffie-hellman-group14-sha1",
     "diffie-hellman-group1-sha1"
   ]
 
-  # 3. Allow the older Ciphers
   ssh_ciphers = [
     "aes128-ctr",
     "aes192-ctr",
@@ -127,12 +95,10 @@ boot_command = [
 build {
   sources = ["source.proxmox-iso.ubuntu-10-04-desktop"]
 
-    provisioner "shell" {
-    # Update your provisioner block to use single quotes around the variable
+  provisioner "shell" {
     execute_command = "echo ubuntu | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
-
-        inline = [
-          "echo testing"
-        ]
-    }
+    inline = [
+      "echo testing"
+    ]
+  }
 }
