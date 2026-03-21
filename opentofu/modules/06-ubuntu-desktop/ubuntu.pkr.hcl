@@ -92,7 +92,6 @@ boot_command = [
   "kbd-chooser/method=us ",
   "netcfg/disable_dhcp=true ",
   "netcfg/confirm_static=true ",
-  "netcfg/choose_interface=auto "
   "netcfg/choose_interface=eth0 ",
   "netcfg/get_ipaddress=10.0.40.140 ",
   "netcfg/get_netmask=255.255.255.0 ",
