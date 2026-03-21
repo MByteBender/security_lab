@@ -77,6 +77,8 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
     iso_storage_pool = "local"
   }
 
+  http_directory = "http"
+  http_bind_address = "10.0.40.5"
 boot_command = [
   "<wait15>",
   "<enter><wait><f6><wait><esc>",
@@ -92,7 +94,7 @@ boot_command = [
   "netcfg/get_gateway=10.0.40.5 ",
   "netcfg/get_nameservers=8.8.8.8 ",
   # Change the line below:
-"preseed/url=file:///cdrom/preseed.seed ",
+  "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
   "initrd=/install/initrd.gz ",
   "-- <enter>"
 ]
