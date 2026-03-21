@@ -55,7 +55,7 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
 
   scsi_controller = "lsi"
   disks {
-    disk_size    = "10G"
+    disk_size    = "15G"
     storage_pool = "zfs-itsec"
     type         = "ide"
   }
