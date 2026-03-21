@@ -92,7 +92,7 @@ boot_command = [
   "netcfg/get_gateway=10.0.40.5 ",
   "netcfg/get_nameservers=8.8.8.8 ",
   # Change the line below:
-  "preseed/early_command=\"mount /dev/sr1 /media\" ",
+  "preseed/early_command=\"while ! mount /dev/sr1 /media; do sleep 1; done\" ",
   "preseed/file=/media/preseed.seed ",
   "initrd=/install/initrd.gz ",
   "-- <enter>"
