@@ -70,9 +70,9 @@ boot_command = [
     "install ",
     "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
     "netcfg/disable_autoconfig=true ",
-    "netcfg/get_ipaddress=192.168.1.10 ",
+    "netcfg/get_ipaddress=10.0.40.140 ",
     "netcfg/get_netmask=255.255.255.0 ",
-    "netcfg/get_gateway=192.168.1.1 ", # Even if it doesn't exist, d-i wants a value
+    "netcfg/get_gateway=10.0.40.1 ", # Even if it doesn't exist, d-i wants a value
     "netcfg/get_nameservers=1.1.1.1 ",
     "netcfg/confirm_static=true ",
     "hostname=ubuntu-vintage ",
