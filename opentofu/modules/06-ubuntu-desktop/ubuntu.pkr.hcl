@@ -88,17 +88,14 @@ boot_command = [
   "install ",
   "auto=true ",
   "priority=critical ",
-  "locale=en_US ",
-  "kbd-chooser/method=us ",
-  "netcfg/disable_dhcp=true ",
-  "netcfg/confirm_static=true ",
   "netcfg/choose_interface=auto ",
+  "netcfg/disable_dhcp=true ",
   "netcfg/get_ipaddress=10.0.40.140 ",
   "netcfg/get_netmask=255.255.255.0 ",
-  "netcfg/get_gateway=10.0.40.1 ",
+  "netcfg/get_gateway=10.0.40.1 ", # Make sure this is your actual gateway
   "netcfg/get_nameservers=8.8.8.8 ",
-  # Change the line below:
-  "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
+  "netcfg/confirm_static=true ",
+  "preseed/url=http://10.0.40.5:{{ .HTTPPort }}/preseed.seed ",
   "initrd=/install/initrd.gz ",
   "-- <enter>"
 ]
