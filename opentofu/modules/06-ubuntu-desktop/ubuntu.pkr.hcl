@@ -81,6 +81,7 @@ boot_command = [
     "netcfg/confirm_static=true ",
     "hostname=ubuntu-vintage ",
     "fb=false debconf/priority=critical ",
+    "initrd=/install/initrd.gz ",
     "<enter>"
   ]
 
