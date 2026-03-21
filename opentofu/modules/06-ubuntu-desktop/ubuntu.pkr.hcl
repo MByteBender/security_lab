@@ -78,7 +78,7 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
   }
 
   http_directory = "http"
-  http_bind_address = "0.0.0.0"
+  http_bind_address = "10.0.40.5"
   boot_command = [
     "<wait15>",
     "<enter><wait><f6><wait><esc>",
