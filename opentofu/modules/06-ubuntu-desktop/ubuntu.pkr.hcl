@@ -66,10 +66,9 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
   boot_wait = "5s"
 
 boot_command = [
-    "<wait10s>",
-    "<esc><wait>",
-    "<esc><wait>",
-    "<wait10s>",
+      "<wait15>",
+      "<enter><wait><f6><wait><esc>",
+      "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
     "install ",
     "auto=true ",
     "priority=critical ",
