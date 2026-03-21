@@ -65,22 +65,21 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
 
   boot_wait = "5s"
 
-  boot_command = [
+boot_command = [
     "<esc><wait>",
-    "install auto=true priority=critical ",
-    "preseed/url=http://10.0.40.5:{{ .HTTPPort }}/preseed.seed ",
-    "netcfg/disable_dhcp=true ",
-    "netcfg/get_ipaddress=10.0.40.140 ",
+    "install ",
+    "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+    "netcfg/disable_autoconfig=true ",
+    "netcfg/get_ipaddress=192.168.1.10 ",
     "netcfg/get_netmask=255.255.255.0 ",
-    "netcfg/get_gateway=10.0.40.140 ",
-    "netcfg/get_nameservers=10.0.40.5 ",
-    "netcfg/get_hostname=ubuntu ",
-    "debian-installer/allow_unauthenticated=true ",
-    "apt-setup/use_mirror=false ",
-    "mirror/http/hostname=none ",
-    "mirror/http/directory=/ ",
-    "--<enter>"
+    "netcfg/get_gateway=192.168.1.1 ", # Even if it doesn't exist, d-i wants a value
+    "netcfg/get_nameservers=1.1.1.1 ",
+    "netcfg/confirm_static=true ",
+    "hostname=ubuntu-vintage ",
+    "fb=false debconf/priority=critical ",
+    "<enter>"
   ]
+}
 
   ssh_username = "ubuntu"
   ssh_password = "ubuntu"
