@@ -87,18 +87,18 @@ boot_command = [
   "install ",
   "auto=true ",
   "priority=critical ",
-  "netcfg<slash>choose_interface=auto ",
-  "netcfg<slash>disable_dhcp=true ",
-  "netcfg<slash>get_ipaddress=10.0.40.140 ",
-  "netcfg<slash>get_netmask=255.255.255.0 ",
+  "netcfg/choose_interface=auto ",
+  "netcfg/disable_dhcp=true ",
+  "netcfg/get_ipaddress=10.0.40.140 ",
+  "netcfg/get_netmask=255.255.255.0 ",
   # POINT GATEWAY TO SELF TO PREVENT CRASH
-  "netcfg<slash>get_gateway=10.0.40.140 ",
-  "netcfg<slash>get_nameservers=10.0.40.5 ",
-  "netcfg<slash>confirm_static=true ",
-  "netcfg<slash>get_hostname=ubuntu ",
+  "netcfg/get_gateway=10.0.40.140 ",
+  "netcfg/get_nameservers=10.0.40.5 ",
+  "netcfg/confirm_static=true ",
+  "netcfg/get_hostname=ubuntu ",
   # USE ALIASES FOR THE URL
-  "preseed<slash>url=http<colon><slash><slash>10<dot>0<dot>40<dot>5<colon>{{ .HTTPPort }}<slash>preseed.seed ",
-  "initrd=<slash>install<slash>initrd.gz ",
+  "preseed/url=http://10.0.40.5:{{ .HTTPPort }}/preseed.seed ",
+  "initrd=/install/initrd.gz ",
   "-- <enter>"
 ]
 
