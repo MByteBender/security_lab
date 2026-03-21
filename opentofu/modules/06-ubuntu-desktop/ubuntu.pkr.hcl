@@ -69,6 +69,7 @@ boot_command = [
     "<wait10s>",
     "<esc><wait>",
     "<esc><wait>",
+    "<wait10s>",
     "install ",
     "auto=true ",
     "priority=critical ",
