@@ -68,6 +68,8 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
 boot_command = [
     "<esc><wait>",
     "install ",
+    "auto=true ",
+    "priority=critical ",
     "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
     "netcfg/disable_autoconfig=true ",
     "netcfg/get_ipaddress=10.0.40.140 ",
