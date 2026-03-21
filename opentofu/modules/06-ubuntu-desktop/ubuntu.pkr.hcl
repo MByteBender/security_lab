@@ -79,7 +79,7 @@ boot_command = [
     "fb=false debconf/priority=critical ",
     "<enter>"
   ]
-}
+
 
   ssh_username = "ubuntu"
   ssh_password = "ubuntu"
