@@ -74,6 +74,7 @@ boot_command = [
     "priority=critical ",
     "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
     "netcfg/disable_autoconfig=true ",
+    "netcfg/disable_dhcp=true ",
     "netcfg/get_ipaddress=10.0.40.140 ",
     "netcfg/get_netmask=255.255.255.0 ",
     "netcfg/get_gateway=10.0.40.1 ", # Even if it doesn't exist, d-i wants a value
