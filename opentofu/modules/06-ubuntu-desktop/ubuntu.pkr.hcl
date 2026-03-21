@@ -82,19 +82,19 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
   http_port_min    = 8069
 http_port_max    = 8069
 boot_command = [
-  "<wait15>",
-  "<enter><wait><f6><wait><esc>",
+  "<wait10><enter><wait10><f6><wait5><esc><wait5>",
   "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
   "install ",
   "auto=true ",
   "priority=critical ",
+  # FORCE the kernel to wait for the network hardware
   "netcfg/choose_interface=auto ",
-  "netcfg/disable_dhcp=true ",
   "netcfg/get_ipaddress=10.0.40.140 ",
   "netcfg/get_netmask=255.255.255.0 ",
-  "netcfg/get_gateway=10.0.40.1 ", # Make sure this is your actual gateway
+  "netcfg/get_gateway=10.0.40.1 ",
   "netcfg/get_nameservers=8.8.8.8 ",
   "netcfg/confirm_static=true ",
+  "netcfg/link_wait_timeout=10 ", # CRITICAL: Wait for the virtual switch
   "preseed/url=http://10.0.40.5:{{ .HTTPPort }}/preseed.seed ",
   "initrd=/install/initrd.gz ",
   "-- <enter>"
