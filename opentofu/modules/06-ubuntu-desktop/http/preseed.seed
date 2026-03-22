@@ -9,11 +9,12 @@ d-i keyboard-configuration/layoutcode string us
 # If it asks about a firmware/driver, just skip it
 d-i hw-detect/load_flash_firmware boolean false
 
-# Networking
-d-i netcfg/choose_interface select auto
-d-i netcfg/get_hostname string ubuntu-desktop
-d-i netcfg/get_domain string unassigned-domain
-d-i netcfg/wireless_wep string
+# Ensure the static network config is written to /etc/network/interfaces
+d-i netcfg/confirm_static boolean true
+d-i netcfg/get_nameservers string 1.1.1.1
+d-i netcfg/get_ipaddress string 10.0.40.140
+d-i netcfg/get_netmask string 255.255.255.0
+d-i netcfg/get_gateway string 10.0.40.1
 
 # Localization (also moved to preseed)
 d-i debian-installer/locale string en_US
