@@ -50,7 +50,7 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
     storage_pool = "zfs-itsec"
   }
 
-  boot = "order=ide0"
+  boot = "order=scsi0;ide0"
 
   boot_iso {
     type     = "ide"
