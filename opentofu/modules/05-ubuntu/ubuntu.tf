@@ -29,7 +29,12 @@ variable "clone_vm_id" {
 }
 
 resource "proxmox_virtual_environment_file" "network_config" {
-  content_data = <<EOF
+  content_type = "snippets"
+  datastore_id = "local"
+  node_name    = "pve"
+
+  source_raw {
+    data = <<EOF
 network:
   version: 2
   renderer: networkd
@@ -42,13 +47,18 @@ network:
   bridges:
     br0:
       interfaces: [ens18, ens19, ens20, ens21, ens22]
-      addresses: [192.168.110.10/24, 192.168.120.10/24] # etc...
+      addresses:
+        - 192.168.110.10/24
+        - 192.168.120.10/24
+        - 192.168.130.10/24
+        - 192.168.140.10/24
+        - 10.255.0.10/24
+      routes:
+        - to: default
+          via: 192.168.110.1
 EOF
-
-  file_name = "network-config.yaml"
-  node_name = "pve"
-  datastore_id = "local"
-  content_type = "snippets"
+    file_name = "network-config.yaml"
+  }
 }
 
 resource "proxmox_virtual_environment_vm" "ubuntu" {
@@ -97,7 +107,7 @@ resource "proxmox_virtual_environment_vm" "ubuntu" {
     enabled = false # Tell Proxmox not to look for the agent
   }
 
-  cicustom = "network=local:snippets/network-config.yaml"
+  network_config_file_id = proxmox_virtual_environment_file.network_config.id
 
   # NOTE: Packer templates usually already have a disk.
   # Proxmox will automatically resize the disk if you specify a larger size here.
