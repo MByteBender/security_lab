@@ -95,6 +95,9 @@ source "proxmox-iso" "kali-linux" {
     "priority=critical ",
     "fb=false ", # Disables framebuffer which often causes the keymap corruption
     "debian-installer/locale=en_US.UTF-8 ",
+    "d-i netcfg/choose_interface select eth0 ",
+    "d-i netcfg/get_hostname string kali ",
+    "d-i netcfg/get_domain string local ",
     "console-setup/ask_detect=false ",
     "keyboard-configuration/xkb-keymap=us ",
     "hw-detect/load_firmware=false ",
