@@ -1,0 +1,21 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens18: {dhcp4: no}
+    ens19: {dhcp4: no}
+    ens20: {dhcp4: no}
+    ens21: {dhcp4: no}
+    ens22: {dhcp4: no}
+  bridges:
+    br0:
+      interfaces: [ens18, ens19, ens20, ens21, ens22]
+      addresses:
+        - 192.168.110.10/24
+        - 192.168.120.10/24
+        - 192.168.130.10/24
+        - 192.168.140.10/24
+        - 10.255.0.10/24
+      routes:
+        - to: default
+          via: 192.168.110.1
