@@ -115,31 +115,37 @@ build {
   sources = ["source.proxmox-iso.kali-linux"]
 
   provisioner "shell" {
-    # Using the inline parameter is cleaner for multi-line scripts
-    inline = [
-      "export DEBIAN_FRONTEND=noninteractive",
-      "sudo apt-get update",
-      "sudo apt-get install -y qemu-guest-agent kali-desktop-xfce kali-linux-default gvm nuclei",
-      "sudo systemctl enable qemu-guest-agent",
+    execute_command = "echo '${var.kali_password}' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
 
-      # CREATE PERSISTENT NETWORK CONFIG
-      # We write to a file so it survives the reboot into the Tofu clone
-      "cat <<EOF | sudo tee /etc/network/interfaces.d/lab-setup
-auto ens19
-iface ens19 inet static
-    address 10.0.40.10/24
-    # The routes are added every time this interface comes up
+    # Use <<-EOT to start a multi-line string for the entire provisioner
+    inline = [
+      <<-EOT
+        export DEBIAN_FRONTEND=noninteractive
+        apt-get update
+        apt-get install -y qemu-guest-agent kali-desktop-xfce kali-linux-default gvm nuclei
+        systemctl enable qemu-guest-agent
+
+        # 1. Find the interface name
+        INTERFACE=$(ip -o link show | grep -i 'AA:14:00:10:00:00' | awk -F': ' '{print $2}')
+        echo "Found interface: $INTERFACE"
+
+        # 2. Write the config (The Bash heredoc now works because it's inside the HCL heredoc)
+        cat <<EOF | tee /etc/network/interfaces.d/lab-setup
+auto $INTERFACE
+iface $INTERFACE inet static
+    address 10.0.40.5/24
     post-up ip route add 10.0.10.0/24 via 10.0.30.1
     post-up ip route add 10.0.20.0/24 via 10.0.30.1
-EOF",
+EOF
 
-      # GVM Setup (Note: this is very slow)
-      "sudo gvm-setup",
-      "sudo runuser -u _gvm -- gvmd --user=admin --new-password=${var.openvas_password}",
+        # 3. GVM Setup
+        gvm-setup
+        runuser -u _gvm -- gvmd --user=admin --new-password=${var.openvas_password}
 
-      # Cleanup to reduce image size
-      "sudo apt-get autoremove -y",
-      "sudo apt-get clean"
+        # 4. Cleanup
+        apt-get autoremove -y
+        apt-get clean
+      EOT
     ]
   }
 }
