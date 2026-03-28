@@ -134,19 +134,19 @@ cat <<EOF | sudo tee /etc/network/interfaces.d/lab-setup
 auto eth0
 iface eth0 inet static
     address 10.0.30.10/24
+    ip route add 10.0.10.0/24 via 10.0.30.1 dev eth1 2>/dev/null
+    ip route add 10.0.20.0/24 via 10.0.30.1 dev eth1 2>/dev/null
 
+auto eth1
+iface eth1 inet static
+    address 10.0.40.10/24
 EOF
 
 cat <<EOF | sudo tee /etc/NetworkManager/dispatcher.d/99-lab-routes
 #!/bin/bash
-# This script runs independently whenever a network change occurs
 
-# We only care when an interface reaches the "up" state
 if [ "\$2" = "up" ]; then
-    # Try to add routes. The '|| true' ensures the script keeps going
-    # even if one route fails or already exists.
-    ip route add 10.0.10.0/24 via 10.0.30.1 dev eth1 2>/dev/null || true
-    ip route add 10.0.20.0/24 via 10.0.30.1 dev eth1 2>/dev/null || true
+
     logger "Lab routes execution attempted for interface \$1"
 fi
 EOF
