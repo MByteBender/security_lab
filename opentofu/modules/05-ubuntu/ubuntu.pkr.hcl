@@ -102,9 +102,6 @@ build {
     inline = [
       "sudo apt-get update && sudo apt-get install -y bridge-utils iptables-persistent curl",
 
-      # 2. Install AdGuard Home
-      "curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v",
-
       # 3. Setup DNS Hijacking
       #"sudo iptables -t nat -A PREROUTING -i br0 -p udp --dport 53 -j REDIRECT --to-ports 53",
       #"sudo iptables -t nat -A PREROUTING -i br0 -p tcp --dport 53 -j REDIRECT --to-ports 53",
