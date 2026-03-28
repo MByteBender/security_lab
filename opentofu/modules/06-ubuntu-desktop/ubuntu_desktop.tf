@@ -51,12 +51,13 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
   }
 
   network_device {
-    bridge = "vmbr110"
+    bridge = "vmbr140"
   }
 
   network_device {
-    bridge = "vmbr140"
+    bridge = "vmbr110"
   }
+
 
   agent {
     enabled = false # Tell Proxmox not to look for the agent
@@ -69,6 +70,21 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
     interface    = "scsi0"
     size         = 40      # Resize template disk to 40GB
     file_format  = "raw"
+  }
+
+  connection {
+    type     = "ssh"
+    user     = "ubuntu"             # Use the user defined in your Packer/Cloud-Init
+    password = var.ubuntu_password   # Or use private_key = file("~/.ssh/id_rsa")
+
+    host     = "10.0.40.140"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "ip a",
+      "echo 'Tofu was here' > /tmp/tofu.log"
+    ]
   }
 
 }
