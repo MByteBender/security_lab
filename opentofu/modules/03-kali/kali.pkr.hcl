@@ -133,7 +133,7 @@ build {
         cat <<EOF | tee /etc/network/interfaces.d/lab-setup
 auto $INTERFACE
 iface $INTERFACE inet static
-    address 10.0.40.5/24
+    address 10.0.40.10/24
     post-up ip route add 10.0.10.0/24 via 10.0.30.1
     post-up ip route add 10.0.20.0/24 via 10.0.30.1
 EOF
