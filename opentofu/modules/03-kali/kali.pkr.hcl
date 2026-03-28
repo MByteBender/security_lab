@@ -89,23 +89,21 @@ source "proxmox-iso" "kali-linux" {
 
   http_directory = "http"
   boot_command = [
-    "<esc><wait5>",
+    "<esc><wait>",
     "install ",
-    "auto=true ",
-    "priority=critical ",
-    "fb=false ", # Disables framebuffer which often causes the keymap corruption
-    "debian-installer/locale=en_US.UTF-8 ",
-    "netcfg/choose_interface select eth0 ",
-    "netcfg/get_hostname string kali ",
-    "netcfg/get_domain string local ",
-    "console-setup/ask_detect=false ",
-    "keyboard-configuration/xkb-keymap=us ",
-    "hw-detect/load_firmware=false ",
-    "netcfg/link_wait_timeout=60 ",
+    # Force the interface selection here, BEFORE the preseed is even touched
+    "netcfg/choose_interface=eth0 ",
     "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.seed ",
-    # REMOVED: "initrd=initrd.gz" (This was the cause of the Line 113 error)
-    # REMOVED: redundant locale/keymap lines
-    "--- <enter>"
+    "debian-installer=en_US ",
+    "auto=true ",
+    "locale=en_US ",
+    "kbd-chooser/method=us ",
+    "keyboard-configuration/xkb-keymap=de ",
+    "netcfg/get_hostname=kali ",
+    "netcfg/get_domain=local ",
+    "fb=false ",
+    "debconf/priority=critical ",
+    "<enter>"
   ]
 
   ssh_username = "kali"
