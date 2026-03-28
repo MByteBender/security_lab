@@ -28,6 +28,10 @@ variable "clone_vm_id" {
   type = string
 }
 
+variables "ubuntu_password_plain" {
+    type = string
+}
+
 resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
   name      = var.name
   node_name = "pve"        # The name of your Proxmox node
