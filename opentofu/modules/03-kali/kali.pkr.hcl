@@ -131,6 +131,10 @@ build {
 
         # 2. Write the config (The Bash heredoc now works because it's inside the HCL heredoc)
 cat <<EOF | sudo tee /etc/network/interfaces.d/lab-setup
+auto eth0
+iface eth0 inet static
+    address 10.0.30.10/24
+
 auto eth1
 iface eth1 inet static
     address 10.0.40.10/24
