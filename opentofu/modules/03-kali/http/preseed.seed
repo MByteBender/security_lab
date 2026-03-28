@@ -7,7 +7,7 @@ d-i keyboard-configuration/layoutcode string de
 d-i keyboard-configuration/variantcode string at
 
 # Network configuration
-d-i netcfg/choose_interface select auto
+d-i netcfg/choose_interface select eth0
 d-i netcfg/get_hostname string kali
 d-i netcfg/get_domain string local
 d-i netcfg/hostname string kali
