@@ -62,7 +62,7 @@ source "proxmox-iso" "wazuh-server" {
   }
 
   disks {
-    disk_size         = "10G"
+    disk_size         = "30G"
     storage_pool      = "zfs-itsec"
     type              = "virtio"
   }

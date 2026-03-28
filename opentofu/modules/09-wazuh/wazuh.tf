@@ -93,7 +93,7 @@ resource "proxmox_virtual_environment_vm" "wazuh" {
   disk {
     datastore_id = "zfs-itsec"
     interface    = "scsi0"
-    size         = 60
+    size         = 30
     file_format  = "raw"
   }
 }
