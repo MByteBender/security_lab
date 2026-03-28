@@ -81,6 +81,7 @@ module "ubuntuDesktop" {
   name              = "ubuntuDesktop"
   vm_id             = 141
   clone_vm_id       = 140
+  ubuntu_password_plain = var.ubuntu_password_plain
   depends_on        = [module.networks, module.management]
 }
 
