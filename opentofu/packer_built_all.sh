@@ -1,6 +1,3 @@
-#!/bin/bash
-
-# Exit if any build fails
 set -e
 
 # Get the absolute path to credentials
