@@ -135,9 +135,6 @@ auto eth0
 iface eth0 inet static
     address 10.0.30.10/24
 
-auto eth1
-iface eth1 inet static
-    address 10.0.40.10/24
 EOF
 
 cat <<EOF | sudo tee /etc/NetworkManager/dispatcher.d/99-lab-routes
