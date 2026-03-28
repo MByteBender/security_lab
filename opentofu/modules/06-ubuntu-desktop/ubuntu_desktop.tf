@@ -28,7 +28,7 @@ variable "clone_vm_id" {
   type = string
 }
 
-variables "ubuntu_password_plain" {
+variable "ubuntu_password_plain" {
     type = string
 }
 
