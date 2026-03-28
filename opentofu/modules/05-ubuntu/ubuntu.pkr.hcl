@@ -120,6 +120,8 @@ build {
       # Cleanup for a clean template
       "sudo truncate -s 0 /etc/machine-id",
       "sudo apt-get clean"
+
+      "sysctl -w net.ipv4.ip_forward=1"
     ]
   }
 }

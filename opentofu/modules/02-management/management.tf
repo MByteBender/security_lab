@@ -60,9 +60,12 @@ resource "null_resource" "configure_network" {
       sleep 20
       INTERFACE=$(ip -o link show | grep -i "aa:bb:cc:11:22:33" | awk -F': ' '{print $2}')
       echo $INTERFACE
-      ip addr add 10.0.40.5 dev $INTERFACE || true
+      ip addr add 10.0.40.5 dev $INTERFACE
       ip link set dev $INTERFACE up
       ip route add 10.0.40.0/24 dev ens19
+      ip route add 10.0.10.0/24 via 10.0.40.1 dev $INTERFACE
+      ip route add 10.0.20.0/24 via 10.0.40.1 dev $INTERFACE
+      ip route add 10.0.30.0/24 via 10.0.40.1 dev $INTERFACE
     EOT
   }
 }

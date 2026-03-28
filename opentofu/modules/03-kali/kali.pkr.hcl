@@ -64,6 +64,12 @@ source "proxmox-iso" "kali-linux" {
     bridge = "vmbr0"
   }
 
+  network_adapters {
+    model  = "virtio"
+    bridge = "vmbr140"
+    mac_address = "AA:14:00:10:00:00"
+  }
+
   scsi_controller = "virtio-scsi-pci"
   disks {
     disk_size    = "30G"
@@ -109,21 +115,31 @@ build {
   sources = ["source.proxmox-iso.kali-linux"]
 
   provisioner "shell" {
-    # Kali uses passwordless sudo for the default user in many cases,
-    # but here we provide the password for the sudo -S command
-    execute_command = "echo '${var.kali_password}' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+    # Using the inline parameter is cleaner for multi-line scripts
     inline = [
-      "apt-get update",
-      "apt-get install -y qemu-guest-agent",
-      "systemctl enable qemu-guest-agent",
-      "apt-get install -y kali-desktop-xfce kali-linux-default",
-      "apt-get install -y gvm",
-      "gvm-setup",
-      "runuser -u _gvm -- gvmd --user=admin --new-password=${var.openvas_password}",
-      "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 greenbone-feed-sync --type nasl",
-      "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 greenbone-feed-sync --type scap",
-      "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 greenbone-feed-sync --type cert",
-      "apt-get install -y nuclei"
+      "export DEBIAN_FRONTEND=noninteractive",
+      "sudo apt-get update",
+      "sudo apt-get install -y qemu-guest-agent kali-desktop-xfce kali-linux-default gvm nuclei",
+      "sudo systemctl enable qemu-guest-agent",
+
+      # CREATE PERSISTENT NETWORK CONFIG
+      # We write to a file so it survives the reboot into the Tofu clone
+      "cat <<EOF | sudo tee /etc/network/interfaces.d/lab-setup
+auto ens19
+iface ens19 inet static
+    address 10.0.40.10/24
+    # The routes are added every time this interface comes up
+    post-up ip route add 10.0.10.0/24 via 10.0.30.1
+    post-up ip route add 10.0.20.0/24 via 10.0.30.1
+EOF",
+
+      # GVM Setup (Note: this is very slow)
+      "sudo gvm-setup",
+      "sudo runuser -u _gvm -- gvmd --user=admin --new-password=${var.openvas_password}",
+
+      # Cleanup to reduce image size
+      "sudo apt-get autoremove -y",
+      "sudo apt-get clean"
     ]
   }
 }

@@ -2,17 +2,26 @@ network:
   version: 2
   renderer: networkd
   ethernets:
+    # These stay in the bridge
     ens18: {dhcp4: no}
     ens19: {dhcp4: no}
     ens20: {dhcp4: no}
-    ens21: {dhcp4: no}
+    # ens21 is now independent (The .40 network)
+    ens21:
+      dhcp4: no
+      addresses:
+        - 10.0.40.1/24
+    # ens22 stays in the bridge
     ens22: {dhcp4: no}
   bridges:
     br0:
-      interfaces: [ens18, ens19, ens20, ens21, ens22]
+      # Removed ens21 from this list
+      interfaces: [ens18, ens19, ens20, ens22]
       addresses:
         - 10.0.10.1/24
         - 10.0.20.1/24
         - 10.0.30.1/24
-        - 10.0.40.1/24
-        - 10.0.255.0/24
+        - 10.0.255.1/24  # Changed from .0 to .1 (standard gateway IP)
+      parameters:
+        stp: false
+        forward-delay: 0
