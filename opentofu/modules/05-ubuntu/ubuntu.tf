@@ -28,39 +28,6 @@ variable "clone_vm_id" {
   type = string
 }
 
-resource "proxmox_virtual_environment_file" "network_config" {
-  content_type = "snippets"
-  datastore_id = "local"
-  node_name    = "pve"
-
-  source_raw {
-    data = <<EOF
-network:
-  version: 2
-  renderer: networkd
-  ethernets:
-    ens18: {dhcp4: no}
-    ens19: {dhcp4: no}
-    ens20: {dhcp4: no}
-    ens21: {dhcp4: no}
-    ens22: {dhcp4: no}
-  bridges:
-    br0:
-      interfaces: [ens18, ens19, ens20, ens21, ens22]
-      addresses:
-        - 192.168.110.10/24
-        - 192.168.120.10/24
-        - 192.168.130.10/24
-        - 192.168.140.10/24
-        - 10.255.0.10/24
-      routes:
-        - to: default
-          via: 192.168.110.1
-EOF
-    file_name = "network-config.yaml"
-  }
-}
-
 resource "proxmox_virtual_environment_vm" "ubuntu" {
   name      = var.name
   node_name = "pve"        # The name of your Proxmox node
@@ -107,8 +74,6 @@ resource "proxmox_virtual_environment_vm" "ubuntu" {
     enabled = false # Tell Proxmox not to look for the agent
   }
 
-  network_config_file_id = proxmox_virtual_environment_file.network_config.id
-
   # NOTE: Packer templates usually already have a disk.
   # Proxmox will automatically resize the disk if you specify a larger size here.
   disk {
@@ -117,5 +82,47 @@ resource "proxmox_virtual_environment_vm" "ubuntu" {
     size         = 20      # Resize template disk to 40GB
     file_format  = "raw"
   }
+}
 
+resource "null_resource" "configure_network" {
+  # This ensures the script only runs AFTER the VM is created
+  depends_on = [proxmox_virtual_environment_vm.ubuntu]
+
+  connection {
+    type     = "ssh"
+    user     = "ubuntu"
+    password = var.ubuntu_password_plain
+    host     = proxmox_virtual_environment_vm.ubuntu.ipv4_addresses[1][0] # Grabs the first assigned IP
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo rm -f /etc/netplan/*.yaml",
+      "echo 'network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens18: {dhcp4: no}
+    ens19: {dhcp4: no}
+    ens20: {dhcp4: no}
+    ens21: {dhcp4: no}
+    ens22: {dhcp4: no}
+  bridges:
+    br0:
+      interfaces: [ens18, ens19, ens20, ens21, ens22]
+      addresses:
+        - 192.168.110.10/24
+        - 192.168.120.10/24
+        - 192.168.130.10/24
+        - 192.168.140.10/24
+        - 10.255.0.10/24
+      routes:
+        - to: default
+          via: 192.168.110.1
+      parameters:
+        stp: false
+        forward-delay: 0' | sudo tee /etc/netplan/60-static-bridge.yaml",
+      "sudo netplan apply"
+    ]
+  }
 }
