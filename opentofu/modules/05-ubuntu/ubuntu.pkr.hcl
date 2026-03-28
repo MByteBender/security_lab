@@ -92,14 +92,37 @@ source "proxmox-iso" "ubuntu-server" {
 build {
   sources = ["source.proxmox-iso.ubuntu-server"]
 
-  # Final cleanup and QEMU agent install
+  # 1. Upload the specific 5-bridge netplan from your local machine
+  provisioner "file" {
+    source      = "./http/5-bridge-netplan.yaml"
+    destination = "/tmp/5-bridge-netplan.yaml"
+  }
+
   provisioner "shell" {
     inline = [
-      "sudo apt-get update",
-      "sudo apt-get install -y qemu-guest-agent",
-      "sudo truncate -s 0 /etc/machine-id", # Clean machine ID for cloning
-      "sudo apt-get clean",
-      "sudo rm /etc/sudoers.d/90-cloud-init-users"
+      "sudo apt-get update && sudo apt-get install -y bridge-utils iptables-persistent curl",
+
+      # 2. Install AdGuard Home
+      "curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v",
+
+      # 3. Setup DNS Hijacking
+      #"sudo iptables -t nat -A PREROUTING -i br0 -p udp --dport 53 -j REDIRECT --to-ports 53",
+      #"sudo iptables -t nat -A PREROUTING -i br0 -p tcp --dport 53 -j REDIRECT --to-ports 53",
+      #"echo iptables-persistent iptables-persistent/autosave_v4 boolean true | sudo debconf-set-selections",
+      #"sudo sh -c 'iptables-save > /etc/iptables/rules.v4'",
+
+      # 4. Replace the default network config with our 5-bridge plan
+      "sudo rm -f /etc/netplan/*.yaml",
+      "sudo mv /tmp/5-bridge-netplan.yaml /etc/netplan/60-static-bridge.yaml",
+      "sudo chown root:root /etc/netplan/60-static-bridge.yaml",
+      "sudo chmod 600 /etc/netplan/60-static-bridge.yaml",
+
+      # 5. Disable Cloud-Init network management so it doesn't overwrite our file on clone
+      "echo 'network: {config: disabled}' | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg",
+
+      # Cleanup for a clean template
+      "sudo truncate -s 0 /etc/machine-id",
+      "sudo apt-get clean"
     ]
   }
 }
