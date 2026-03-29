@@ -86,26 +86,29 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
   }
 
   provisioner "remote-exec" {
-    inline = [
-      <<-EOT
+  inline = [
+    <<-EOT
         # 1. Wait for system to settle
         sleep 20
 
-        # 2. Find the interface name (no sudo needed for 'ip link show')
+        # 2. Find the interface name
         INTERFACE=$(ip -o link show | grep -i "AA:11:00:14:00:00" | awk -F': ' '{print $2}')
         echo "Configuring interface: $INTERFACE"
 
-        # 3. Use sudo for administrative tasks.
-        # Use '|| true' to ignore errors if the IP/Route already exists.
-        # Use -S to read the password from standard input (the echo pipe).
+        # 3. Assign BOTH IPs to the interface
+        # We need the .40 IP so the kernel knows how to talk to the 10.0.40.1 gateway
         echo 'ubuntu' | sudo -S ip addr add 10.0.10.140/24 dev $INTERFACE || true
+        echo 'ubuntu' | sudo -S ip addr add 10.0.40.140/24 dev $INTERFACE || true
         echo 'ubuntu' | sudo -S ip link set dev $INTERFACE up || true
 
-        # 4. Routing (Ensure 10.0.40.1 is reachable!)
+        # 4. Routing
+        # This will now work because 10.0.40.1 is now "locally reachable"
         echo 'ubuntu' | sudo -S ip route add 10.0.20.0/24 via 10.0.40.1 dev $INTERFACE || true
         echo 'ubuntu' | sudo -S ip route add 10.0.30.0/24 via 10.0.40.1 dev $INTERFACE || true
 
-        echo 'Tofu was here' > /tmp/tofu.log
+        echo "Configuration check at $(date)" > /tmp/tofu.log
+        ip addr show $INTERFACE >> /tmp/tofu.log
+        ip route show >> /tmp/tofu.log
       EOT
     ]
   }
