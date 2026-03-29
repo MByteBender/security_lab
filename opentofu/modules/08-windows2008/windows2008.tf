@@ -88,8 +88,6 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
   }
 
 provisioner "remote-exec" {
-    interpreter = ["powershell", "-Command"]
-
     inline = [
       <<-EOT
         $targetMac = "AA:12:00:16:00:00"
