@@ -98,5 +98,5 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
         echo "Networking configuration complete."
       EOT
     ]
-
+  }
 }
