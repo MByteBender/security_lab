@@ -54,12 +54,14 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
     model  = "e1000"
     bridge = "vmbr120"
     firewall = false
+    mac_address = "AA:12:00:16:00:00"
   }
 
   network_device {
     bridge = "vmbr140"
     model  = "e1000"
     firewall = false
+    mac_address = "AA:14:00:16:00:00"
   }
 
   agent {
@@ -85,7 +87,7 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
   provisioner "remote-exec" {
     inline = [
       <<-EOT
-        INTERFACE=$(ip -o link show | grep -i "AA:11:00:14:00:00" | awk -F': ' '{print $2}')
+        INTERFACE=$(ip -o link show | grep -i "AA:12:00:16:00:00" | awk -F': ' '{print $2}')
         echo $INTERFACE
         echo Packer123! | sudo -S ip addr add 10.0.20.160/24 dev $INTERFACE || true
         sudo ip link set $INTERFACE up
