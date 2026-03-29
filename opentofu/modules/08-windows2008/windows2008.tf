@@ -88,21 +88,30 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
   }
 
   provisioner "remote-exec" {
+    interpreter = ["powershell", "-Command"]
+
     inline = [
       <<-EOT
-        INTERFACE=$(ip -o link show | grep -i "AA:12:00:16:00:00" | awk -F': ' '{print $2}')
-        echo $INTERFACE
-        echo Packer123! | sudo -S ip addr add 10.0.20.160/24 dev $INTERFACE || true
-        sudo ip link set $INTERFACE up
+        # 1. Find the Interface Name by MAC Address (using colons)
+        $targetMac = "AA:12:00:16:00:00"
+        $interfaceName = (gwmi Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }).NetConnectionID
 
-        # Add secondary IP for the gateway subnet if needed
-        sudo ip addr add 10.0.30.5/24 dev $INTERFACE || true
+        if (-not $interfaceName) {
+            Write-Error "Could not find interface with MAC $targetMac"
+            exit 1
+        }
+        Write-Host "Found Interface: $interfaceName"
 
-        # Add the routes
-        sudo ip route add 10.0.10.0/24 via 10.0.30.1 dev $INTERFACE || true
-        sudo ip route add 10.0.30.0/24 via 10.0.30.1 dev $INTERFACE || true
+        # 2. Set the Static IP and Gateway
+        # Format: netsh interface ip set address name="NAME" source=static addr=IP mask=MASK gateway=GW
+        netsh interface ip set address name="$interfaceName" source=static addr=10.0.10.140 mask=255.255.255.0 gateway=10.0.40.1
 
-        echo "Networking configuration complete."
+        # 3. Add Static Routes
+        # Format: route add DESTINATION mask MASK GATEWAY
+        route -p add 10.0.20.0 mask 255.255.255.0 10.0.40.1
+        route -p add 10.0.30.0 mask 255.255.255.0 10.0.40.1
+
+        Write-Host "Configuration Complete."
       EOT
     ]
   }
