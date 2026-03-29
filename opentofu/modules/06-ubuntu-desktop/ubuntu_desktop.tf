@@ -87,13 +87,22 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
   provisioner "remote-exec" {
     inline = [
       <<-EOT
-      sleep 20
-      INTERFACE=$(ip -o link show | grep -i "AA:11:00:14:00:00" | awk -F': ' '{print $2}')
-      echo $INTERFACE
-      ip addr add 10.0.10.140 dev $INTERFACE
-      ip link set dev $INTERFACE up
-      ip route add 10.0.20.0/24 via 10.0.40.1 dev $INTERFACE
-      ip route add 10.0.30.0/24 via 10.0.40.1 dev $INTERFACE
+        # 1. Wait for system to settle
+        sleep 20
+
+        # 2. Find the interface name (no sudo needed for 'ip link show')
+        INTERFACE=$(ip -o link show | grep -i "AA:11:00:14:00:00" | awk -F': ' '{print $2}')
+        echo "Configuring interface: $INTERFACE"
+
+        # 3. Use sudo for administrative tasks.
+        # Use '|| true' to ignore errors if the IP/Route already exists.
+        # Use -S to read the password from standard input (the echo pipe).
+        echo ubuntu | sudo -S ip addr add 10.0.10.140/24 dev $INTERFACE || true
+        echo ubuntu | sudo -S ip link set dev $INTERFACE up || true
+
+        # 4. Routing (Ensure 10.0.40.1 is reachable!)
+        echo ubuntu | sudo -S ip route add 10.0.20.0/24 via 10.0.40.1 dev $INTERFACE || true
+        echo ubuntu | sudo -S ip route add 10.0.30.0/24 via 10.0.40.1 dev $INTERFACE || true
       EOT
     ]
   }
