@@ -51,17 +51,17 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
   }
 
   network_device {
-    model  = "e1000"
-    bridge = "vmbr120"
-    firewall = false
-    mac_address = "AA:12:00:16:00:00"
-  }
-
-  network_device {
     bridge = "vmbr140"
     model  = "e1000"
     firewall = false
     mac_address = "AA:14:00:16:00:00"
+  }
+
+  network_device {
+    model  = "e1000"
+    bridge = "vmbr120"
+    firewall = false
+    mac_address = "AA:12:00:16:00:00"
   }
 
   agent {
