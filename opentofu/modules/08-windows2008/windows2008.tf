@@ -73,4 +73,25 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
     file_format  = "raw"
   }
 
+  connection {
+    type     = "ssh"
+    user     = "Administrator"             # Use the user defined in your Packer/Cloud-Init
+    password = "Packer123!"   # Or use private_key = file("~/.ssh/id_rsa")
+
+    host     = "10.0.40.160"
+  }
+
+  provisioner "remote-exec" {
+    execute_command = "echo '${var.kali_password}' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+    command = <<EOT
+      sleep 20
+      INTERFACE=$(ip -o link show | grep -i "AA:11:00:14:00:00" | awk -F': ' '{print $2}')
+      echo $INTERFACE
+      ip addr add 10.0.20.160 dev $INTERFACE
+      ip link set dev $INTERFACE up
+      ip route add 10.0.10.0/24 via 10.0.40.1 dev $INTERFACE
+      ip route add 10.0.30.0/24 via 10.0.40.1 dev $INTERFACE
+    EOT
+  }
+
 }

@@ -52,6 +52,7 @@ resource "proxmox_virtual_environment_vm" "win7" {
 
   network_device {
     bridge = "vmbr110"
+    mac_address = "AA:14:00:"
   }
 
   network_device {
