@@ -77,21 +77,26 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
     type     = "ssh"
     user     = "Administrator"             # Use the user defined in your Packer/Cloud-Init
     password = "Packer123!"   # Or use private_key = file("~/.ssh/id_rsa")
-
     host     = "10.0.40.160"
   }
 
   provisioner "remote-exec" {
-    execute_command = "echo '${var.kali_password}' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
-    command = <<EOT
-      sleep 20
-      INTERFACE=$(ip -o link show | grep -i "AA:11:00:14:00:00" | awk -F': ' '{print $2}')
-      echo $INTERFACE
-      ip addr add 10.0.20.160 dev $INTERFACE
-      ip link set dev $INTERFACE up
-      ip route add 10.0.10.0/24 via 10.0.40.1 dev $INTERFACE
-      ip route add 10.0.30.0/24 via 10.0.40.1 dev $INTERFACE
-    EOT
-  }
+    inline = [
+      <<-EOT
+        INTERFACE=$(ip -o link show | grep -i "AA:11:00:14:00:00" | awk -F': ' '{print $2}')
+        echo $INTERFACE
+        echo Packer123! | sudo -S ip addr add 10.0.20.160/24 dev $INTERFACE || true
+        sudo ip link set $INTERFACE up
+
+        # Add secondary IP for the gateway subnet if needed
+        sudo ip addr add 10.0.30.5/24 dev $INTERFACE || true
+
+        # Add the routes
+        sudo ip route add 10.0.10.0/24 via 10.0.30.1 dev $INTERFACE || true
+        sudo ip route add 10.0.30.0/24 via 10.0.30.1 dev $INTERFACE || true
+
+        echo "Networking configuration complete."
+      EOT
+    ]
 
 }
