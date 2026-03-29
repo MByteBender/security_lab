@@ -87,31 +87,19 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
     timeout  = "10m"                     # Windows 2008 boot times can be slow
   }
 
-  provisioner "remote-exec" {
+provisioner "remote-exec" {
     interpreter = ["powershell", "-Command"]
 
     inline = [
       <<-EOT
-        # 1. Find the Interface Name by MAC Address (using colons)
         $targetMac = "AA:12:00:16:00:00"
-        $interfaceName = (gwmi Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }).NetConnectionID
+        $interface = (gwmi Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }).NetConnectionID
 
-        if (-not $interfaceName) {
-            Write-Error "Could not find interface with MAC $targetMac"
-            exit 1
-        }
-        Write-Host "Found Interface: $interfaceName"
+        if (-not $interface) { exit 1 }
 
-        # 2. Set the Static IP and Gateway
-        # Format: netsh interface ip set address name="NAME" source=static addr=IP mask=MASK gateway=GW
-        netsh interface ip set address name="$interfaceName" source=static addr=10.0.10.140 mask=255.255.255.0 gateway=10.0.40.1
-
-        # 3. Add Static Routes
-        # Format: route add DESTINATION mask MASK GATEWAY
+        netsh interface ip set address name="$interface" source=static addr=10.0.10.140 mask=255.255.255.0 gateway=10.0.40.1
         route -p add 10.0.20.0 mask 255.255.255.0 10.0.40.1
         route -p add 10.0.30.0 mask 255.255.255.0 10.0.40.1
-
-        Write-Host "Configuration Complete."
       EOT
     ]
   }
