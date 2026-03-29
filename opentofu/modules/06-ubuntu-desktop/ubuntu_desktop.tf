@@ -85,8 +85,8 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
   }
 
   provisioner "remote-exec" {
-    execute_command = "echo '${var.kali_password}' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
-    command = <<EOT
+    inline = [
+      <<-EOT
       sleep 20
       INTERFACE=$(ip -o link show | grep -i "AA:11:00:14:00:00" | awk -F': ' '{print $2}')
       echo $INTERFACE
@@ -94,7 +94,8 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
       ip link set dev $INTERFACE up
       ip route add 10.0.20.0/24 via 10.0.40.1 dev $INTERFACE
       ip route add 10.0.30.0/24 via 10.0.40.1 dev $INTERFACE
-    EOT
+      EOT
+    ]
   }
 
 }
