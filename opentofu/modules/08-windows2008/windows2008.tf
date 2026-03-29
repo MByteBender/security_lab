@@ -89,16 +89,7 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
 
 provisioner "remote-exec" {
     inline = [
-      <<-EOT
-        $targetMac = "AA:12:00:16:00:00"
-        $interface = (gwmi Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }).NetConnectionID
-
-        if (-not $interface) { exit 1 }
-
-        netsh interface ip set address name="$interface" source=static addr=10.0.10.140 mask=255.255.255.0 gateway=10.0.40.1
-        route -p add 10.0.20.0 mask 255.255.255.0 10.0.40.1
-        route -p add 10.0.30.0 mask 255.255.255.0 10.0.40.1
-      EOT
+      "powershell -ExecutionPolicy Bypass -Command \"$targetMac = 'AA:12:00:16:00:00'; $interface = (gwmi Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }).NetConnectionID; if ($interface) { netsh interface ip set address name=\\\"$interface\\\" source=static addr=10.0.10.140 mask=255.255.255.0 gateway=10.0.40.1; route -p add 10.0.20.0 mask 255.255.255.0 10.0.40.1; route -p add 10.0.30.0 mask 255.255.255.0 10.0.40.1 }\""
     ]
   }
 }
