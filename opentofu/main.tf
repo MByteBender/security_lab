@@ -16,6 +16,11 @@ variable "proxmox_api_token" {
   sensitive = true
 }
 
+variable "ubuntu_password_plain" {
+  type    = string
+  sensitive = true
+}
+
 provider "proxmox" {
   endpoint  = var.proxmox_api_url
   api_token = var.proxmox_api_token
