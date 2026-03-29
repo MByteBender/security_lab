@@ -103,6 +103,8 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
         # 4. Routing (Ensure 10.0.40.1 is reachable!)
         echo ubuntu | sudo -S ip route add 10.0.20.0/24 via 10.0.40.1 dev $INTERFACE || true
         echo ubuntu | sudo -S ip route add 10.0.30.0/24 via 10.0.40.1 dev $INTERFACE || true
+
+        echo 'Tofu was here' > /tmp/tofu.log
       EOT
     ]
   }
