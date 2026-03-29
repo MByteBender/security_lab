@@ -56,6 +56,7 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
 
   network_device {
     bridge = "vmbr140"
+    mac_address = "AA:14:00:14:00:00"
   }
 
   network_device {
@@ -97,12 +98,12 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
         # 3. Use sudo for administrative tasks.
         # Use '|| true' to ignore errors if the IP/Route already exists.
         # Use -S to read the password from standard input (the echo pipe).
-        echo ubuntu | sudo -S ip addr add 10.0.10.140/24 dev $INTERFACE || true
-        echo ubuntu | sudo -S ip link set dev $INTERFACE up || true
+        echo 'ubuntu' | sudo -S ip addr add 10.0.10.140/24 dev $INTERFACE || true
+        echo 'ubuntu' | sudo -S ip link set dev $INTERFACE up || true
 
         # 4. Routing (Ensure 10.0.40.1 is reachable!)
-        echo ubuntu | sudo -S ip route add 10.0.20.0/24 via 10.0.40.1 dev $INTERFACE || true
-        echo ubuntu | sudo -S ip route add 10.0.30.0/24 via 10.0.40.1 dev $INTERFACE || true
+        echo 'ubuntu' | sudo -S ip route add 10.0.20.0/24 via 10.0.40.1 dev $INTERFACE || true
+        echo 'ubuntu' | sudo -S ip route add 10.0.30.0/24 via 10.0.40.1 dev $INTERFACE || true
 
         echo 'Tofu was here' > /tmp/tofu.log
       EOT

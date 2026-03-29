@@ -40,6 +40,7 @@ source "proxmox-iso" "ubuntu-10-04-desktop" {
   network_adapters {
     model  = "e1000"
     bridge = "vmbr140"
+    mac_address = "AA:14:00:14:00:00"
   }
 
   scsi_controller = "lsi"
