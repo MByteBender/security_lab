@@ -67,7 +67,7 @@ source "proxmox-iso" "win7" {
     "  $interface = $adapter.NetConnectionID; ",
     "  netsh interface ip set address name=\"$interface\" source=static addr=10.0.10.150 mask=255.255.255.0 gateway=10.0.40.1; ",
     "} ",
-    "<enter><wait2s>"
+    "<enter><wait2s>",
 
     "netsh interface set interface name=\"$interface\" admin=disabled<enter><wait2s>",
     "netsh interface set interface name=\"$interface\" admin=enabled<enter><wait2s>",
