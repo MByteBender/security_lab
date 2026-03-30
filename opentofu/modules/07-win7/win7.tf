@@ -75,8 +75,8 @@ resource "proxmox_virtual_environment_vm" "win7" {
 
   connection {
     type     = "winrm"
-    user     = "Administrator"             # Use the user defined in your Packer/Cloud-Init
-    password = "Packer123!"   # Or use private_key = file("~/.ssh/id_rsa")
+    user     = "packer"             # Use the user defined in your Packer/Cloud-Init
+    password = "packer"   # Or use private_key = file("~/.ssh/id_rsa")
     host     = "10.0.40.160"
     https    = false                     # Set to true only if you configured SSL in Packer
     port     = 5985                      # Standard WinRM HTTP port
