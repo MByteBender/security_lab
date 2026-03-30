@@ -61,7 +61,7 @@ source "proxmox-iso" "win7" {
 
     "<leftSuper><wait2s>powershell<wait2s><enter><wait2s>",
     "Start-Process powershell -Verb RunAs",
-    "<enter><wait10>",
+    "<wait1s><left><wait1s><enter><wait10>",
 
     "$targetMac = 'AA:11:00:15:00:00'<enter><wait1s>",
     "$adapter = Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }<enter><wait1s>",
