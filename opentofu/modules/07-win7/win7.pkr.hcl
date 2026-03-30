@@ -59,8 +59,7 @@ source "proxmox-iso" "win7" {
     "<wait1m>",
 
 
-    "<powershell> ",
-    # This command opens a NEW window that IS an Administrator
+    "<leftSuper><wait2s>powershell<wait2s><enter><wait2s>",
     "Start-Process powershell -Verb RunAs",
     "<enter><wait10>",
 
