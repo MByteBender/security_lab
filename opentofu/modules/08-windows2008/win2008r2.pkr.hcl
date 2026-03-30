@@ -76,7 +76,7 @@ source "proxmox-iso" "win2008r2" {
     "$adapter = Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }<enter><wait1s>",
     "if ($adapter) { ",
     "  $interface = $adapter.NetConnectionID; ",
-    "  netsh interface ip set address name=\"$interface\" source=static addr=10.0.10.160 mask=255.255.255.0 gateway=10.0.40.1; ",
+    "  netsh interface ip set address name=\"$interface\" source=static addr=10.0.10.160 mask=255.255.255.0 gateway=10.0.10.1; ",
     "} ",
     "<enter><wait2s>"
 

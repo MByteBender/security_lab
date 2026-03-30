@@ -61,11 +61,11 @@ source "proxmox-iso" "win7" {
 
     "<leftSuper><wait2s>powershell<wait2s><enter><wait2s>",
 
-    "$targetMac = 'AA:14:00:15:00:00'<enter><wait1s>",
+    "$targetMac = 'AA:11:00:15:00:00'<enter><wait1s>",
     "$adapter = Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }<enter><wait1s>",
     "if ($adapter) { ",
     "  $interface = $adapter.NetConnectionID; ",
-    "  netsh interface ip set address name=\"$interface\" source=static addr=10.0.10.150 mask=255.255.255.0 gateway=10.0.40.1; ",
+    "  netsh interface ip set address name=\"$interface\" source=static addr=10.0.10.150 mask=255.255.255.0 gateway=10.0.10.1; ",
     "} ",
     "<enter><wait2s>",
 
