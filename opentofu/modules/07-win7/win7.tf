@@ -53,11 +53,13 @@ resource "proxmox_virtual_environment_vm" "win7" {
   network_device {
     bridge = "vmbr110"
     mac_address = "AA:11:00:15:00:00"
+    model  = "e1000"
   }
 
   network_device {
     bridge = "vmbr140"
     mac_address = "AA:14:00:15:00:00"
+    model  = "e1000"
   }
 
   agent {

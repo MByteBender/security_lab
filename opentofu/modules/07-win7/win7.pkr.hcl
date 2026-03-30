@@ -40,6 +40,7 @@ source "proxmox-iso" "win7" {
   network_adapters {
     model  = "virtio"
     bridge = "vmbr140"
+    model  = "e1000"
   }
 
   scsi_controller      = "virtio-scsi-single"
@@ -55,6 +56,7 @@ source "proxmox-iso" "win7" {
     "<enter><wait15s>",
     "<enter><wait150s>",
     "<enter><wait5s><enter><wait5s><enter>",
+    "<wait1m><enter>"
   ]
 
   additional_iso_files {
