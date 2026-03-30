@@ -38,7 +38,6 @@ source "proxmox-iso" "win7" {
   memory               = 4096
 
   network_adapters {
-    model  = "virtio"
     bridge = "vmbr140"
     model  = "e1000"
     mac_address = "AA:14:00:15:00:00"
