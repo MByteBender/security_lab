@@ -83,8 +83,8 @@ source "proxmox-iso" "win7" {
     "winrm set winrm/config/service '@{AllowUnencrypted=\"true\"}'<enter><wait2s>",
 
     # 3. Explicitly allow WinRM through Windows Firewall
-    "netsh advfirewall firewall add rule name=\"WinRM 5985\" protocol=TCP dir=in localport=5985 action=allow<enter><wait2s>"
-
+    "netsh advfirewall firewall add rule name=\"WinRM 5985\" protocol=TCP dir=in localport=5985 action=allow<enter><wait2s>",
+    "<wait10m>"
   ]
 
   additional_iso_files {
