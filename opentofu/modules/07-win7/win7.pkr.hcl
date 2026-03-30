@@ -108,14 +108,16 @@ source "proxmox-iso" "win7" {
   winrm_timeout        = "6h"
   winrm_host     = "10.0.40.150"
 
-  build {
-    sources = ["source.proxmox-iso.win7"]
+}
 
-    provisioner "powershell" {
-      inline = [
-        "ipconfig:",
-      ]
-    }
+build {
+  sources = ["source.proxmox-iso.win7"]
+
+  provisioner "powershell" {
+    inline = [
+      "ipconfig:",
+    ]
   }
 }
+
 
