@@ -151,6 +151,7 @@ fi
 EOF
 
         sudo chmod +x /etc/NetworkManager/dispatcher.d/99-lab-routes
+        sudo systemctl disable NetworkManager
 
         # 3. GVM Setup
         gvm-setup

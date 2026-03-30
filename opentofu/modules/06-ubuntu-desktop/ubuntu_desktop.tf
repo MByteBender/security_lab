@@ -85,32 +85,44 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
     host     = "10.0.40.140"
   }
 
-  provisioner "remote-exec" {
+provisioner "remote-exec" {
   inline = [
     <<-EOT
-        # 1. Wait for system to settle
-        sleep 20
+      # 1. Identify the interface (likely eth1 based on your log)
+      INTERFACE=$(ip -o link show | grep -i "AA:11:00:14:00:00" | awk -F': ' '{print $2}')
 
-        # 2. Find the interface name
-        INTERFACE=$(ip -o link show | grep -i "AA:11:00:14:00:00" | awk -F': ' '{print $2}')
-        echo "Configuring interface: $INTERFACE"
+      # 2. Tell NetworkManager to IGNORE this interface
+      # In Ubuntu 10.04, NetworkManager ignores anything in /etc/network/interfaces
+      # IF 'managed=false' is set in its config.
+      echo "ubuntu" | sudo -S sed -i 's/managed=true/managed=false/' /etc/NetworkManager/nm-system-settings.conf || true
 
-        # 3. Assign BOTH IPs to the interface
-        # We need the .40 IP so the kernel knows how to talk to the 10.0.40.1 gateway
-        echo 'ubuntu' | sudo -S ip addr add 10.0.10.140/24 dev $INTERFACE || true
-        echo 'ubuntu' | sudo -S ip addr add 10.0.40.140/24 dev $INTERFACE || true
-        echo 'ubuntu' | sudo -S ip link set dev $INTERFACE up || true
+      # 3. Write the PERSISTENT config to the interfaces file
+      # We use 'alias' style (eth1:0) for the second IP because 10.04 handles multiple IPs best this way
+      cat <<EOF | sudo tee /etc/network/interfaces
+auto lo
+iface lo inet loopback
 
-        # 4. Routing
-        # This will now work because 10.0.40.1 is now "locally reachable"
-        echo 'ubuntu' | sudo -S ip route add 10.0.20.0/24 via 10.0.40.1 dev $INTERFACE || true
-        echo 'ubuntu' | sudo -S ip route add 10.0.30.0/24 via 10.0.40.1 dev $INTERFACE || true
+auto $INTERFACE
+iface $INTERFACE inet static
+    address 10.0.40.140
+    netmask 255.255.255.0
+    gateway 10.0.40.1
+    # Static routes added when interface comes up
+    up ip route add 10.0.10.0/24 dev $INTERFACE
+    up ip route add 10.0.20.0/24 via 10.0.40.1
+    up ip route add 10.0.30.0/24 via 10.0.40.1
 
-        echo "Configuration check at $(date)" > /tmp/tofu.log
-        ip addr show $INTERFACE >> /tmp/tofu.log
-        ip route show >> /tmp/tofu.log
-      EOT
-    ]
-  }
+# Adding the second IP as a virtual interface
+auto $INTERFACE:0
+iface $INTERFACE:0 inet static
+    address 10.0.10.140
+    netmask 255.255.255.0
+EOF
+
+      # 4. Restart the legacy networking service
+      echo "ubuntu" | sudo -S /etc/init.d/networking restart
+    EOT
+  ]
+}
 
 }

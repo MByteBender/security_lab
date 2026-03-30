@@ -52,11 +52,12 @@ resource "proxmox_virtual_environment_vm" "win7" {
 
   network_device {
     bridge = "vmbr110"
-    mac_address = "AA:14:00:15:00:00"
+    mac_address = "AA:11:00:15:00:00"
   }
 
   network_device {
     bridge = "vmbr140"
+    mac_address = "AA:14:00:15:00:00"
   }
 
   agent {
@@ -71,5 +72,32 @@ resource "proxmox_virtual_environment_vm" "win7" {
     size         = 40      # Resize template disk to 40GB
     file_format  = "raw"
   }
+
+  connection {
+    type     = "winrm"
+    user     = "Administrator"             # Use the user defined in your Packer/Cloud-Init
+    password = "Packer123!"   # Or use private_key = file("~/.ssh/id_rsa")
+    host     = "10.0.40.160"
+    https    = false                     # Set to true only if you configured SSL in Packer
+    port     = 5985                      # Standard WinRM HTTP port
+    timeout  = "10m"                     # Windows 2008 boot times can be slow
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      <<-EOT
+        powershell -ExecutionPolicy Bypass -Command ^
+        "$targetMac = 'AA:11:00:15:00:00'; ^
+        $adapter = Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }; ^
+        if ($adapter) { ^
+            $interface = $adapter.NetConnectionID; ^
+            netsh interface ip set address name=\"$interface\" source=static addr=10.0.10.150 mask=255.255.255.0 gateway=10.0.40.1; ^
+            route -p add 10.0.10.0 mask 255.255.255.0 10.0.40.1; ^
+            route -p add 10.0.30.0 mask 255.255.255.0 10.0.40.1; ^
+        }"
+      EOT
+    ]
+  }
+
 
 }

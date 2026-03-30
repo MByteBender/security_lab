@@ -71,9 +71,17 @@ source "proxmox-iso" "win2008r2" {
     "<enter><wait2s><enter><wait10s>",
 
     "<leftSuper><wait2s>powershell<wait2s><enter><wait2s>",
-    "netsh interface ip set address name=\"Local Area Connection\" source=static address=10.0.40.160 mask=255.255.255.0 gateway=10.0.40.5<enter><wait2s>",
-    "netsh interface set interface name=\"Local Area Connection\" admin=disabled<enter><wait2s>",
-    "netsh interface set interface name=\"Local Area Connection\" admin=enabled<enter><wait2s>",
+
+    "$targetMac = 'AA:11:00:15:00:00'<enter><wait1s>",
+    "$adapter = Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }<enter><wait1s>",
+    "if ($adapter) { ",
+    "  $interface = $adapter.NetConnectionID; ",
+    "  netsh interface ip set address name=\"$interface\" source=static addr=10.0.10.160 mask=255.255.255.0 gateway=10.0.40.1; ",
+    "} ",
+    "<enter><wait2s>"
+
+    "netsh interface set interface name=\"$interface\" admin=disabled<enter><wait2s>",
+    "netsh interface set interface name=\"$interface\" admin=enabled<enter><wait2s>",
     "netsh advfirewall firewall add rule name=\"Allow Ping\" protocol=ICMPV4 dir=in action=allow<enter><wait2s>",
 
     # 1. Enable WinRM service and set to Auto-start
