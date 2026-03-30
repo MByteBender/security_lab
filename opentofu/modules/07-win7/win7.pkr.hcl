@@ -41,6 +41,7 @@ source "proxmox-iso" "win7" {
     model  = "virtio"
     bridge = "vmbr140"
     model  = "e1000"
+    mac_address = "AA:14:00:15:00:00"
   }
 
   scsi_controller      = "virtio-scsi-single"
@@ -57,6 +58,34 @@ source "proxmox-iso" "win7" {
     "<enter><wait150s>",
     "<enter><wait5s><enter><wait5s><enter>",
     "<wait1m><enter>"
+
+
+    "<leftSuper><wait2s>powershell<wait2s><enter><wait2s>",
+
+    "$targetMac = 'AA:14:00:15:00:00'<enter><wait1s>",
+    "$adapter = Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }<enter><wait1s>",
+    "if ($adapter) { ",
+    "  $interface = $adapter.NetConnectionID; ",
+    "  netsh interface ip set address name=\"$interface\" source=static addr=10.0.10.150 mask=255.255.255.0 gateway=10.0.40.1; ",
+    "} ",
+    "<enter><wait2s>"
+
+    "netsh interface set interface name=\"$interface\" admin=disabled<enter><wait2s>",
+    "netsh interface set interface name=\"$interface\" admin=enabled<enter><wait2s>",
+    "netsh advfirewall firewall add rule name=\"Allow Ping\" protocol=ICMPV4 dir=in action=allow<enter><wait2s>",
+
+    # 1. Enable WinRM service and set to Auto-start
+    "powershell -Command \"Set-Service WinRM -StartupType Automatic\"<enter><wait2s>",
+    "powershell -Command \"Start-Service WinRM\"<enter><wait5s>",
+
+    # 2. Configure WinRM for Basic Auth and Unencrypted traffic (standard for Packer)
+    "powershell -Command \"winrm quickconfig -q\"<enter><wait2s>",
+    "winrm set winrm/config/service/auth '@{Basic=\"true\"}'<enter><wait2s>",
+    "winrm set winrm/config/service '@{AllowUnencrypted=\"true\"}'<enter><wait2s>",
+
+    # 3. Explicitly allow WinRM through Windows Firewall
+    "netsh advfirewall firewall add rule name=\"WinRM 5985\" protocol=TCP dir=in localport=5985 action=allow<enter><wait2s>"
+
   ]
 
   additional_iso_files {
