@@ -67,7 +67,7 @@ source "proxmox-iso" "win7" {
     "$adapter = Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }<enter><wait1s>",
     "if ($adapter) { ",
     "  $interface = $adapter.NetConnectionID; ",
-    "  netsh interface ip set address name=\"$interface\" source=static addr=10.0.10.150 mask=255.255.255.0 gateway=10.0.10.1; ",
+    "  netsh interface ip set address name=\"$interface\" source=static addr=10.0.40.150 mask=255.255.255.0 gateway=10.0.40.1; ",
     "} ",
     "<enter><wait2s>",
 
@@ -80,9 +80,9 @@ source "proxmox-iso" "win7" {
     "powershell -Command \"Start-Service WinRM\"<enter><wait5s>",
 
     # 2. Configure WinRM for Basic Auth and Unencrypted traffic (standard for Packer)
-    "powershell -Command \"winrm quickconfig -q\"<enter><wait2s>",
-    "winrm set winrm/config/service/auth '@{Basic=\"true\"}'<enter><wait2s>",
-    "winrm set winrm/config/service '@{AllowUnencrypted=\"true\"}'<enter><wait2s>",
+    #"powershell -Command \"winrm quickconfig -q\"<enter><wait2s>",
+    #"winrm set winrm/config/service/auth '@{Basic=\"true\"}'<enter><wait2s>",
+    #"winrm set winrm/config/service '@{AllowUnencrypted=\"true\"}'<enter><wait2s>",
 
     # 3. Explicitly allow WinRM through Windows Firewall
     "netsh advfirewall firewall add rule name=\"WinRM 5985\" protocol=TCP dir=in localport=5985 action=allow<enter><wait2s>",
@@ -102,17 +102,20 @@ source "proxmox-iso" "win7" {
   unmount_iso          = true
 
   # enter
-}
+
+  communicator         = "winrm"
+  winrm_username       = "packer"
+  winrm_password       = "packer"
+  winrm_timeout        = "6h"
+  winrm_host     = "10.0.40.150"
 
 build {
   sources = ["source.proxmox-iso.win7"]
 
-  # Optional: Install updates or software via PowerShell
-  #provisioner "powershell" {
-  #  inline = [
-  #    "dir env:",
-  #    "Get-Service"
-  #  ]
-  #}
+  provisioner "powershell" {
+    inline = [
+      "ipconfig:",
+    ]
+  }
 }
 
