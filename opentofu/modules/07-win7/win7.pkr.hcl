@@ -59,7 +59,10 @@ source "proxmox-iso" "win7" {
     "<wait1m>",
 
 
-    "<leftSuper><wait2s>powershell<wait2s><enter><wait2s>",
+    "<powershell> ",
+    # This command opens a NEW window that IS an Administrator
+    "Start-Process powershell -Verb RunAs",
+    "<enter><wait10>",
 
     "$targetMac = 'AA:11:00:15:00:00'<enter><wait1s>",
     "$adapter = Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }<enter><wait1s>",
