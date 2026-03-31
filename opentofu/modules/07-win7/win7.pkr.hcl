@@ -76,7 +76,7 @@ source "proxmox-iso" "win7" {
     "netsh advfirewall firewall add rule name=\"Allow Ping\" protocol=ICMPV4 dir=in action=allow<enter><wait2s>",
 
     # This targets the 'Unidentified Networks' profile specifically
-    "reg add \"HKLM\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\NetworkList\Signatures\010103000F0000F0010000000F0000F0C96701BA000000000000000000000000\" /v Category /t REG_DWORD /d 1 /f"
+    "reg add \"HKLM\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\NetworkList\Signatures\010103000F0000F0010000000F0000F0C96701BA000000000000000000000000\" /v Category /t REG_DWORD /d 1 /f<wait2s><enter>",
 
     # 2. Configure WinRM for Basic Auth and Unencrypted traffic (standard for Packer)
     "powershell -Command \"winrm quickconfig -q\"<enter><wait2s>",
