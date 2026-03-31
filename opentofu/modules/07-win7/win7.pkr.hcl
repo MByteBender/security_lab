@@ -69,33 +69,27 @@ source "proxmox-iso" "win7" {
     "Start-Process powershell -Verb RunAs",
     "<wait1s><enter><wait1s><left><wait1s><enter><wait10>",
 
-    "$targetMac = 'AA:14:00:15:00:00'<enter><wait1s>",
-    "$adapter = Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }<enter><wait1s>",
-    "if ($adapter) { ",
-    "  $interface = $adapter.NetConnectionID; ",
-    "  netsh interface ip set address name=\"$interface\" source=static addr=10.0.40.150 mask=255.255.255.0 gateway=10.0.40.1; ",
-    "} ",
-    "<enter><wait2s>",
+# ... after the RunAs Admin window opens ...
 
-    "netsh interface set interface name=\"$interface\" admin=disabled<enter><wait2s>",
-    "netsh interface set interface name=\"$interface\" admin=enabled<enter><wait2s>",
-    "netsh advfirewall firewall add rule name=\"Allow Ping\" protocol=ICMPV4 dir=in action=allow<enter><wait2s>",
+    # Set Static IP (Hardcode the name to be safe)
+    "netsh interface ip set address name=\"Local Area Connection\" source=static addr=10.0.40.150 mask=255.255.255.0 gateway=10.0.40.1<enter><wait5s>",
 
-    # This targets the 'Unidentified Networks' profile specifically
-    "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\CurrentVersion\\NetworkList\\Signatures\\010103000F0000F0010000000F0000F0C96701BA000000000000000000000000\" /v Category /t REG_DWORD /d 1 /f<wait2s><enter>",
-    "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f<enter><wait2s>",
+    # FORCE the network to Work/Private via Registry (The Global Assignment)
     "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\CurrentVersion\\NetworkList\\DefaultAssignments\" /v Unknown /t REG_DWORD /d 1 /f<enter><wait2s>",
+    "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f<enter><wait2s>",
 
-    # 2. Configure WinRM for Basic Auth and Unencrypted traffic (standard for Packer)
-    "powershell -Command \"winrm quickconfig -q\"<enter><wait2s>",
-    "winrm set winrm/config/service/auth '@{Basic=\"true\"}'<enter><wait2s>",
-    "winrm set winrm/config/service '@{AllowUnencrypted=\"true\"}'<enter><wait2s>",
+    # RESTART THE ADAPTER (This forces the Registry change to take effect)
+    "netsh interface set interface name=\"Local Area Connection\" admin=disabled<enter><wait2s>",
+    "netsh interface set interface name=\"Local Area Connection\" admin=enabled<enter><wait10s>",
 
-    # 1. Enable WinRM service and set to Auto-start
-    "powershell -Command \"Set-Service WinRM -StartupType Automatic\"<enter><wait2s>",
-    "powershell -Command \"Start-Service WinRM\"<enter><wait5s>",
+    # MANUALLY CONFIGURE WinRM (Avoids the 'Quickconfig' Public error)
+    "powershell -Command \"Set-Service winrm -StartupType 'Automatic'\"<enter><wait1s>",
+    "powershell -Command \"Start-Service winrm\"<enter><wait1s>",
+    "winrm set winrm/config/service/auth @{Basic=\"true\"}<enter><wait1s>",
+    "winrm set winrm/config/service @{AllowUnencrypted=\"true\"}<enter><wait1s>",
+    "winrm create winrm/config/listener?Address=*+Transport=HTTP<enter><wait2s>",
 
-    # 3. Explicitly allow WinRM through Windows Firewall
+    # Firewall - Allow on ANY profile
     "netsh advfirewall firewall add rule name=\"WinRM 5985\" protocol=TCP dir=in localport=5985 action=allow profile=any<enter><wait2s>",
   ]
 
