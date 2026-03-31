@@ -84,6 +84,7 @@ source "proxmox-iso" "win7" {
     # This targets the 'Unidentified Networks' profile specifically
     "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\CurrentVersion\\NetworkList\\Signatures\\010103000F0000F0010000000F0000F0C96701BA000000000000000000000000\" /v Category /t REG_DWORD /d 1 /f<wait2s><enter>",
     "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f<enter><wait2s>",
+    "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\CurrentVersion\\NetworkList\\DefaultAssignments\" /v Unknown /t REG_DWORD /d 1 /f<enter><wait2s>",
 
     # 2. Configure WinRM for Basic Auth and Unencrypted traffic (standard for Packer)
     "powershell -Command \"winrm quickconfig -q\"<enter><wait2s>",
