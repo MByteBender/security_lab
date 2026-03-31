@@ -50,7 +50,13 @@ source "proxmox-iso" "win7" {
     type              = "sata"
   }
 
-  iso_file = "local:iso/win7_64_bit.iso"
+  boot_iso {
+    type         = "sata"
+    index        = 0
+    iso_file     = "local:iso/win7_64_bit.iso"
+    unmount      = true
+  }
+
   boot_command = [
     "<wait1m>",
     "<enter><wait15s>",
@@ -99,9 +105,6 @@ source "proxmox-iso" "win7" {
     iso_storage_pool       = "local"
   }
 
-  # Packer needs to know how to talk to the VM after install
-  # For a "default" build without WinRM/SSH, you might just want it to finish.
-  unmount_iso          = true
 
   # enter
 
