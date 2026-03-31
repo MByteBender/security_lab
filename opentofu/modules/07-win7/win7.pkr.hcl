@@ -115,14 +115,3 @@ source "proxmox-iso" "win7" {
 
 }
 
-build {
-  sources = ["source.proxmox-iso.win7"]
-
-  provisioner "powershell" {
-    inline = [
-      "ipconfig:",
-    ]
-  }
-}
-
-
