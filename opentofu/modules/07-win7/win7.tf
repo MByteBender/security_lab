@@ -79,7 +79,7 @@ resource "proxmox_virtual_environment_vm" "win7" {
     type     = "winrm"
     user     = "packer"             # Use the user defined in your Packer/Cloud-Init
     password = "packer"   # Or use private_key = file("~/.ssh/id_rsa")
-    host     = "10.0.40.160"
+    host     = "10.0.40.150"
     https    = false                     # Set to true only if you configured SSL in Packer
     port     = 5985                      # Standard WinRM HTTP port
     timeout  = "10m"                     # Windows 2008 boot times can be slow
