@@ -105,13 +105,18 @@ source "proxmox-iso" "win7" {
 
   # enter
 
-  #communicator         = "winrm"
-  #winrm_username       = "packer"
-  #winrm_password       = "packer"
-  #winrm_timeout        = "6h"
-  #winrm_host     = "10.0.40.150"
-  #winrm_insecure = true
-  #winrm_use_ssl = false
+  communicator         = "winrm"
+  winrm_username       = "packer"
+  winrm_password       = "packer"
+  winrm_timeout        = "6h"
+  winrm_host     = "10.0.40.150"
+  winrm_insecure = true
+  winrm_use_ssl = false
 
 }
+
+build {
+
+}
+
 
