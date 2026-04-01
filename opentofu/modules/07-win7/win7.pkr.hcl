@@ -94,7 +94,7 @@ source "proxmox-iso" "win7" {
     "powershell -Command \"Start-Service winrm\"<enter><wait1s>",
     "winrm set winrm/config/service/auth '@{Basic=\"true\"}'<enter><wait1s>",
     "winrm set winrm/config/service '@{AllowUnencrypted=\"true\"}'<enter><wait1s>",
-    "winrm set winrm/config/client '@{TrustedHosts=\"*\"}'",
+    "winrm set winrm/config/client '@{TrustedHosts=\"*\"}'<enter><wait1s>",
     "winrm create winrm/config/listener?Address=*+Transport=HTTP<enter><wait2s>",
 
     # Firewall - Allow on ANY profile
