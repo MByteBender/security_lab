@@ -85,8 +85,9 @@ source "proxmox-iso" "win7" {
     # MANUALLY CONFIGURE WinRM (Avoids the 'Quickconfig' Public error)
     "powershell -Command \"Set-Service winrm -StartupType 'Automatic'\"<enter><wait1s>",
     "powershell -Command \"Start-Service winrm\"<enter><wait1s>",
-    "winrm set winrm/config/service/auth @{Basic=\"true\"}<enter><wait1s>",
-    "winrm set winrm/config/service @{AllowUnencrypted=\"true\"}<enter><wait1s>",
+    "winrm set winrm/config/service/auth '@{Basic=\"true\"}'<enter><wait1s>",
+    "winrm set winrm/config/service '@{AllowUnencrypted=\"true\"}'<enter><wait1s>",
+    "winrm set winrm/config/client '@{TrustedHosts=\"*\"}'",
     "winrm create winrm/config/listener?Address=*+Transport=HTTP<enter><wait2s>",
 
     # Firewall - Allow on ANY profile
