@@ -81,6 +81,10 @@ source "proxmox-iso" "win7" {
     "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\NetworkList\\Signatures\\Unmanaged\" /v \"Category\" /t REG_DWORD /d 1 /f<enter><wait2s>",
     "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\CurrentVersion\\NetworkList\\DefaultAssignments\" /v \"Unknown\" /t REG_DWORD /d 1 /f<enter><wait2s>",
 
+    "$nlt = [Type]::GetTypeFromCLSID([Guid]\"{DCB00C01-570F-4A9B-8D69-199FDBA5723B}\")<enter><wait1s>",
+    "$nlm = [Activator]::CreateInstance($nlt)<enter><wait1s>",
+    "$nlm.GetNetworks(1) | ForEach-Object { $_.SetCategory(1) }<enter><wait1s>",
+
     # RESTART THE ADAPTER (This forces the Registry change to take effect)
     "netsh interface set interface name=\"Local Area Connection\" admin=disabled<enter><wait2s>",
     "netsh interface set interface name=\"Local Area Connection\" admin=enabled<enter><wait10s>",
