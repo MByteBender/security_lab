@@ -77,9 +77,9 @@ source "proxmox-iso" "win7" {
     # FORCE the network to Work/Private via Registry (The Global Assignment)
     "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\CurrentVersion\\NetworkList\\DefaultAssignments\" /v Unknown /t REG_DWORD /d 1 /f<enter><wait2s>",
     "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f<enter><wait2s>",
-    "reg add "HKLM\SYSTEM\CurrentControlSet\Control\Network\NetworkLocationWizard" /v "Show" /t REG_DWORD /d 0 /f<enter><wait2s>",
-    "reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Signatures\Unmanaged" /v "Category" /t REG_DWORD /d 1 /f<enter><wait2s>",
-    "reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\NetworkList\DefaultAssignments" /v "Unknown" /t REG_DWORD /d 1 /f<enter><wait2s>",
+    "reg add \"HKLM\SYSTEM\CurrentControlSet\Control\Network\NetworkLocationWizard\" /v \"Show\" /t REG_DWORD /d 0 /f<enter><wait2s>",
+    "reg add \"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Signatures\Unmanaged\" /v \"Category\" /t REG_DWORD /d 1 /f<enter><wait2s>",
+    "reg add \"HKLM\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\NetworkList\DefaultAssignments\" /v \"Unknown\" /t REG_DWORD /d 1 /f<enter><wait2s>",
 
     # RESTART THE ADAPTER (This forces the Registry change to take effect)
     "netsh interface set interface name=\"Local Area Connection\" admin=disabled<enter><wait2s>",
