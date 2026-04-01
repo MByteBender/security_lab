@@ -74,6 +74,8 @@ source "proxmox-iso" "win7" {
     # Set Static IP (Hardcode the name to be safe)
     "netsh interface ip set address name=\"Local Area Connection\" source=static addr=10.0.40.150 mask=255.255.255.0 gateway=10.0.40.5<enter><wait5s>",
 
+    "powershell -NonInteractive -Command \"$net = [Activator]::CreateInstance([Type]::GetTypeFromCLSID([Guid]'{DCB00C01-570F-4A9B-8D69-199FDBA5723B}')); $net.GetNetworkConnections() | ForEach-Object {$_.GetNetwork().SetCategory(1)}\""
+
     # FORCE the network to Work/Private via Registry (The Global Assignment)
     "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\CurrentVersion\\NetworkList\\DefaultAssignments\" /v Unknown /t REG_DWORD /d 1 /f<enter><wait2s>",
     "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f<enter><wait2s>",
