@@ -120,10 +120,10 @@ iface $INTERFACE inet static
 #    address 10.0.40.140
 #    netmask 255.255.255.0
 #    gateway 10.0.40.1
-#EOF
+EOF
 
       # 4. Restart the legacy networking service
-    nohup sh -c \"/etc/init.d/networking restart && sleep 10\"
+    echo "ubuntu" | sudo -S /etc/init.d/networking restart && sleep 10
     EOT
   ]
 }
