@@ -101,7 +101,8 @@ source "proxmox-iso" "win7" {
     "netsh advfirewall firewall add rule name=\"WinRM 5985\" protocol=TCP dir=in localport=5985 action=allow profile=any<enter><wait2s>",
     "netsh advfirewall firewall add rule name=\"Allow Ping\" protocol=ICMPV4 dir=in action=allow<enter><wait2s>",
     "netsh advfirewall firewall set rule group=\"Windows Remote Management\" new enable=yes<enter><wait2s>",
-    "netsh advfirewall set allprofiles state off<enter><wait2s>"
+    "netsh advfirewall set allprofiles state off<enter><wait2s>",
+    "net start winrm<enter><wait2s>"
   ]
 
   additional_iso_files {
