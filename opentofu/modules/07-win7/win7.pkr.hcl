@@ -134,6 +134,7 @@ inline = [
     <<-EOT
     $content = @'
     @echo off
+    sc config WinRM start= auto
     net start WinRM
     '@
     $content | Out-File -FilePath 'C:\\Windows\\Setup\\Scripts\\SetupComplete.cmd' -Encoding ASCII
