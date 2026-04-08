@@ -122,8 +122,9 @@ iface $INTERFACE inet static
 #EOF
 
       # 4. Restart the legacy networking service
+      sleep 3
       echo "ubuntu" | sudo -S /etc/init.d/networking restart
-      echo "ubuntu" | sudo -S /etc/init.d/networking restart
+      sleep5
     EOT
   ]
 }
