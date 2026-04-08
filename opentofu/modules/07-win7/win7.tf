@@ -85,6 +85,7 @@ resource "proxmox_virtual_environment_vm" "win7" {
     port     = 5985                      # Standard WinRM HTTP port
     insecure = true
     timeout  = "10m"                     # Windows 2008 boot times can be slow
+    use_ntlm = true  # Add this for legacy Windows compatibility
   }
 
   provisioner "remote-exec" {
