@@ -52,10 +52,12 @@ resource "proxmox_virtual_environment_vm" "kali" {
 
   network_device {
     bridge = "vmbr130"
+    mac_address = "AA:13:00:11:00:00"
   }
 
   network_device {
     bridge = "vmbr140"
+    mac_address = "AA:14:00:11:00:00"
   }
 
   agent {

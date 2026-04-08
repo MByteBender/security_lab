@@ -67,7 +67,7 @@ source "proxmox-iso" "kali-linux" {
   network_adapters {
     model  = "virtio"
     bridge = "vmbr140"
-    mac_address = "AA:14:00:10:00:00"
+    mac_address = "AA:14:00:11:00:00"
   }
 
   scsi_controller = "virtio-scsi-pci"
@@ -121,26 +121,25 @@ build {
       <<-EOT
         export DEBIAN_FRONTEND=noninteractive
         apt-get update
-        apt-get install -y qemu-guest-agent kali-desktop-xfce kali-linux-default gvm nuclei
-        systemctl enable qemu-guest-agent
+        #apt-get install -y qemu-guest-agent kali-desktop-xfce kali-linux-default gvm nuclei
+        #systemctl enable qemu-guest-agent
 
         # 1. Find the interface name
-        INTERFACE=$(ip -o link show | grep -i 'AA:14:00:10:00:00' | awk -F': ' '{print $2}')
+        INTERFACE=$(ip -o link show | grep -i 'AA:14:00:11:00:00' | awk -F': ' '{print $2}')
         echo "Found interface: $INTERFACE"
 
-        # 2. Write the config (The Bash heredoc now works because it's inside the HCL heredoc)
-cat <<EOF | sudo tee /etc/network/interfaces.d/lab-setup
-auto eth0
-iface eth0 inet static
-    address 10.0.30.10/24
-    ip route add 10.0.10.0/24 via 10.0.30.1 dev eth1 2>/dev/null
-    ip route add 10.0.20.0/24 via 10.0.30.1 dev eth1 2>/dev/null
+        # 2. Write the config
+cat <<EOF | sudo tee /etc/network/interfaces.d/initial-setup
+#auto $INTERFACE
+#iface $INTERFACE inet static
+#    address 10.0.30.110/24
+#    ip route add 10.0.10.0/24 via 10.0.30.1 dev eth1 2>/dev/null
+#    ip route add 10.0.20.0/24 via 10.0.30.1 dev eth1 2>/dev/null
 
-auto eth1
-iface eth1 inet static
-    address 10.0.40.10/24
+auto $INTERFACE
+iface $INTERFACE inet static
+    address 10.0.40.110/24
 EOF
-
 cat <<EOF | sudo tee /etc/NetworkManager/dispatcher.d/99-lab-routes
 #!/bin/bash
 
@@ -154,8 +153,8 @@ EOF
         sudo systemctl disable NetworkManager
 
         # 3. GVM Setup
-        gvm-setup
-        runuser -u _gvm -- gvmd --user=admin --new-password=${var.openvas_password}
+        #gvm-setup
+        #runuser -u _gvm -- gvmd --user=admin --new-password=${var.openvas_password}
 
         # 4. Cleanup
         apt-get autoremove -y
