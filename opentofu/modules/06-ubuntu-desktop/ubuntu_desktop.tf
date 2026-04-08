@@ -114,12 +114,12 @@ iface $INTERFACE inet static
     up ip route add 10.0.30.0/24 via 10.0.10.1
 
 # Adding the second IP
-auto $INTERFACE2
-iface $INTERFACE2 inet static
-    address 10.0.40.140
-    netmask 255.255.255.0
-    gateway 10.0.40.1
-EOF
+#auto $INTERFACE2
+#iface $INTERFACE2 inet static
+#    address 10.0.40.140
+#    netmask 255.255.255.0
+#    gateway 10.0.40.1
+#EOF
 
       # 4. Restart the legacy networking service
       echo "ubuntu" | sudo -S /etc/init.d/networking restart
