@@ -73,7 +73,7 @@ source "proxmox-iso" "win2008r2" {
 
     "<leftSuper><wait2s>powershell<wait2s><enter><wait2s>",
 
-    "$targetMac = 'AA:11:00:16:00:00'<enter><wait1s>",
+    "$targetMac = 'AA:14:00:16:00:00'<enter><wait1s>",
     "$adapter = Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }<enter><wait1s>",
     "if ($adapter) { ",
     "  $interface = $adapter.NetConnectionID; ",
