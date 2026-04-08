@@ -85,7 +85,7 @@ source "proxmox-iso" "kali-linux" {
 
   bios = "seabios"
   machine = "q35"
-  boot = "order=scsi0;ide0"14:00:
+  boot = "order=scsi0;ide0"
   http_directory = "http"
   boot_command = [
     "<esc><wait>",
