@@ -129,7 +129,6 @@ build {
   sources = ["source.proxmox-iso.win7"]
 
 provisioner "powershell" {
-provisioner "powershell" {
     inline = [
       # 1. Create the directory if it doesn't exist
       "New-Item -Path 'C:\\Windows\\Setup\\Scripts' -ItemType Directory -Force",
