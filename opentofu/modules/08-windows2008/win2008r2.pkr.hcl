@@ -41,6 +41,7 @@ source "proxmox-iso" "win2008r2" {
     model  = "e1000"
     bridge = "vmbr140"
     firewall = false
+    mac_address = "AA:14:00:15:00:00"
   }
 
   scsi_controller      = "virtio-scsi-single"
@@ -66,13 +67,13 @@ source "proxmox-iso" "win2008r2" {
     "<shift+f10><wait>",             # 3. Open the Command Prompt (The Magic Trick)
     # 4. Manually trigger the setup using Packer's built-in web server
     "setup.exe /unattend:http://{{ .HTTPIP }}:{{ .HTTPPort }}/Autounattend.xml<enter>",
-    "<wait2m><enter><wait3s>",
+    "<wait3m><enter><wait3s>",
     "Packer123!<tab>Packer123!",
     "<enter><wait2s><enter><wait10s>",
 
     "<leftSuper><wait2s>powershell<wait2s><enter><wait2s>",
 
-    "$targetMac = 'AA:11:00:15:00:00'<enter><wait1s>",
+    "$targetMac = 'AA:11:00:16:00:00'<enter><wait1s>",
     "$adapter = Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }<enter><wait1s>",
     "if ($adapter) { ",
     "  $interface = $adapter.NetConnectionID; ",
