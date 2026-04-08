@@ -129,9 +129,17 @@ build {
   sources = ["source.proxmox-iso.win7"]
 
 provisioner "powershell" {
+provisioner "powershell" {
     inline = [
-      "Write-Host 'Packer successfully connected via WinRM!'",
-      "Get-Service | Where-Object {$_.Status -eq 'Running'}"
+      # 1. Create the directory if it doesn't exist
+      "New-Item -Path 'C:\\Windows\\Setup\\Scripts' -ItemType Directory -Force",
+
+      # 2. Write the content to the file
+      # We use @' '@ (heredoc) to handle the complex characters and quotes easily
+      @'
+@echo off
+net start WinRM
+'@ | Out-File -FilePath 'C:\\Windows\\Setup\\Scripts\\SetupComplete.cmd' -Encoding ASCII
     ]
   }
 }
