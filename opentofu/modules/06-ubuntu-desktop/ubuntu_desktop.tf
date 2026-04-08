@@ -123,7 +123,6 @@ iface $INTERFACE inet static
 #EOF
 
       # 4. Restart the legacy networking service
-      sleep 50
       echo "ubuntu" | sudo -S ip addr flush dev $INTERFACE || true
       echo "ubuntu" | sudo -S ifdown $INTERFACE --force || true
       echo "ubuntu" | sudo -S ifup $INTERFACE
