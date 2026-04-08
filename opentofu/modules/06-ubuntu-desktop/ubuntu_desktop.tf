@@ -123,7 +123,7 @@ iface $INTERFACE inet static
 #EOF
 
       # 4. Restart the legacy networking service
-    sudo sh -c 'nohup sh -c \"/etc/init.d/networking restart && sleep 10\" > /dev/null 2>&1 &'
+    nohup sh -c \"/etc/init.d/networking restart && sleep 10\"
     EOT
   ]
 }
