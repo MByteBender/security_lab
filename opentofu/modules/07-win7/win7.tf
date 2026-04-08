@@ -83,6 +83,7 @@ resource "proxmox_virtual_environment_vm" "win7" {
     host     = "10.0.40.150"
     https    = false                     # Set to true only if you configured SSL in Packer
     port     = 5985                      # Standard WinRM HTTP port
+    insecure = true
     timeout  = "10m"                     # Windows 2008 boot times can be slow
   }
 
