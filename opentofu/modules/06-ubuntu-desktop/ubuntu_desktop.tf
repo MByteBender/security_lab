@@ -86,6 +86,7 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
   }
 
 provisioner "remote-exec" {
+  on_failure = continue
   inline = [
     <<-EOT
       # 1. Identify the interface (likely eth1 based on your log)
@@ -122,11 +123,11 @@ iface $INTERFACE inet static
 #EOF
 
       # 4. Restart the legacy networking service
+      sleep 50
       echo "ubuntu" | sudo -S ip addr flush dev $INTERFACE || true
       echo "ubuntu" | sudo -S ifdown $INTERFACE --force || true
       echo "ubuntu" | sudo -S ifup $INTERFACE
       echo "ubuntu" | sudo -S /etc/init.d/networking restart
-      sleep 50
     EOT
   ]
 }
