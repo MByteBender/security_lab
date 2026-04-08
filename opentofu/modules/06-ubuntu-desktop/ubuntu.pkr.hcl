@@ -74,10 +74,9 @@ additional_iso_files {
   http_port_min = 8069
   http_port_max = 8069
 
-  boot_wait = "15s"
+  boot_wait = "30s"
 
 boot_command = [
-    "<wait30s>",
     "<enter><wait><f6><wait><esc>",
     "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
     "install ",
