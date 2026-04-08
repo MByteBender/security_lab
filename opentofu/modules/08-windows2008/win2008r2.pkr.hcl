@@ -41,7 +41,7 @@ source "proxmox-iso" "win2008r2" {
     model  = "e1000"
     bridge = "vmbr140"
     firewall = false
-    mac_address = "AA:14:00:15:00:00"
+    mac_address = "AA:14:00:16:00:00"
   }
 
   scsi_controller      = "virtio-scsi-single"
