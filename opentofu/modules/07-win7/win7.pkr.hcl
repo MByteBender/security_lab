@@ -99,6 +99,7 @@ source "proxmox-iso" "win7" {
 
     # Firewall - Allow on ANY profile
     "netsh advfirewall firewall add rule name=\"WinRM 5985\" protocol=TCP dir=in localport=5985 action=allow profile=any<enter><wait2s>",
+    "netsh advfirewall firewall add rule name=\"Allow Ping\" protocol=ICMPV4 dir=in action=allow<enter><wait2s>",
   ]
 
   additional_iso_files {
@@ -124,6 +125,12 @@ source "proxmox-iso" "win7" {
 build {
   sources = ["source.proxmox-iso.win7"]
 
+provisioner "powershell" {
+    inline = [
+      "Write-Host 'Packer successfully connected via WinRM!'",
+      "Get-Service | Where-Object {$_.Status -eq 'Running'}"
+    ]
+  }
 }
 
 
