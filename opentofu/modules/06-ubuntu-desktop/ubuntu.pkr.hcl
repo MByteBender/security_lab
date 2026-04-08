@@ -77,9 +77,9 @@ additional_iso_files {
   boot_wait = "5s"
 
 boot_command = [
-      "<wait15>",
-      "<enter><wait><f6><wait><esc>",
-      "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+    "<wait15s>",
+    "<enter><wait><f6><wait><esc>",
+    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
     "install ",
     "auto=true ",
     "priority=critical ",
