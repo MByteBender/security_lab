@@ -129,17 +129,16 @@ build {
   sources = ["source.proxmox-iso.win7"]
 
 provisioner "powershell" {
-    inline = [
-      # 1. Create the directory if it doesn't exist
-      "New-Item -Path 'C:\\Windows\\Setup\\Scripts' -ItemType Directory -Force",
-
-      # 2. Write the content to the file
-      # We use @' '@ (heredoc) to handle the complex characters and quotes easily
-      @'
-@echo off
-net start WinRM
-'@ | Out-File -FilePath 'C:\\Windows\\Setup\\Scripts\\SetupComplete.cmd' -Encoding ASCII
-    ]
+inline = [
+    "New-Item -Path 'C:\\Windows\\Setup\\Scripts' -ItemType Directory -Force",
+    <<-EOT
+    $content = @'
+    @echo off
+    net start WinRM
+    '@
+    $content | Out-File -FilePath 'C:\\Windows\\Setup\\Scripts\\SetupComplete.cmd' -Encoding ASCII
+    EOT
+  ]
   }
 }
 
