@@ -90,6 +90,7 @@ provisioner "remote-exec" {
     <<-EOT
       # 1. Identify the interface (likely eth1 based on your log)
       INTERFACE=$(ip -o link show | grep -i "AA:11:00:14:00:00" | awk -F': ' '{print $2}')
+      INTERFACE2=$(ip -o link show | grep -i "AA:14:00:14:00:00" | awk -F': ' '{print $2}')
 
       # 2. Tell NetworkManager to IGNORE this interface
       # In Ubuntu 10.04, NetworkManager ignores anything in /etc/network/interfaces
@@ -104,19 +105,20 @@ iface lo inet loopback
 
 auto $INTERFACE
 iface $INTERFACE inet static
+    address 10.0.10.140
+    netmask 255.255.255.0
+    gateway 10.0.10.1
+    # Static routes added when interface comes up
+    up ip route add 10.0.10.0/24 dev $INTERFACE
+    up ip route add 10.0.20.0/24 via 10.0.10.1
+    up ip route add 10.0.30.0/24 via 10.0.10.1
+
+# Adding the second IP
+auto $INTERFACE2
+iface $INTERFACE2 inet static
     address 10.0.40.140
     netmask 255.255.255.0
     gateway 10.0.40.1
-    # Static routes added when interface comes up
-    up ip route add 10.0.10.0/24 dev $INTERFACE
-    up ip route add 10.0.20.0/24 via 10.0.40.1
-    up ip route add 10.0.30.0/24 via 10.0.40.1
-
-# Adding the second IP as a virtual interface
-auto $INTERFACE:0
-iface $INTERFACE:0 inet static
-    address 10.0.10.140
-    netmask 255.255.255.0
 EOF
 
       # 4. Restart the legacy networking service
