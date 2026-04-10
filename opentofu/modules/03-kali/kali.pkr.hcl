@@ -121,6 +121,7 @@ build {
       <<-EOT
         export DEBIAN_FRONTEND=noninteractive
         apt-get update
+        apt install kali-linux-default
         #apt-get install -y qemu-guest-agent kali-desktop-xfce kali-linux-default gvm nuclei
         #systemctl enable qemu-guest-agent
 
