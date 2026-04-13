@@ -122,8 +122,8 @@ build {
         export DEBIAN_FRONTEND=noninteractive
         apt-get update
         apt install -y kali-linux-default
-        #apt-get install -y qemu-guest-agent kali-desktop-xfce kali-linux-default gvm nuclei
-        #systemctl enable qemu-guest-agent
+        apt-get install -y qemu-guest-agent kali-desktop-xfce kali-linux-default gvm nuclei
+        systemctl enable qemu-guest-agent
 
         # 1. Find the interface name
         INTERFACE=$(ip -o link show | grep -i 'AA:14:00:11:00:00' | awk -F': ' '{print $2}')
