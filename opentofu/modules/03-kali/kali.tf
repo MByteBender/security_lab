@@ -85,6 +85,8 @@ provisioner "remote-exec" {
         <<-EOT
           INTERFACE2=$(ip -o link show | grep -i 'AA:14:00:11:00:00' | awk -F': ' '{print $2}')
           INTERFACE=$(ip -o link show | grep -i 'AA:13:00:11:00:00' | awk -F': ' '{print $2}')
+          echo "Found interface: $INTERFACE"
+          echo "Found interface: $INTERFACE2"
 
           echo "kali" | sudo -S ip addr flush dev $INTERFACE && sleep 1
 
