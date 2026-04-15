@@ -61,13 +61,13 @@ source "proxmox-iso" "kali-linux" {
 
   network_adapters {
     model  = "virtio"
-    bridge = "vmbr140"
-    mac_address = "AA:14:00:11:00:00"
+    bridge = "vmbr0"
   }
 
   network_adapters {
     model  = "virtio"
-    bridge = "vmbr0"
+    bridge = "vmbr140"
+    mac_address = "AA:14:00:11:00:00"
   }
 
   scsi_controller = "virtio-scsi-pci"
