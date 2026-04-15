@@ -32,7 +32,6 @@ variable "ubuntu_password_plain" {
 
 variable "kali_username" {
   type = string
-  default = "kali"
 }
 
 variable "kali_password" {
