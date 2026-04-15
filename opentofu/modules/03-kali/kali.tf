@@ -86,7 +86,7 @@ provisioner "remote-exec" {
           INTERFACE2=$(ip -o link show | grep -i 'AA:14:00:11:00:00' | awk -F': ' '{print $2}')
           INTERFACE=$(ip -o link show | grep -i 'AA:13:00:11:00:00' | awk -F': ' '{print $2}')
 
-          echo "kali" | sudo -S ip addr flush dev $INTERFACE
+          echo "kali" | sudo -S ip addr flush dev $INTERFACE && sleep 1
 
 echo "kali" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
 auto $INTERFACE
@@ -100,7 +100,7 @@ iface $INTERFACE2 inet static
     address 10.0.40.110/24
 EOF"
 
-echo "kali" | sudo -S systemctl restart networking && sleep 10
+echo "kali" | sudo -S systemctl restart networking && sleep 5
       EOT
     ]
   }
