@@ -72,6 +72,13 @@ resource "proxmox_virtual_environment_vm" "kali" {
     size         = 60      # Resize template disk to 40GB
   }
 
+  connection {
+    type     = "ssh"
+    user     = "kali"             # Use the user defined in your Packer/Cloud-Init
+    password = var.kali_password   # Or use private_key = file("~/.ssh/id_rsa")
+    host     = "10.0.40.110"
+  }
+
 provisioner "remote-exec" {
     on_failure = continue
     inline = [
