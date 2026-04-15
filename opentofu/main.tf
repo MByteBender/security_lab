@@ -21,6 +21,12 @@ variable "ubuntu_password_plain" {
   sensitive = true
 }
 
+variable "kali_password" {
+  type = string
+  sensitive = true
+}
+
+
 provider "proxmox" {
   endpoint  = var.proxmox_api_url
   api_token = var.proxmox_api_token
@@ -56,6 +62,8 @@ module "kali" {
   name              = "kali"
   vm_id             = 111
   clone_vm_id       = 110
+  kali_username     = "kali"
+  kali_password     = var.kali_password
   depends_on        = [module.networks, module.management]
 }
 

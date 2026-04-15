@@ -28,6 +28,15 @@ variable "clone_vm_id" {
   type = string
 }
 
+variable "kali_username" {
+  type = string
+}
+
+variable "kali_password" {
+  type = string
+  sensitive = true
+}
+
 resource "proxmox_virtual_environment_vm" "kali" {
   name      = var.name
   node_name = "pve"
@@ -74,8 +83,8 @@ resource "proxmox_virtual_environment_vm" "kali" {
 
   connection {
     type     = "ssh"
-    user     = "kali"             # Use the user defined in your Packer/Cloud-Init
-    password = "kali"   # Or use private_key = file("~/.ssh/id_rsa")
+    user     = var.kali_username             # Use the user defined in your Packer/Cloud-Init
+    password = var.kali_password   # Or use private_key = file("~/.ssh/id_rsa")
     host     = "10.0.40.110"
   }
 
@@ -87,8 +96,8 @@ provisioner "remote-exec" {
           INTERFACE=$(ip -o link show | grep -i 'AA:13:00:11:00:00' | awk -F': ' '{print $2}')
           echo "Found interface: $INTERFACE"
           echo "Found interface: $INTERFACE2"
-          
-echo "kali" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
+
+echo "${var.ssh_password}" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
 auto $INTERFACE
 iface $INTERFACE inet static
     address 10.0.30.110/24
@@ -102,7 +111,7 @@ iface $INTERFACE2 inet static
     address 10.0.40.110/24
 EOF"
 
-echo "kali" | sudo -S systemctl restart networking && sleep 5
+echo "${var.ssh_password}" | sudo -S systemctl restart networking && sleep 5
       EOT
     ]
   }

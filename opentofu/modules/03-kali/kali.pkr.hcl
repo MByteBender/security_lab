@@ -32,7 +32,6 @@ variable "ubuntu_password_plain" {
 
 variable "kali_password" {
   type = string
-  default = "kali"
 }
 
 variable "openvas_password" {
@@ -57,7 +56,7 @@ source "proxmox-iso" "kali-linux" {
 
   # Hardware Settings
   cores           = 3
-  memory          = 9032 # Kali Desktop likes 4GB+
+  memory          = 9032
 
   network_adapters {
     model  = "virtio"
@@ -105,7 +104,7 @@ source "proxmox-iso" "kali-linux" {
     "<enter>"
   ]
 
-  ssh_username = "kali"
+  ssh_username = var.kali_username
   ssh_password = var.kali_password
   ssh_timeout  = "60m"
 }
