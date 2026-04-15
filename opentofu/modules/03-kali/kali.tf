@@ -51,13 +51,13 @@ resource "proxmox_virtual_environment_vm" "kali" {
   }
 
   network_device {
-    bridge = "vmbr130"
-    mac_address = "AA:13:00:11:00:00"
+    bridge = "vmbr140"
+    mac_address = "AA:14:00:11:00:00"
   }
 
   network_device {
-    bridge = "vmbr140"
-    mac_address = "AA:14:00:11:00:00"
+    bridge = "vmbr130"
+    mac_address = "AA:13:00:11:00:00"
   }
 
   agent {
@@ -71,4 +71,30 @@ resource "proxmox_virtual_environment_vm" "kali" {
     interface    = "scsi0"
     size         = 60      # Resize template disk to 40GB
   }
+
+provisioner "remote-exec" {
+    on_failure = continue
+    inline = [
+        <<-EOT
+          INTERFACE2=$(ip -o link show | grep -i 'AA:14:00:11:00:00' | awk -F': ' '{print $2}')
+          INTERFACE=$(ip -o link show | grep -i 'AA:13:00:11:00:00' | awk -F': ' '{print $2}')
+
+cat <<EOF | sudo tee /etc/network/interfaces.d/setup
+auto $INTERFACE
+iface $INTERFACE inet static
+    address 10.0.30.110/24
+    ip route add 10.0.10.0/24 via 10.0.30.1 dev eth1 2>/dev/null
+    ip route add 10.0.20.0/24 via 10.0.30.1 dev eth1 2>/dev/null
+
+auto $INTERFACE2
+iface $INTERFACE2 inet static
+    address 10.0.40.110/24
+EOF
+
+echo "kali" | sudo -S systemctl restart networking && sleep 10
+      EOT
+    ]
+  }
+
+
 }

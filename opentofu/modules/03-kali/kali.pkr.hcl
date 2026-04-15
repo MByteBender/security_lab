@@ -61,13 +61,13 @@ source "proxmox-iso" "kali-linux" {
 
   network_adapters {
     model  = "virtio"
-    bridge = "vmbr0"
+    bridge = "vmbr140"
+    mac_address = "AA:14:00:11:00:00"
   }
 
   network_adapters {
     model  = "virtio"
-    bridge = "vmbr140"
-    mac_address = "AA:14:00:11:00:00"
+    bridge = "vmbr0"
   }
 
   scsi_controller = "virtio-scsi-pci"
@@ -121,7 +121,6 @@ build {
       <<-EOT
         export DEBIAN_FRONTEND=noninteractive
         apt-get update
-        apt install -y kali-linux-default
         apt-get install -y qemu-guest-agent kali-desktop-xfce kali-linux-default gvm nuclei
 
         # 1. Find the interface name
@@ -140,6 +139,7 @@ auto $INTERFACE
 iface $INTERFACE inet static
     address 10.0.40.110/24
 EOF
+
 cat <<EOF | sudo tee /etc/NetworkManager/dispatcher.d/99-lab-routes
 #!/bin/bash
 
