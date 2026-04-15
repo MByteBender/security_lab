@@ -88,14 +88,18 @@ provisioner "remote-exec" {
           echo "Found interface: $INTERFACE"
           echo "Found interface: $INTERFACE2"
 
+          ip a
+
           echo "kali" | sudo -S ip addr flush dev $INTERFACE && sleep 1
+
+          ip a
 
 echo "kali" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
 auto $INTERFACE
 iface $INTERFACE inet static
     address 10.0.30.110/24
-    up ip route add 10.0.10.0/24 via 10.0.30.1 dev eth1 2>/dev/null || true
-    up ip route add 10.0.20.0/24 via 10.0.30.1 dev eth1 2>/dev/null || true
+    up ip route add 10.0.10.0/24 via 10.0.30.1 dev eth1
+    up ip route add 10.0.20.0/24 via 10.0.30.1 dev eth1
 
 auto $INTERFACE2
 iface $INTERFACE2 inet static
