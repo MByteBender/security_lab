@@ -87,13 +87,7 @@ provisioner "remote-exec" {
           INTERFACE=$(ip -o link show | grep -i 'AA:13:00:11:00:00' | awk -F': ' '{print $2}')
           echo "Found interface: $INTERFACE"
           echo "Found interface: $INTERFACE2"
-
-          ip a
-
-          echo "kali" | sudo -S ip addr flush dev $INTERFACE && sleep 1
-
-          ip a
-
+          
 echo "kali" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
 auto $INTERFACE
 iface $INTERFACE inet static
