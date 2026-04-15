@@ -98,6 +98,8 @@ echo "kali" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
 auto $INTERFACE
 iface $INTERFACE inet static
     address 10.0.30.110/24
+    link-module none
+    post-up ip addr flush dev $IFACE scope link || true
     post-up ip route add 10.0.10.0/24 via 10.0.30.1 dev $INTERFACE || true
     post-up ip route add 10.0.20.0/24 via 10.0.30.1 dev $INTERFACE || true
 
