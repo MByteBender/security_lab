@@ -96,6 +96,8 @@ provisioner "remote-exec" {
           echo "Found interface: $INTERFACE"
           echo "Found interface: $INTERFACE2"
 
+          echo "${var.kali_password}" | sudo -S sed -i 's/^.*inet dhcp/#&/g' /etc/network/interfaces
+
           echo "${var.kali_password}" | sudo -S systemctl stop dhcpcd
           echo "${var.kali_password}" | sudo -S systemctl disable dhcpcd
 
