@@ -106,7 +106,7 @@ auto $INTERFACE
 iface $INTERFACE inet static
     address 10.0.30.110/24
     link-module none
-    post-up ip addr flush dev $INTERFACE scope link
+    post-up ip addr flush dev $INTERFACE
     post-up ip route add 10.0.10.0/24 via 10.0.30.1 dev $INTERFACE
     post-up ip route add 10.0.20.0/24 via 10.0.30.1 dev $INTERFACE
 
@@ -115,7 +115,6 @@ iface $INTERFACE2 inet static
     address 10.0.40.110/24
 EOF"
 
-cho "${var.kali_password}" | sudo -S ip addr flush dev \$INTERFACE
 echo "${var.kali_password}" | sudo -S systemctl restart networking && sleep 5
       EOT
     ]
