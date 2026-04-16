@@ -97,14 +97,17 @@ provisioner "remote-exec" {
           echo "Found interface: $INTERFACE"
           echo "Found interface: $INTERFACE2"
 
+          echo "kali" | sudo -S systemctl stop dhcpcd
+          echo "kali" | sudo -S systemctl disable dhcpcd
+
 echo "${var.kali_password}" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
 auto $INTERFACE
 iface $INTERFACE inet static
     address 10.0.30.110/24
     link-module none
-    post-up ip addr flush dev $INTERFACE scope link || true
-    post-up ip route add 10.0.10.0/24 via 10.0.30.1 dev $INTERFACE || true
-    post-up ip route add 10.0.20.0/24 via 10.0.30.1 dev $INTERFACE || true
+    post-up ip addr flush dev $INTERFACE scope link
+    post-up ip route add 10.0.10.0/24 via 10.0.30.1 dev $INTERFACE
+    post-up ip route add 10.0.20.0/24 via 10.0.30.1 dev $INTERFACE
 
 auto $INTERFACE2
 iface $INTERFACE2 inet static
