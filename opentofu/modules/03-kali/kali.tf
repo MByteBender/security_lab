@@ -117,7 +117,7 @@ iface $INTERFACE2 inet static
     address 10.0.40.110/24
 EOF"
 
-echo "${var.kali_password}" | sudo -S systemctl restart networking && sleep 5
+echo "${var.kali_password}" | sudo -S bash -c "nohup sh -c 'systemctl restart networking' > /dev/null 2>&1 &"
 ip a && sleep2
       EOT
     ]
