@@ -97,15 +97,15 @@ provisioner "remote-exec" {
           echo "Found interface: $INTERFACE"
           echo "Found interface: $INTERFACE2"
 
-          echo "${var.kali_password}" | sudo -S sed -i 's/^.*inet dhcp/#&/g' /etc/network/interfaces
-          echo "${var.kali_password}" | sudo -S rm /etc/network/interfaces.d/initial-setup
+          echo "kali" | sudo -S sed -i 's/^.*inet dhcp/#&/g' /etc/network/interfaces
+          echo "kali" | sudo -S rm /etc/network/interfaces.d/initial-setup
 
-          echo "${var.kali_password}" | sudo -S systemctl stop dhcpcd
-          echo "${var.kali_password}" | sudo -S systemctl disable dhcpcd
-          echo "${var.kali_password}" | sudo -S systemctl stop NetworkManager
-          echo "${var.kali_password}" | sudo -S systemctl disable NetworkManager
+          echo "kali" | sudo -S systemctl stop dhcpcd
+          echo "kali" | sudo -S systemctl disable dhcpcd
+          echo "kali" | sudo -S systemctl stop NetworkManager
+          echo "kali" | sudo -S systemctl disable NetworkManager
 
-echo "${var.kali_password}" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
+echo "kali" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
 auto $INTERFACE
 iface $INTERFACE inet static
     address 10.0.30.110/24
@@ -117,7 +117,7 @@ iface $INTERFACE2 inet static
     address 10.0.40.110/24
 EOF"
 
-echo "${var.kali_password}" | sudo -S systemctl restart networking && sleep 5
+echo "kali" | sudo -S systemctl restart networking && sleep 5
 ip a && sleep 2
       EOT
     ]
