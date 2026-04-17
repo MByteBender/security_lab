@@ -117,8 +117,7 @@ iface $INTERFACE2 inet static
     address 10.0.40.110/24
 EOF"
 
-echo "${var.kali_password}" | sudo -S bash -c "(sleep 2; systemctl restart networking) > /dev/null 2>&1 &"
-          echo "Network restart triggered. Connection will drop, but config is applied."
+echo "${var.kali_password}" | sudo -S systemctl restart networking && sleep 5
 ip a && sleep 2
       EOT
     ]
