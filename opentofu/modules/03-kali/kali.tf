@@ -120,7 +120,7 @@ EOF"
 echo "${var.kali_password}" | sudo -S bash -c "(sleep 2; systemctl restart networking) > /dev/null 2>&1 &"
           echo "Network restart triggered. Connection will drop, but config is applied."
           exit 0
-ip a && sleep2
+ip a && sleep 2
       EOT
     ]
   }
