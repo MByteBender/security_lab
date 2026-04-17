@@ -117,6 +117,7 @@ iface $INTERFACE2 inet static
 EOF"
 
 echo "${var.kali_password}" | sudo -S systemctl restart networking && sleep 5
+ip a && sleep2
       EOT
     ]
   }
