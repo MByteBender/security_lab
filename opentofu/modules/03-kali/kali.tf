@@ -106,12 +106,12 @@ provisioner "remote-exec" {
 
 echo "${var.kali_password}" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
 auto $INTERFACE
-iface $INTERFACE inet manual
-    up ip link set $IFACE up
-    up ip addr add 10.0.30.110/24 dev $IFACE
-    up ip route add 10.0.10.0/24 via 10.0.30.1 dev $IFACE
-    down ip addr flush dev $IFACE
-    down ip link set $IFACE down
+iface $INTERFACE inet static
+    address 10.0.30.110/24
+    link-module none
+    post-up ip addr flush dev $INTERFACE
+    post-up ip route add 10.0.10.0/24 via 10.0.30.1 dev $INTERFACE
+    post-up ip route add 10.0.20.0/24 via 10.0.30.1 dev $INTERFACE
 
 auto $INTERFACE2
 iface $INTERFACE2 inet static
