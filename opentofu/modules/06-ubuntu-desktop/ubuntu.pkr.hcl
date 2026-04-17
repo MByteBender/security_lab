@@ -13,14 +13,19 @@ variable "proxmox_api_token_secret"      {
     type = string
     sensitive = true
 }
-variable "ubuntu_password"               {
+variable "ubuntu_desktop_username" {
+    type = string
+}
+
+variable "ubuntu_desktop_password"               {
     type = string
     sensitive = true
-    }
-variable "ubuntu_password_plain"         {
+}
+
+variable "ubuntu_desktop_password_plain"         {
     type = string
     sensitive = true
-    }
+}
 
 source "proxmox-iso" "ubuntu-10-04-desktop" {
   proxmox_url              = var.proxmox_api_url
@@ -96,8 +101,8 @@ boot_command = [
   ]
 
 
-  ssh_username = "ubuntu"
-  ssh_password = "ubuntu"
+  ssh_username = var.ubuntu_desktop_username
+  ssh_password = var.ubuntu_desktop_password_plain+
   ssh_timeout  = "45m"
   ssh_host     = "10.0.40.140"
 

@@ -20,6 +20,10 @@ variable "proxmox_api_token_secret" {
   sensitive = true
 }
 
+variable "ubuntu_username" {
+  type = string
+}
+
 variable "ubuntu_password" {
   type    = string
   sensitive = true
@@ -84,8 +88,8 @@ source "proxmox-iso" "ubuntu-server" {
     "boot<enter>"
   ]
 
-  ssh_username = "ubuntu"
-  ssh_password = "ubuntu"
+  ssh_username = var.ubuntu_username
+  ssh_password = var.ubuntu_password
   ssh_timeout  = "20m"
 }
 

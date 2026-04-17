@@ -28,6 +28,10 @@ variable "clone_vm_id" {
   type = string
 }
 
+variable "ubuntu_desktop_username" {
+  type = string
+}
+
 variable "ubuntu_password_plain" {
     type = string
 }
@@ -80,7 +84,7 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
 
   connection {
     type     = "ssh"
-    user     = "ubuntu"             # Use the user defined in your Packer/Cloud-Init
+    user     = var.ubuntu_desktop_username             # Use the user defined in your Packer/Cloud-Init
     password = var.ubuntu_password_plain   # Or use private_key = file("~/.ssh/id_rsa")
     host     = "10.0.40.140"
   }
