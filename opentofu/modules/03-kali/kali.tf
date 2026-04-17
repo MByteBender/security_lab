@@ -104,6 +104,8 @@ provisioner "remote-exec" {
           echo "kali" | sudo -S systemctl disable dhcpcd
           echo "kali" | sudo -S systemctl stop NetworkManager
           echo "kali" | sudo -S systemctl disable NetworkManager
+          echo "kali" | sudo -S systemctl stop avahi-daemon
+          echo "kali" | sudo -S systemctl disable avahi-daemon
 
 echo "kali" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
 auto $INTERFACE
