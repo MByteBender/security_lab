@@ -89,6 +89,7 @@ resource "proxmox_virtual_environment_vm" "kali" {
   }
 
 provisioner "remote-exec" {
+    on_failure = continue
     inline = [
         <<-EOT
           INTERFACE2=$(ip -o link show | grep -i 'AA:14:00:11:00:00' | awk -F': ' '{print $2}')
