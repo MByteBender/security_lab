@@ -118,10 +118,6 @@ provisioner "remote-exec" {
 
 echo "kali" | sudo -S systemctl mask --now dhcpcd dhcpcd5 NetworkManager systemd-networkd avahi-daemon 2>/dev/null
 
-# 2. THE NUCLEAR PURGE OF BINARIES
-# If the tools don't exist/can't run, DHCP cannot happen.
-echo "kali" | sudo -S chmod 000 /usr/sbin/dhcpcd /sbin/dhcpcd /sbin/dhclient /sbin/udhcpc 2>/dev/null
-
 # 3. WIPE ALL PERSISTENCE (The "Memory" of the system)
 # This deletes leases, saved states, and temporary interface files
 echo "kali" | sudo -S rm -rf /var/lib/dhcp/* /var/lib/dhcpcd/* /var/lib/NetworkManager/* /var/lib/systemd/network/*
@@ -135,17 +131,6 @@ echo "kali" | sudo -S rm -rf /etc/network/if-up.d/dhcpcd /etc/network/if-pre-up.
 # 5. KILL THE GHOSTS
 # Forcefully kill any process even thinking about networking
 echo "kali" | sudo -S pkill -9 -e "dhcpcd|dhclient|udhcpc|NetworkManager|avahi-daemon"
-
-# 6. KERNEL FLUSH (The final step to a blank slate)
-# This removes all IPs and routes from the hardware in RAM
-for iface in $(ls /sys/class/net/ | grep -v lo); do
-    echo "kali" | sudo -S ip addr flush dev $iface
-    echo "kali" | sudo -S ip route flush dev $iface
-done
-
-          echo "kali" | sudo -S rm -f /lib/dhcpcd/dhcpcd-hooks/* # Disable the service completely (use the asterisk to catch dhcpcd and dhcpcd5)
-          echo "kali" | sudo -S systemctl disable --now dhcpcd*
-          echo "denyinterfaces $INTERFACE $INTERFACE2" | sudo tee -a /etc/dhcpcd.conf
 
 echo "kali" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
 auto $INTERFACE
