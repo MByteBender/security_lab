@@ -101,9 +101,6 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
   # 2. Extract the file and set it up (Updated remote-exec)
   provisioner "remote-exec" {
     inline = [
-      # Your existing networking commands...
-      "powershell -ExecutionPolicy Bypass -Command \"$targetMac = 'AA:12:00:16:00:00'; ...\"",
-
       # Commands to extract the bWAPP zip
       "powershell -Command \"$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace('C:\\temp\\bWAPPv2.2.zip'); $dest = $shell.NameSpace('C:\\xampp\\htdocs'); $dest.CopyHere($zip.Items())\""
     ]
