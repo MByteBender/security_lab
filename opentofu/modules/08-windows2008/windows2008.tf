@@ -93,3 +93,35 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
     ]
   }
 }
+
+
+provider "local" {}
+
+variable "source_path" {
+  default = "C:/setup/bWAPP" # Change this to your current folder
+}
+
+# 3. Move/Copy bWAPP files to the XAMPP htdocs folder
+resource "null_resource" "deploy_bwapp" {
+  provisioner "local-exec" {
+    command = "powershell.exe -Command \"Copy-Item -Path '${var.source_path}' -Destination 'C:/xampp/htdocs/bWAPP' -Recurse -Force\""
+  }
+}
+
+# 4. Use PowerShell to fix the settings.php file automatically
+resource "null_resource" "configure_settings" {
+  depends_on = [null_resource.deploy_bwapp]
+
+  provisioner "local-exec" {
+    command = "powershell.exe -Command \"(Get-Content C:/xampp/htdocs/bWAPP/admin/settings.php) -replace '\\$db_password = \\\"bug\\\";', '\\$db_password = \\\"\\\";' | Set-Content C:/xampp/htdocs/bWAPP/admin/settings.php\""
+  }
+}
+
+# 5. Start the Services
+resource "null_resource" "start_xampp" {
+  depends_on = [null_resource.configure_settings]
+
+  provisioner "local-exec" {
+    command = "powershell.exe -Command \"Start-Process 'C:/xampp/apache/bin/httpd.exe' -WindowStyle Hidden; Start-Process 'C:/xampp/mysql/bin/mysqld.exe' -WindowStyle Hidden\""
+  }
+}
