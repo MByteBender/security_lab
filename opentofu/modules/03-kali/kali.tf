@@ -160,13 +160,13 @@ ip a && sleep 2
 provisioner "remote-exec" {
     inline = [
       # Make it executable
-      "chmod +x /tmp/setup.sh",
+      "chmod +x /home/kali/vulnerabilityScan.sh",
 
       # If it needs to be owned by root
-      "echo '${var.kali_password}' | sudo -S chown root:root /tmp/setup.sh",
+      "echo '${var.kali_password}' | sudo -S chown root:root /home/kali/vulnerabilityScan.sh",
 
       # Execute it
-      "echo '${var.kali_password}' | sudo -S /tmp/setup.sh"
+      "echo '${var.kali_password}' | sudo -S /home/kali/vulnerabilityScan.sh"
     ]
   }
 
