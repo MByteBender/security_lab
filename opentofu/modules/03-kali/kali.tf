@@ -164,9 +164,6 @@ provisioner "remote-exec" {
 
       # If it needs to be owned by root
       "echo '${var.kali_password}' | sudo -S chown root:root /home/kali/vulnerabilityScan.sh",
-
-      # Execute it
-      "echo '${var.kali_password}' | sudo -S /home/kali/vulnerabilityScan.sh"
     ]
   }
 
