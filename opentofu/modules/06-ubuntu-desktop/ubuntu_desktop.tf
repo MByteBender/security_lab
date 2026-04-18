@@ -125,6 +125,7 @@ iface $INTERFACE2 inet static
     gateway 10.0.40.1
 EOF
 
+ip a && sleep 2
     EOT
   ]
 }
