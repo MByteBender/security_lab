@@ -115,7 +115,7 @@ iface $INTERFACE inet static
     gateway 10.0.10.1
     # Static routes added when interface comes up
     post-up ip route add 10.0.20.0/24 via 10.0.10.1 dev $INTERFACE
-    post-up ip route add 10.0.10.0/24 via 10.0.10.1 dev $INTERFACE
+    post-up ip route add 10.0.30.0/24 via 10.0.10.1 dev $INTERFACE
 
 # Adding the second IP
 auto $INTERFACE2
@@ -125,9 +125,6 @@ iface $INTERFACE2 inet static
     gateway 10.0.40.1
 EOF
 
-      # 4. Restart the legacy networking service
-    echo "ubuntu" | sudo -S /etc/init.d/networking restart && sleep 10
-    ip a && sleep 2
     EOT
   ]
 }
