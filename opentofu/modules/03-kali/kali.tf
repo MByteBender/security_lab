@@ -107,7 +107,7 @@ provisioner "remote-exec" {
           echo "kali" | sudo -S systemctl stop avahi-daemon
           echo "kali" | sudo -S systemctl disable avahi-daemon
 
-          echo "kali" | sudo -S rm /etc/cloud/*
+          echo "kali" | sudo -S rm /etc/cloud/cloud.cfg.d/*
           echo "network: {config: disabled}" | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
 
 echo "kali" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
