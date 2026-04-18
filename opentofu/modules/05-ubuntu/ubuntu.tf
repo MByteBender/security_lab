@@ -96,7 +96,7 @@ resource "proxmox_virtual_environment_vm" "ubuntu" {
     type     = "ssh"
     user     = var.ubuntu_username             # Use the user defined in your Packer/Cloud-Init
     password = var.ubuntu_password   # Or use private_key = file("~/.ssh/id_rsa")
-    host     = "10.0.40.110"
+    host     = "10.0.40.1"
   }
 
 provisioner "remote-exec" {
