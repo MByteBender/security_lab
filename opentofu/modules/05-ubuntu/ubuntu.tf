@@ -101,7 +101,7 @@ resource "proxmox_virtual_environment_vm" "ubuntu" {
 
 provisioner "remote-exec" {
     inline = [
-      "echo "${var.ubuntu_password}" | sudo -S sysctl -w net.ipv4.ip_forward=1",
+      "echo '${var.ubuntu_password}' | sudo -S sysctl -w net.ipv4.ip_forward=1",
     ]
   }
 
