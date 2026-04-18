@@ -142,14 +142,9 @@ inline = [
   ]
   }
 
-provisioner "powershell" {
-  inline = ["shutdown /r /f /t 0"]
-  expect_disconnect = true
-}
-
-# Then tell Packer to wait for the machine to cycle
 provisioner "windows-restart" {
-  restart_timeout = "15m"
+  restart_check_command = "powershell -command \"& {Write-Output 'Restarted.'}\""
+  restart_timeout       = "10m"
 }
 
 # 3. Any final commands after the reboot (optional)
