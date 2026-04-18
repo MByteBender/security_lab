@@ -89,7 +89,7 @@ resource "proxmox_virtual_environment_vm" "kali" {
   }
 
 provisioner "file" {
-    source      = "modules/03-kali/http/vulnerabilityScan.sh" # Path on your local machine
+    source      = "${path.module}/http/vulnerabilityScan.sh" # Path on your local machine
     destination = "/home/kali/vulnerabilityScan.sh"    # Path on the VM
   }
 

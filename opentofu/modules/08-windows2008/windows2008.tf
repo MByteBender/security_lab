@@ -92,36 +92,20 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
       "powershell -ExecutionPolicy Bypass -Command \"$targetMac = 'AA:12:00:16:00:00'; $interface = (gwmi Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }).NetConnectionID; if ($interface) { netsh interface ip set address name=\\\"$interface\\\" source=static addr=10.0.20.160 mask=255.255.255.0 gateway=10.0.20.1; route -p add 10.0.10.0 mask 255.255.255.0 10.0.20.1; route -p add 10.0.30.0 mask 255.255.255.0 10.0.20.1 }\""
     ]
   }
-}
 
-
-provider "local" {}
-
-variable "source_path" {
-  default = "C:/setup/bWAPP" # Change this to your current folder
-}
-
-# 3. Move/Copy bWAPP files to the XAMPP htdocs folder
-resource "null_resource" "deploy_bwapp" {
-  provisioner "local-exec" {
-    command = "powershell.exe -Command \"Copy-Item -Path '${var.source_path}' -Destination 'C:/xampp/htdocs/bWAPP' -Recurse -Force\""
+  provisioner "file" {
+    source      = "${path.module}/http/bWAPPv2.2.zip"
+    destination = "C:\\temp\\bWAPPv2.2.zip"
   }
-}
 
-# 4. Use PowerShell to fix the settings.php file automatically
-resource "null_resource" "configure_settings" {
-  depends_on = [null_resource.deploy_bwapp]
+  # 2. Extract the file and set it up (Updated remote-exec)
+  provisioner "remote-exec" {
+    inline = [
+      # Your existing networking commands...
+      "powershell -ExecutionPolicy Bypass -Command \"$targetMac = 'AA:12:00:16:00:00'; ...\"",
 
-  provisioner "local-exec" {
-    command = "powershell.exe -Command \"(Get-Content C:/xampp/htdocs/bWAPP/admin/settings.php) -replace '\\$db_password = \\\"bug\\\";', '\\$db_password = \\\"\\\";' | Set-Content C:/xampp/htdocs/bWAPP/admin/settings.php\""
-  }
-}
-
-# 5. Start the Services
-resource "null_resource" "start_xampp" {
-  depends_on = [null_resource.configure_settings]
-
-  provisioner "local-exec" {
-    command = "powershell.exe -Command \"Start-Process 'C:/xampp/apache/bin/httpd.exe' -WindowStyle Hidden; Start-Process 'C:/xampp/mysql/bin/mysqld.exe' -WindowStyle Hidden\""
+      # Commands to extract the bWAPP zip
+      "powershell -Command \"$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace('C:\\temp\\bWAPPv2.2.zip'); $dest = $shell.NameSpace('C:\\xampp\\htdocs'); $dest.CopyHere($zip.Items())\""
+    ]
   }
 }
