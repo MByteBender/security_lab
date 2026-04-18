@@ -110,6 +110,12 @@ provisioner "remote-exec" {
           echo "kali" | sudo -S rm /etc/cloud/cloud.cfg.d/*
           echo "network: {config: disabled}" | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
 
+          echo "kali" | sudo -S chmod 000 /sbin/dhclient /sbin/udhcpc /usr/sbin/dhcpcd 2>/dev/null
+
+          echo "kali" | sudo -S rm -rf /etc/network/interfaces.d/*
+          echo "kali" | sudo -S rm -rf /etc/systemd/network/*
+          echo "kali" | sudo -S pkill -9 dhclient udhcpc dhcpcd NetworkManager
+
 echo "kali" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
 auto $INTERFACE
 iface $INTERFACE inet static
