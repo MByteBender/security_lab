@@ -125,7 +125,11 @@ iface $INTERFACE2 inet static
     gateway 10.0.40.1
 EOF
 
-    echo "ubuntu" | sudo -S /etc/init.d/networking restart && sleep 60
+    echo "ubuntu" | sudo -S service network-manager stop || true
+    echo "ubuntu" | sudo -S bash -c "nohup /etc/init.d/networking restart > /dev/null 2>&1 &"
+
+    # Give it a moment to trigger before the provisioner finishes
+    sleep 2
     ip a && sleep 2
     EOT
   ]
