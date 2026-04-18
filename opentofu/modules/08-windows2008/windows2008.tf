@@ -87,22 +87,16 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
     timeout  = "10m"                     # Windows 2008 boot times can be slow
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "powershell -ExecutionPolicy Bypass -Command \"$targetMac = 'AA:12:00:16:00:00'; $interface = (gwmi Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }).NetConnectionID; if ($interface) { netsh interface ip set address name=\\\"$interface\\\" source=static addr=10.0.20.160 mask=255.255.255.0 gateway=10.0.20.1; route -p add 10.0.10.0 mask 255.255.255.0 10.0.20.1; route -p add 10.0.30.0 mask 255.255.255.0 10.0.20.1 }\""
-    ]
-  }
-
   provisioner "file" {
     source      = "${path.module}/http/bWAPPv2.2.zip"
     destination = "C:\\temp\\bWAPPv2.2.zip"
   }
 
-  # 2. Extract the file and set it up (Updated remote-exec)
   provisioner "remote-exec" {
     inline = [
-      # Commands to extract the bWAPP zip
+      "powershell -ExecutionPolicy Bypass -Command \"$targetMac = 'AA:12:00:16:00:00'; $interface = (gwmi Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }).NetConnectionID; if ($interface) { netsh interface ip set address name=\\\"$interface\\\" source=static addr=10.0.20.160 mask=255.255.255.0 gateway=10.0.20.1; route -p add 10.0.10.0 mask 255.255.255.0 10.0.20.1; route -p add 10.0.30.0 mask 255.255.255.0 10.0.20.1 }\"",
       "powershell -Command \"$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace('C:\\temp\\bWAPPv2.2.zip'); $dest = $shell.NameSpace('C:\\xampp\\htdocs'); $dest.CopyHere($zip.Items())\""
     ]
   }
+
 }
