@@ -141,6 +141,16 @@ inline = [
     EOT
   ]
   }
+
+provisioner "windows-restart" {
+  restart_check_command = "powershell -command \"& {Write-Output 'Restarted.'}\""
+  restart_timeout       = "10m"
+}
+
+# 3. Any final commands after the reboot (optional)
+provisioner "powershell" {
+  inline = ["Write-Host 'The VM has successfully rebooted and is ready for templating.'"]
+}
 }
 
 
