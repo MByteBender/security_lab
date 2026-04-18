@@ -1,0 +1,64 @@
+# Localization (This should stop the "Choose Language" screen)
+d-i debian-installer/locale string en_US
+d-i localechooser/preferred-locale string en_US.UTF-8
+d-i localechooser/supported-locales multiselect en_US.UTF-8
+d-i console-setup/ask_detect boolean false
+d-i console-setup/layoutcode string us
+d-i keyboard-configuration/layoutcode string us
+
+# If it asks about a firmware/driver, just skip it
+d-i hw-detect/load_flash_firmware boolean false
+
+# Ensure the static network config is written to /etc/network/interfaces
+d-i netcfg/confirm_static boolean true
+d-i netcfg/get_nameservers string 1.1.1.1
+d-i netcfg/get_ipaddress string 10.0.40.140
+d-i netcfg/get_netmask string 255.255.255.0
+d-i netcfg/get_gateway string 10.0.40.1
+
+# Localization (also moved to preseed)
+d-i debian-installer/locale string en_US
+d-i console-setup/layoutcode string us
+
+# Account Setup
+d-i passwd/user-fullname string ubuntu
+d-i passwd/username string ubuntu
+d-i passwd/user-password password ubuntu
+d-i passwd/user-password-again password ubuntu
+d-i user-setup/allow-password-weak boolean true
+d-i user-setup/encrypt-home boolean false
+
+# Partitioning
+d-i partman-auto/method string regular
+d-i partman-auto/choose_recipe select atomic
+d-i partman/confirm_write_new_label boolean true
+d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+d-i partman/confirm_nooverwrite boolean true
+
+# Package Selection
+tasksel tasksel/first multiselect ubuntu-desktop
+d-i pkgsel/include string openssh-server
+d-i pkgsel/upgrade select none
+
+# Add this to your Account Setup section
+d-i passwd/user-default-groups string audio cdrom video sudo
+
+# Add this to your late_command (at the end of the existing commands)
+d-i preseed/late_command string \
+    mkdir -p /mnt/iso; \
+    mount /dev/sr1 /mnt/iso; \
+    in-target dpkg -i /mnt/iso/openssh-client_5.3p1-3ubuntu3_i386.deb; \
+    in-target dpkg -i /mnt/iso/openssh-sftp-server_5.3p1-3ubuntu3_i386.deb; \
+    in-target dpkg -i /mnt/iso/openssh-server_5.3p1-3ubuntu3_i386.deb; \
+    in-target sed -i 's/PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config; \
+    echo "ubuntu ALL=(ALL) NOPASSWD:ALL" > /target/etc/sudoers.d/ubuntu; \
+    chmod 440 /target/etc/sudoers.d/ubuntu; \
+    umount /mnt/iso
+
+# Bootloader
+d-i grub-installer/only_debian boolean true
+d-i grub-installer/with_other_os boolean true
+
+# Finish
+d-i finish-install/reboot_in_progress note
