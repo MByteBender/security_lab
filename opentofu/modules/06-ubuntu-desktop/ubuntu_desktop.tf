@@ -125,7 +125,7 @@ iface $INTERFACE2 inet static
     gateway 10.0.40.1
 EOF
 
-    echo "ubuntu" | sudo -S /etc/init.d/networking restart && sleep 10
+    echo "ubuntu" | sudo -S /etc/init.d/networking restart && sleep 20
     ip a && sleep 2
     EOT
   ]
