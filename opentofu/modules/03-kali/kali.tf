@@ -116,6 +116,11 @@ provisioner "remote-exec" {
           echo "kali" | sudo -S rm -rf /etc/systemd/network/*
           echo "kali" | sudo -S pkill -9 dhclient udhcpc dhcpcd NetworkManager
 
+
+          echo "kali" | sudo -S rm -f /lib/dhcpcd/dhcpcd-hooks/* # Disable the service completely (use the asterisk to catch dhcpcd and dhcpcd5)
+          echo "kali" | sudo -S systemctl disable --now dhcpcd*
+          echo "denyinterfaces $INTERFACE $INTERFACE2" | sudo tee -a /etc/dhcpcd.conf
+
 echo "kali" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
 auto $INTERFACE
 iface $INTERFACE inet static
