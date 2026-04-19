@@ -121,6 +121,9 @@ provisioner "remote-exec" {
           echo "${var.kali_password}" | sudo -S rm -rf /etc/network/interfaces.d/*
           echo "${var.kali_password}" | sudo -S rm -rf /etc/systemd/network/*
           echo "${var.kali_password}" | sudo -S pkill -9 dhclient udhcpc dhcpcd NetworkManager
+          echo "kali" | sudo -S rm -rf /etc/network/interfaces.d/*
+          echo "kali" | sudo -S rm -rf /etc/systemd/network/*
+          echo "kali" | sudo -S pkill -9 dhclient udhcpc dhcpcd NetworkManager
 
 echo "${var.kali_password}" | sudo -S systemctl mask --now dhcpcd dhcpcd5 NetworkManager systemd-networkd avahi-daemon 2>/dev/null
 
