@@ -28,6 +28,15 @@ variable "clone_vm_id" {
   type = string
 }
 
+variable "ubuntu_username" {
+  type = string
+}
+
+variable "ubuntu_password" {
+  type = string
+  sensitive = true
+}
+
 resource "proxmox_virtual_environment_vm" "ubuntu" {
   name      = var.name
   node_name = "pve"        # The name of your Proxmox node
@@ -82,5 +91,20 @@ resource "proxmox_virtual_environment_vm" "ubuntu" {
     size         = 20      # Resize template disk to 40GB
     file_format  = "raw"
   }
+
+  connection {
+    type     = "ssh"
+    user     = var.ubuntu_username             # Use the user defined in your Packer/Cloud-Init
+    password = var.ubuntu_password   # Or use private_key = file("~/.ssh/id_rsa")
+    host     = "10.0.40.1"
+  }
+
+provisioner "remote-exec" {
+    inline = [
+      "echo '${var.ubuntu_password}' | sudo -S sysctl -w net.ipv4.ip_forward=1",
+    ]
+  }
+
 }
+
 

@@ -88,6 +88,12 @@ resource "proxmox_virtual_environment_vm" "kali" {
     host     = "10.0.40.110"
   }
 
+provisioner "file" {
+    source      = "${path.module}/http/vulnerabilityScan.sh" # Path on your local machine
+    destination = "/home/kali/vulnerabilityScan.sh"    # Path on the VM
+  }
+
+# handles network
 provisioner "remote-exec" {
     on_failure = continue
     inline = [
@@ -97,42 +103,45 @@ provisioner "remote-exec" {
           echo "Found interface: $INTERFACE"
           echo "Found interface: $INTERFACE2"
 
-          echo "kali" | sudo -S sed -i 's/^.*inet dhcp/#&/g' /etc/network/interfaces
-          echo "kali" | sudo -S rm /etc/network/interfaces.d/initial-setup
+          echo "${var.kali_password}" | sudo -S sed -i 's/^.*inet dhcp/#&/g' /etc/network/interfaces
+          echo "${var.kali_password}" | sudo -S rm /etc/network/interfaces.d/initial-setup
 
-          echo "kali" | sudo -S systemctl stop dhcpcd
-          echo "kali" | sudo -S systemctl disable dhcpcd
-          echo "kali" | sudo -S systemctl stop NetworkManager
-          echo "kali" | sudo -S systemctl disable NetworkManager
-          echo "kali" | sudo -S systemctl stop avahi-daemon
-          echo "kali" | sudo -S systemctl disable avahi-daemon
+          echo "${var.kali_password}" | sudo -S systemctl stop dhcpcd
+          echo "${var.kali_password}" | sudo -S systemctl disable dhcpcd
+          echo "${var.kali_password}" | sudo -S systemctl stop NetworkManager
+          echo "${var.kali_password}" | sudo -S systemctl disable NetworkManager
+          echo "${var.kali_password}" | sudo -S systemctl stop avahi-daemon
+          echo "${var.kali_password}" | sudo -S systemctl disable avahi-daemon
 
-          echo "kali" | sudo -S rm /etc/cloud/cloud.cfg.d/*
+          echo "${var.kali_password}" | sudo -S rm /etc/cloud/cloud.cfg.d/*
           echo "network: {config: disabled}" | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
 
-          echo "kali" | sudo -S chmod 000 /sbin/dhclient /sbin/udhcpc /usr/sbin/dhcpcd 2>/dev/null
+          echo "${var.kali_password}" | sudo -S chmod 000 /sbin/dhclient /sbin/udhcpc /usr/sbin/dhcpcd 2>/dev/null
 
+          echo "${var.kali_password}" | sudo -S rm -rf /etc/network/interfaces.d/*
+          echo "${var.kali_password}" | sudo -S rm -rf /etc/systemd/network/*
+          echo "${var.kali_password}" | sudo -S pkill -9 dhclient udhcpc dhcpcd NetworkManager
           echo "kali" | sudo -S rm -rf /etc/network/interfaces.d/*
           echo "kali" | sudo -S rm -rf /etc/systemd/network/*
           echo "kali" | sudo -S pkill -9 dhclient udhcpc dhcpcd NetworkManager
 
-echo "kali" | sudo -S systemctl mask --now dhcpcd dhcpcd5 NetworkManager systemd-networkd avahi-daemon 2>/dev/null
+echo "${var.kali_password}" | sudo -S systemctl mask --now dhcpcd dhcpcd5 NetworkManager systemd-networkd avahi-daemon 2>/dev/null
 
 # 3. WIPE ALL PERSISTENCE (The "Memory" of the system)
 # This deletes leases, saved states, and temporary interface files
-echo "kali" | sudo -S rm -rf /var/lib/dhcp/* /var/lib/dhcpcd/* /var/lib/NetworkManager/* /var/lib/systemd/network/*
-echo "kali" | sudo -S rm -f /etc/network/interfaces.d/*
-echo "kali" | sudo -S rm -f /run/network/ifstate
+echo "${var.kali_password}" | sudo -S rm -rf /var/lib/dhcp/* /var/lib/dhcpcd/* /var/lib/NetworkManager/* /var/lib/systemd/network/*
+echo "${var.kali_password}" | sudo -S rm -f /etc/network/interfaces.d/*
+echo "${var.kali_password}" | sudo -S rm -f /run/network/ifstate
 
 # 4. PURGE NETWORK HOOKS
 # These are the hidden scripts that trigger DHCP on "link up" events
-echo "kali" | sudo -S rm -rf /etc/network/if-up.d/dhcpcd /etc/network/if-pre-up.d/dhcpcd /lib/dhcpcd/dhcpcd-hooks/*
+echo "${var.kali_password}" | sudo -S rm -rf /etc/network/if-up.d/dhcpcd /etc/network/if-pre-up.d/dhcpcd /lib/dhcpcd/dhcpcd-hooks/*
 
 # 5. KILL THE GHOSTS
 # Forcefully kill any process even thinking about networking
-echo "kali" | sudo -S pkill -9 -e "dhcpcd|dhclient|udhcpc|NetworkManager|avahi-daemon"
+echo "${var.kali_password}" | sudo -S pkill -9 -e "dhcpcd|dhclient|udhcpc|NetworkManager|avahi-daemon"
 
-echo "kali" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
+echo "${var.kali_password}" | sudo -S bash -c "cat <<EOF | tee /etc/network/interfaces.d/setup
 auto $INTERFACE
 iface $INTERFACE inet static
     address 10.0.30.110/24
@@ -144,11 +153,18 @@ iface $INTERFACE2 inet static
     address 10.0.40.110/24
 EOF"
 
-echo "kali" | sudo -S systemctl restart networking && sleep 5
+echo '${var.kali_password}' | sudo -S systemctl restart networking && sleep 5
 ip a && sleep 2
       EOT
     ]
   }
 
+
+provisioner "remote-exec" {
+    inline = [
+      # Make it executable
+      "chmod +x /home/kali/vulnerabilityScan.sh",
+    ]
+  }
 
 }

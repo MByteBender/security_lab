@@ -84,6 +84,8 @@ module "ubuntu" {
   name              = "ubuntu"
   vm_id             = 131
   clone_vm_id       = 130
+  ubuntu_username     = "ubuntu"
+  ubuntu_password     = var.ubuntu_password_plain
   depends_on        = [module.networks, module.management]
 }
 
