@@ -59,6 +59,13 @@ resource "proxmox_virtual_environment_vm" "kali" {
     dedicated = 9032       # RAM in MB
   }
 
+  network_adapters {
+    model  = "virtio"
+    bridge = "vmbr0"
+    mac_address = "AA:00:00:11:00:00"
+  }
+
+
   network_device {
     bridge = "vmbr130"
     mac_address = "AA:13:00:11:00:00"
@@ -100,6 +107,8 @@ provisioner "remote-exec" {
         <<-EOT
           INTERFACE2=$(ip -o link show | grep -i 'AA:14:00:11:00:00' | awk -F': ' '{print $2}')
           INTERFACE=$(ip -o link show | grep -i 'AA:13:00:11:00:00' | awk -F': ' '{print $2}')
+          INTERFACE3=$(ip -o link show | grep -i 'AA:00:00:11:00:00' | awk -F': ' '{print $2}')
+
           echo "Found interface: $INTERFACE"
           echo "Found interface: $INTERFACE2"
 
@@ -151,7 +160,12 @@ iface $INTERFACE inet static
 auto $INTERFACE2
 iface $INTERFACE2 inet static
     address 10.0.40.110/24
+
+auto $INTERFACE3
+iface $INTERFACE3 inet dhcp
+
 EOF"
+
 
 echo '${var.kali_password}' | sudo -S systemctl restart networking && sleep 5
 ip a && sleep 2
