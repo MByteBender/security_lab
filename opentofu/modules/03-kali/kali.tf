@@ -59,7 +59,7 @@ resource "proxmox_virtual_environment_vm" "kali" {
     dedicated = 9032       # RAM in MB
   }
 
-  network_adapters {
+  network_device {
     model  = "virtio"
     bridge = "vmbr0"
     mac_address = "AA:00:00:11:00:00"
