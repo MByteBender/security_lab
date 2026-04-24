@@ -108,11 +108,11 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
       fi
 
       if [ ! -f "${path.module}/http/vsftpd_2.2.2-3ubuntu6.3_i386.deb" ]; then
-       curl -L -o "${path.module}/http/vsftpd_2.2.2-3ubuntu6.3_i386.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/vsftpd_2.2.2-3ubuntu6.3_i386.deb"
+       curl -L -o "${path.module}/http/vsftpd_2.2.2-3ubuntu6.3_i386.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/v/vsftpd/vsftpd_2.2.2-3ubuntu6.3_i386.deb"
       fi
 
       if [ ! -f "${path.module}/http/cups_1.4.3-1ubuntu1.14_i386.deb" ]; then
-       curl -L -o "${path.module}/http/cups_1.4.3-1ubuntu1.14_i386.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/cups_1.4.3-1ubuntu1.14_i386.deb"
+       curl -L -o "${path.module}/http/cups_1.4.3-1ubuntu1.14_i386.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/c/cups/cups_1.4.3-1ubuntu1.14_i386.deb"
       fi
     EOT
   }
