@@ -258,26 +258,23 @@ VULN_CUPS'
 echo "ubuntu" | sudo -S service cups restart
 
 echo "ubuntu" | sudo -S bash -c 'cat << VULN_FTP > /etc/vsftpd.conf
-# Allow anonymous login
+listen=YES
 anonymous_enable=YES
 no_anon_password=YES
-
-# Allow them to see everything
-anon_root=/
-allow_writeable_chroot=YES
-
-# Enable upload/write permissions
-local_enable=YES
 write_enable=YES
 anon_upload_enable=YES
 anon_mkdir_write_enable=YES
-
-# Make it noisy for Nmap
-ftpd_banner=Welcome to Vulnerable Ubuntu 10.04 FTP
-listen=YES
+dirmessage_enable=YES
+use_localtime=YES
+xferlog_enable=YES
+connect_from_port_20=YES
+secure_chroot_dir=/var/run/vsftpd/empty
+pam_service_name=vsftpd
+rsa_cert_file=/etc/ssl/private/vsftpd.pem
 VULN_FTP'
 
-echo "ubuntu" | sudo -S service vsftpd restart
+sudo mkdir -p /var/run/vsftpd/empty
+echo "ubuntu" | sudo -S vsftpd -etc-vsftpd.conf
 
     EOT
   ]
