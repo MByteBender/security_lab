@@ -215,6 +215,8 @@ provisioner "remote-exec" {
      echo "ubuntu" | sudo -S dpkg -i samba-common_3.4.7~dfsg-1ubuntu3.10_all.deb
      echo "ubuntu" | sudo -S dpkg -i samba-common-bin_3.4.7~dfsg-1ubuntu3.10_i386.deb
      echo "ubuntu" | sudo -S dpkg -i samba_3.4.7~dfsg-1ubuntu3.i386.deb
+     echo "ubuntu" | sudo -S dpkg -i vsftpd_2.2.2-3ubuntu6.3_i386.deb
+     echo "ubuntu" | sudo -S dpkg -i cups_1.4.3-1ubuntu1.14_i386.deb
 
      echo "ubuntu" | sudo -S bash -c 'cat << CUSTOM_CONF > /etc/samba/smb.conf
 [global]
