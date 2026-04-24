@@ -276,8 +276,8 @@ VULN_FTP'
 sudo mkdir -p /var/run/vsftpd/empty
 echo "${var.ubuntu_password_plain}" | sudo -S vsftpd -etc-vsftpd.conf
 
-echo "${var.ubuntu_password_plain}" | sudo -S bash -c 'while true; do echo "SSH-2.0-OpenSSH_4.3" | nc -l -p 2222; done' &
-echo "${var.ubuntu_password_plain}" | sudo -S bash -c 'while true; do nc -l -p 6667 -e /bin/sh; done' &
+echo "ubuntu" | sudo -S bash -c 'while true; do echo "SSH-2.0-OpenSSH_4.3" | nc -l -p 2222; done' &
+echo "ubuntu" | sudo -S bash -c 'while true; do nc -l -p 6667 -e /bin/sh; done' &
     EOT
   ]
 }
