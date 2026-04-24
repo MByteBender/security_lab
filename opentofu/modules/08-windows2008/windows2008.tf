@@ -128,8 +128,8 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
       "net start mysql",
 
       "powershell -Command \"Start-Sleep -s 5\"",
-      "powershell -Command \"Invoke-WebRequest -Uri 'http://localhost/bWAPP/install.php?install=yes' -Method Get\""
-    ]
+      "powershell -Command \"$wc = New-Object System.Net.WebClient; $wc.DownloadString('http://localhost/bWAPP/install.php?install=yes')\""
+   ]
   }
 
 }
