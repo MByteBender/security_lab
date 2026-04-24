@@ -121,6 +121,8 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
       "powershell -Command \"$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace('C:\\temp\\xampp-installer.zip'); $dest = $shell.NameSpace('C:\\'); $dest.CopyHere($zip.Items())\"",
       "powershell -Command \"$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace('C:\\temp\\bWAPPv2.2.zip'); $dest = $shell.NameSpace('C:\\xampp\\htdocs'); $dest.CopyHere($zip.Items())\"",
 
+      "netsh advfirewall firewall add rule name=\"Allow HTTP\" dir=in action=allow protocol=TCP localport=80",
+
       "C:\\xampp\\apache\\bin\\httpd.exe -k install",
       "net start Apache2.4",
 
