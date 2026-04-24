@@ -91,8 +91,8 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
 
   provisioner "local-exec" {
     command = <<EOT
-      if [ ! -f "${path.module}/http/samba_3.4.7~dfsg-1ubuntu1_amd64.de" ]; then
-       curl -L -o "${path.module}/http/samba_3.4.7~dfsg-1ubuntu1_amd64.de" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/samba_3.4.7~dfsg-1ubuntu1_amd64.de"
+      if [ ! -f "${path.module}/http/samba_3.4.7~dfsg-1ubuntu1_amd64.deb" ]; then
+       curl -L -o "${path.module}/http/samba_3.4.7~dfsg-1ubuntu1_amd64.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/samba_3.4.7~dfsg-1ubuntu1_amd64.deb"
       fi
 
       if [ ! -f "${path.module}/http/samba-common_3.4.7~dfsg-1ubuntu1_amd64.deb" ]; then
@@ -110,8 +110,8 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
   }
 
   provisioner "file" {
-    source = "${path.module}/http/samba_3.4.7~dfsg-1ubuntu1_amd64.de"
-    destination = "/home/ubuntu/samba_3.4.7~dfsg-1ubuntu1_amd64.de"
+    source = "${path.module}/http/samba_3.4.7~dfsg-1ubuntu1_amd64.deb"
+    destination = "/home/ubuntu/samba_3.4.7~dfsg-1ubuntu1_amd64.deb"
   }
 
   provisioner "file" {
