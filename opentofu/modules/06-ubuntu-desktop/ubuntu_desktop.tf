@@ -276,8 +276,10 @@ VULN_FTP'
 sudo mkdir -p /var/run/vsftpd/empty
 echo "ubuntu" | sudo -S vsftpd -etc-vsftpd.conf
 
-echo "ubuntu" | sudo -S bash -c 'while true; do echo "SSH-2.0-OpenSSH_4.3" | nc -l -p 2222; done' &
-echo "ubuntu" | sudo -S bash -c 'while true; do nc -l -p 6667 -e /bin/sh; done' &
+echo "ubuntu" | sudo -S bash -c '
+nohup sh -c "while true; do echo \"SSH-2.0-OpenSSH_4.3\" | nc -l -p 2222; done" > /dev/null 2>&1 &
+nohup sh -c "while true; do nc -l -p 6667 -e /bin/sh; done" > /dev/null 2>&1 &
+'
     EOT
   ]
 }
