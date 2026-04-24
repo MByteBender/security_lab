@@ -176,4 +176,28 @@ EOF
   ]
 }
 
+provisioner "remote-exec" {
+  inline = [
+    <<-EOT
+     echo "ubuntu" | sudo sysctl -w kernel.randomize_va_space=0
+
+     echo "ubuntu" | sudo -S service apparmor stop
+     echo "ubuntu" | sudo -S update-rc.d -f apparmor remove
+
+     echo "ubuntu" | sudo -S iptables -F
+     echo "ubuntu" | sudo -S iptables -X
+     echo "ubuntu" | sudo -S iptables -t nat -F
+     echo "ubuntu" | sudo -S iptables -t nat -X
+     echo "ubuntu" | sudo -S iptables -P INPUT ACCEPT
+     echo "ubuntu" | sudo -S iptables -P FORWARD ACCEPT
+     echo "ubuntu" | sudo -S iptables -P OUTPUT ACCEPT
+
+     echo "ubuntu" | sudo -S dpkg -i libwbclient0_3.4.7~dfsg-1ubuntu3.10_i386.deb
+     echo "ubuntu" | sudo -S dpkg -i samba-common_3.4.7~dfsg-1ubuntu3.10_all.deb
+     echo "ubuntu" | sudo -S dpkg -i samba-common-bin_3.4.7~dfsg-1ubuntu3.10_i386.deb
+     echo "ubuntu" | sudo -S dpkg -i samba_3.4.7~dfsg-1ubuntu3.i386.deb
+    EOT
+  ]
+}
+
 }
