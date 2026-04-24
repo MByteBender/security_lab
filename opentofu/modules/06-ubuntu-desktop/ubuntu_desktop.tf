@@ -196,6 +196,25 @@ provisioner "remote-exec" {
      echo "ubuntu" | sudo -S dpkg -i samba-common_3.4.7~dfsg-1ubuntu3.10_all.deb
      echo "ubuntu" | sudo -S dpkg -i samba-common-bin_3.4.7~dfsg-1ubuntu3.10_i386.deb
      echo "ubuntu" | sudo -S dpkg -i samba_3.4.7~dfsg-1ubuntu3.i386.deb
+
+     echo "ubuntu" | sudo -S bash -c 'cat << CUSTOM_CONF > /etc/samba/smb.conf
+[global]
+   workgroup = WORKGROUP
+   netbios name = VULN-UBUNTU
+   security = share
+   null passwords = yes
+   guest account = nobody
+   log level = 1
+
+[Highly_Sensitive_Files]
+   path = /
+   browseable = yes
+   read only = no
+   guest ok = yes
+CUSTOM_CONF'
+
+sudo service smbd restart
+
     EOT
   ]
 }
