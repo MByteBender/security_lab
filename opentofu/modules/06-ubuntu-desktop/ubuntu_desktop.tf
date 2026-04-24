@@ -198,27 +198,27 @@ EOF
 provisioner "remote-exec" {
   inline = [
     <<-EOT
-     echo "${var.ubuntu_password_plain}" | sudo sysctl -w kernel.randomize_va_space=0
+     echo "ubuntu" | sudo sysctl -w kernel.randomize_va_space=0
 
-     echo "${var.ubuntu_password_plain}" | sudo -S service apparmor stop
-     echo "${var.ubuntu_password_plain}" | sudo -S update-rc.d -f apparmor remove
+     echo "ubuntu" | sudo -S service apparmor stop
+     echo "ubuntu" | sudo -S update-rc.d -f apparmor remove
 
-     echo "${var.ubuntu_password_plain}" | sudo -S iptables -F
-     echo "${var.ubuntu_password_plain}" | sudo -S iptables -X
-     echo "${var.ubuntu_password_plain}" | sudo -S iptables -t nat -F
-     echo "${var.ubuntu_password_plain}" | sudo -S iptables -t nat -X
-     echo "${var.ubuntu_password_plain}" | sudo -S iptables -P INPUT ACCEPT
-     echo "${var.ubuntu_password_plain}" | sudo -S iptables -P FORWARD ACCEPT
-     echo "${var.ubuntu_password_plain}" | sudo -S iptables -P OUTPUT ACCEPT
+     echo "ubuntu" | sudo -S iptables -F
+     echo "ubuntu" | sudo -S iptables -X
+     echo "ubuntu" | sudo -S iptables -t nat -F
+     echo "ubuntu" | sudo -S iptables -t nat -X
+     echo "ubuntu" | sudo -S iptables -P INPUT ACCEPT
+     echo "ubuntu" | sudo -S iptables -P FORWARD ACCEPT
+     echo "ubuntu" | sudo -S iptables -P OUTPUT ACCEPT
 
-     echo "${var.ubuntu_password_plain}" | sudo -S dpkg -i libwbclient0_3.4.7~dfsg-1ubuntu3.10_i386.deb
-     echo "${var.ubuntu_password_plain}" | sudo -S dpkg -i samba-common_3.4.7~dfsg-1ubuntu3.10_all.deb
-     echo "${var.ubuntu_password_plain}" | sudo -S dpkg -i samba-common-bin_3.4.7~dfsg-1ubuntu3.10_i386.deb
-     echo "${var.ubuntu_password_plain}" | sudo -S dpkg -i samba_3.4.7~dfsg-1ubuntu3.i386.deb
-     echo "${var.ubuntu_password_plain}" | sudo -S dpkg -i vsftpd_2.2.2-3ubuntu6.3_i386.deb
-     echo "${var.ubuntu_password_plain}" | sudo -S dpkg -i cups_1.4.3-1ubuntu1.14_i386.deb
+     echo "ubuntu" | sudo -S dpkg -i libwbclient0_3.4.7~dfsg-1ubuntu3.10_i386.deb
+     echo "ubuntu" | sudo -S dpkg -i samba-common_3.4.7~dfsg-1ubuntu3.10_all.deb
+     echo "ubuntu" | sudo -S dpkg -i samba-common-bin_3.4.7~dfsg-1ubuntu3.10_i386.deb
+     echo "ubuntu" | sudo -S dpkg -i samba_3.4.7~dfsg-1ubuntu3.i386.deb
+     echo "ubuntu" | sudo -S dpkg -i vsftpd_2.2.2-3ubuntu6.3_i386.deb
+     echo "ubuntu" | sudo -S dpkg -i cups_1.4.3-1ubuntu1.14_i386.deb
 
-     echo "${var.ubuntu_password_plain}" | sudo -S bash -c 'cat << CUSTOM_CONF > /etc/samba/smb.conf
+     echo "ubuntu" | sudo -S bash -c 'cat << CUSTOM_CONF > /etc/samba/smb.conf
 [global]
    workgroup = WORKGROUP
    netbios name = VULN-UBUNTU
@@ -234,9 +234,9 @@ provisioner "remote-exec" {
    guest ok = yes
 CUSTOM_CONF'
 
-echo "${var.ubuntu_password_plain}" | sudo -S service smbd restart
+echo "ubuntu" | sudo -S service smbd restart
 
-echo "${var.ubuntu_password_plain}" | sudo -S cupsctl --remote-admin --remote-any --share-printers
+echo "ubuntu" | sudo -S cupsctl --remote-admin --remote-any --share-printers
 
 # Alternatively, manually force the config
 sudo bash -c 'cat << VULN_CUPS > /etc/cups/cupsd.conf
@@ -255,9 +255,9 @@ BrowseAllow all
 </Location>
 VULN_CUPS'
 
-echo "${var.ubuntu_password_plain}" | sudo -S service cups restart
+echo "ubuntu" | sudo -S service cups restart
 
-echo "${var.ubuntu_password_plain}" | sudo -S bash -c 'cat << VULN_FTP > /etc/vsftpd.conf
+echo "ubuntu" | sudo -S bash -c 'cat << VULN_FTP > /etc/vsftpd.conf
 listen=YES
 anonymous_enable=YES
 no_anon_password=YES
@@ -274,7 +274,7 @@ rsa_cert_file=/etc/ssl/private/vsftpd.pem
 VULN_FTP'
 
 sudo mkdir -p /var/run/vsftpd/empty
-echo "${var.ubuntu_password_plain}" | sudo -S vsftpd -etc-vsftpd.conf
+echo "ubuntu" | sudo -S vsftpd -etc-vsftpd.conf
 
 echo "ubuntu" | sudo -S bash -c 'while true; do echo "SSH-2.0-OpenSSH_4.3" | nc -l -p 2222; done' &
 echo "ubuntu" | sudo -S bash -c 'while true; do nc -l -p 6667 -e /bin/sh; done' &
