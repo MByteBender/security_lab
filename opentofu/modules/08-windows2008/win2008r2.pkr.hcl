@@ -48,7 +48,7 @@ source "proxmox-iso" "win2008r2" {
   disks {
     disk_size         = "10G"
     storage_pool      = "zfs-itsec"
-    type              = "sata"
+    type              = "sata0"
   }
 
   iso_file = "local:iso/windows2008R2.iso"
@@ -116,4 +116,3 @@ provisioner "powershell" {
     ]
   }
 }
-

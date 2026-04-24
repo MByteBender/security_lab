@@ -72,7 +72,7 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
   # Proxmox will automatically resize the disk if you specify a larger size here.
   disk {
     datastore_id = "zfs-itsec"
-    interface    = "scsi0"
+    interface    = "sata0"
     size         = 40      # Resize template disk to 40GB
     file_format  = "raw"
   }
@@ -87,6 +87,22 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
     timeout  = "10m"                     # Windows 2008 boot times can be slow
   }
 
+
+  provisioner "local-exec" {
+    command = <<EOT
+      if [ ! -f "${path.module}/http/xampp-installer.zip" ]; then
+       curl -L -o "${path.module}/http/xampp-installer.zip" "https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/5.6.40/xampp-win32-5.6.40-0-VC11.zip/download"
+      else
+        echo "XAMPP installer already exists, skipping download."
+      fi
+    EOT
+  }
+
+  provisioner "file" {
+    source = "${path.module}/http/xampp-installer.zip"
+    destination = "C:\\temp\\xampp-installer.zip"
+  }
+
   provisioner "file" {
     source      = "${path.module}/http/bWAPPv2.2.zip"
     destination = "C:\\temp\\bWAPPv2.2.zip"
@@ -94,11 +110,25 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
 
   provisioner "remote-exec" {
     inline = [
+      "echo select disk 0 > C:\\temp\\extend.txt",
+      "echo select volume 1 >> C:\\temp\\extend.txt",
+      "echo extend >> C:\\temp\\extend.txt",
+      "diskpart /s C:\\temp\\extend.txt",
+
       "if not exist C:\\temp mkdir C:\\temp",
-      "if not exist C:\\xampp\\htdocs mkdir C:\\xampp\\htdocs",
 
       "powershell -ExecutionPolicy Bypass -Command \"$targetMac = 'AA:12:00:16:00:00'; $interface = (gwmi Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }).NetConnectionID; if ($interface) { netsh interface ip set address name=\\\"$interface\\\" source=static addr=10.0.20.160 mask=255.255.255.0 gateway=10.0.20.1; route -p add 10.0.10.0 mask 255.255.255.0 10.0.20.1; route -p add 10.0.30.0 mask 255.255.255.0 10.0.20.1 }\"",
-      "powershell -Command \"$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace('C:\\temp\\bWAPPv2.2.zip'); $dest = $shell.NameSpace('C:\\xampp\\htdocs'); $dest.CopyHere($zip.Items())\""
+      "powershell -Command \"$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace('C:\\temp\\xampp-installer.zip'); $dest = $shell.NameSpace('C:\\'); $dest.CopyHere($zip.Items())\"",
+      "powershell -Command \"$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace('C:\\temp\\bWAPPv2.2.zip'); $dest = $shell.NameSpace('C:\\xampp\\htdocs'); $dest.CopyHere($zip.Items())\"",
+
+      "C:\\xampp\\apache\\bin\\httpd.exe -k install",
+      "net start Apache2.4",
+
+      "C:\\xampp\\mysql\\bin\\mysqld.exe --install",
+      "net start mysql"
+
+      "powershell -Command \"Start-Sleep -s 5\"",
+      "powershell -Command \"Invoke-WebRequest -Uri 'http://localhost/bWAPP/install.php?install=yes' -Method Get\""
     ]
   }
 
