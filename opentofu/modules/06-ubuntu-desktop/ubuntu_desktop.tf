@@ -109,6 +109,26 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
     EOT
   }
 
+  provisioner "file" {
+    source = "${path.module}/http/samba_3.4.7~dfsg-1ubuntu1_amd64.de"
+    destination = "/samba_3.4.7~dfsg-1ubuntu1_amd64.de"
+  }
+
+  provisioner "file" {
+    source = "${path.module}/http/samba-common_3.4.7~dfsg-1ubuntu1_amd64.deb"
+    destination = "/samba-common_3.4.7~dfsg-1ubuntu1_amd64.deb"
+  }
+
+  provisioner "file" {
+    source = "${path.module}/http/libwbclient0_3.4.7~dfsg-1ubuntu1_amd64.deb"
+    destination = "/libwbclient0_3.4.7~dfsg-1ubuntu1_amd64.deb"
+  }
+
+  provisioner "file" {
+    source = "${path.module}/http/samba-common-bin_3.4.7~dfsg-1ubuntu1_amd64.deb"
+    destination = "/samba-common-bin_3.4.7~dfsg-1ubuntu1_amd64.deb"
+  }
+
 
 provisioner "remote-exec" {
   on_failure = continue
