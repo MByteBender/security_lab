@@ -91,27 +91,27 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
 
   provisioner "local-exec" {
     command = <<EOT
-      if [ ! -f "${path.module}/http/samba_3.4.7~dfsg-1ubuntu3.10_amd64.deb" ]; then
-       curl -L -o "${path.module}/http/samba_3.4.7~dfsg-1ubuntu3.10_amd64.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/samba_3.4.7~dfsg-1ubuntu3.10_amd64.deb"
+      if [ ! -f "${path.module}/http/samba_3.4.7~dfsg-1ubuntu3.10_i386.deb" ]; then
+       curl -L -o "${path.module}/http/samba_3.4.7~dfsg-1ubuntu3.10_i386.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/samba_3.4.7~dfsg-1ubuntu3.10_i386.deb"
       fi
 
       if [ ! -f "${path.module}/http/samba-common_3.4.7~dfsg-1ubuntu3.10_all.deb" ]; then
        curl -L -o "${path.module}/http/samba-common_3.4.7~dfsg-1ubuntu3.10_all.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/samba-common_3.4.7~dfsg-1ubuntu3.10_all.deb"
       fi
 
-      if [ ! -f "${path.module}/http/libwbclient0_3.4.7~dfsg-1ubuntu3.10_amd64.deb" ]; then
-       curl -L -o "${path.module}/http/libwbclient0_3.4.7~dfsg-1ubuntu3.10_amd64.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/libwbclient0_3.4.7~dfsg-1ubuntu3.10_amd64.deb"
+      if [ ! -f "${path.module}/http/libwbclient0_3.4.7~dfsg-1ubuntu3.10_i386.deb" ]; then
+       curl -L -o "${path.module}/http/libwbclient0_3.4.7~dfsg-1ubuntu3.10_i386.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/libwbclient0_3.4.7~dfsg-1ubuntu3.10_i386.deb"
       fi
 
-      if [ ! -f "${path.module}/http/samba-common-bin_3.4.7~dfsg-1ubuntu3.10_amd64.deb" ]; then
-       curl -L -o "${path.module}/http/samba-common-bin_3.4.7~dfsg-1ubuntu3.10_amd64.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/samba-common-bin_3.4.7~dfsg-1ubuntu3.10_amd64.deb"
+      if [ ! -f "${path.module}/http/samba-common-bin_3.4.7~dfsg-1ubuntu3.10_i386.deb" ]; then
+       curl -L -o "${path.module}/http/samba-common-bin_3.4.7~dfsg-1ubuntu3.10_i386.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/samba-common-bin_3.4.7~dfsg-1ubuntu3.10_i386.deb"
       fi
     EOT
   }
 
   provisioner "file" {
-    source = "${path.module}/http/samba_3.4.7~dfsg-1ubuntu3.10_amd64.deb"
-    destination = "/home/ubuntu/samba_3.4.7~dfsg-1ubuntu3.10_amd64.deb"
+    source = "${path.module}/http/samba_3.4.7~dfsg-1ubuntu3.10_i386.deb"
+    destination = "/home/ubuntu/samba_3.4.7~dfsg-1ubuntu3.i386.deb"
   }
 
   provisioner "file" {
@@ -120,13 +120,13 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
   }
 
   provisioner "file" {
-    source = "${path.module}/http/libwbclient0_3.4.7~dfsg-1ubuntu3.10_amd64.deb"
-    destination = "/home/ubuntu/libwbclient0_3.4.7~dfsg-1ubuntu3.10_amd64.deb"
+    source = "${path.module}/http/libwbclient0_3.4.7~dfsg-1ubuntu3.10_i386.deb"
+    destination = "/home/ubuntu/libwbclient0_3.4.7~dfsg-1ubuntu3.10_i386.deb"
   }
 
   provisioner "file" {
-    source = "${path.module}/http/samba-common-bin_3.4.7~dfsg-1ubuntu3.10_amd64.deb"
-    destination = "/home/ubuntu/samba-common-bin_3.4.7~dfsg-1ubuntu3.10_amd64.deb"
+    source = "${path.module}/http/samba-common-bin_3.4.7~dfsg-1ubuntu3.10_i386.deb"
+    destination = "/home/ubuntu/samba-common-bin_3.4.7~dfsg-1ubuntu3.10_i386.deb"
   }
 
 
