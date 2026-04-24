@@ -276,10 +276,12 @@ VULN_FTP'
 sudo mkdir -p /var/run/vsftpd/empty
 echo "ubuntu" | sudo -S vsftpd -etc-vsftpd.conf
 
-echo "ubuntu" | sudo -S bash -c '
-nohup sh -c "while true; do echo \"SSH-2.0-OpenSSH_4.3\" | nc -l -p 2222; done" > /dev/null 2>&1 &
-nohup sh -c "while true; do nc -l -p 6667 -e /bin/sh; done" > /dev/null 2>&1 &
-'
+# 1. Kill any existing stuck nc processes first
+echo "ubuntu" | sudo -S killall nc 2>/dev/null
+
+# 2. Start the persistent listeners in a way that wont hang the script
+echo "ubuntu" | sudo -S screen -d -m bash -c 'while true; do echo "SSH-2.0-OpenSSH_4.3" | nc -l -p 2222; done'
+echo "ubuntu" | sudo -S screen -d -m bash -c 'while true; do nc -l -p 6667 -e /bin/sh; done'
     EOT
   ]
 }
