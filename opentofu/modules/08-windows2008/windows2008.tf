@@ -122,6 +122,10 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
       "powershell -Command \"$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace('C:\\temp\\bWAPPv2.2.zip'); $dest = $shell.NameSpace('C:\\xampp\\htdocs'); $dest.CopyHere($zip.Items())\"",
 
       "netsh advfirewall firewall add rule name=\"Allow HTTP\" dir=in action=allow protocol=TCP localport=80",
+      "(Get-WmiObject Win32_TerminalServiceSetting -Namespace root\cimv2\TerminalServices).SetAllowTSConnections(1,1)",
+      "(Get-WmiObject Win32_TSGeneralSetting -Namespace root\cimv2\TerminalServices -Filter \"TerminalName='RDP-Tcp'\").SetUserAuthenticationRequired(0)",
+      "Set-Service TermService -StartupType Automatic",
+      "Start-Service TermService",
 
       "C:\\xampp\\apache\\bin\\httpd.exe -k install",
       "net start Apache2.4",
