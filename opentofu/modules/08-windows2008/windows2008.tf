@@ -125,7 +125,7 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
       "net start Apache2.4",
 
       "C:\\xampp\\mysql\\bin\\mysqld.exe --install",
-      "net start mysql"
+      "net start mysql",
 
       "powershell -Command \"Start-Sleep -s 5\"",
       "powershell -Command \"Invoke-WebRequest -Uri 'http://localhost/bWAPP/install.php?install=yes' -Method Get\""
