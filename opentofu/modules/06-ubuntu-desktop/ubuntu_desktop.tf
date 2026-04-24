@@ -106,6 +106,14 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
       if [ ! -f "${path.module}/http/samba-common-bin_3.4.7~dfsg-1ubuntu3.10_i386.deb" ]; then
        curl -L -o "${path.module}/http/samba-common-bin_3.4.7~dfsg-1ubuntu3.10_i386.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/samba-common-bin_3.4.7~dfsg-1ubuntu3.10_i386.deb"
       fi
+
+      if [ ! -f "${path.module}/http/vsftpd_2.2.2-3ubuntu6.3_i386.deb" ]; then
+       curl -L -o "${path.module}/http/vsftpd_2.2.2-3ubuntu6.3_i386.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/vsftpd_2.2.2-3ubuntu6.3_i386.deb"
+      fi
+
+      if [ ! -f "${path.module}/http/cups_1.4.3-1ubuntu1.14_i386.deb" ]; then
+       curl -L -o "${path.module}/http/cups_1.4.3-1ubuntu1.14_i386.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/cups_1.4.3-1ubuntu1.14_i386.deb"
+      fi
     EOT
   }
 
@@ -128,6 +136,17 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
     source = "${path.module}/http/samba-common-bin_3.4.7~dfsg-1ubuntu3.10_i386.deb"
     destination = "/home/ubuntu/samba-common-bin_3.4.7~dfsg-1ubuntu3.10_i386.deb"
   }
+
+  provisioner "file" {
+    source = "${path.module}/http/vsftpd_2.2.2-3ubuntu6.3_i386.deb"
+    destination = "/home/ubuntu/vsftpd_2.2.2-3ubuntu6.3_i386.deb"
+  }
+
+  provisioner "file" {
+    source = "${path.module}/http/cups_1.4.3-1ubuntu1.14_i386.deb"
+    destination = "/home/ubuntu/cups_1.4.3-1ubuntu1.14_i386.deb"
+  }
+
 
 
 provisioner "remote-exec" {
@@ -213,7 +232,50 @@ provisioner "remote-exec" {
    guest ok = yes
 CUSTOM_CONF'
 
-sudo service smbd restart
+echo "ubuntu" | sudo -S service smbd restart
+
+echo "ubuntu" | sudo -S cupsctl --remote-admin --remote-any --share-printers
+
+# Alternatively, manually force the config
+sudo bash -c 'cat << VULN_CUPS > /etc/cups/cupsd.conf
+Listen *:631
+Listen /var/run/cups/cups.sock
+Browsing On
+BrowseOrder allow,deny
+BrowseAllow all
+<Location />
+  Order allow,deny
+  Allow all
+</Location>
+<Location /admin>
+  Order allow,deny
+  Allow all
+</Location>
+VULN_CUPS'
+
+echo "ubuntu" | sudo -S service cups restart
+
+echo "ubuntu" | sudo -S bash -c 'cat << VULN_FTP > /etc/vsftpd.conf
+# Allow anonymous login
+anonymous_enable=YES
+no_anon_password=YES
+
+# Allow them to see everything
+anon_root=/
+allow_writeable_chroot=YES
+
+# Enable upload/write permissions
+local_enable=YES
+write_enable=YES
+anon_upload_enable=YES
+anon_mkdir_write_enable=YES
+
+# Make it noisy for Nmap
+ftpd_banner=Welcome to Vulnerable Ubuntu 10.04 FTP
+listen=YES
+VULN_FTP'
+
+echo "ubuntu" | sudo -S service vsftpd restart
 
     EOT
   ]
