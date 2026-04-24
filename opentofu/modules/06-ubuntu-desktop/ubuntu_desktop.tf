@@ -89,6 +89,27 @@ resource "proxmox_virtual_environment_vm" "ubuntuDesktop" {
     host     = "10.0.40.140"
   }
 
+  provisioner "local-exec" {
+    command = <<EOT
+      if [ ! -f "${path.module}/http/samba_3.4.7~dfsg-1ubuntu1_amd64.de" ]; then
+       curl -L -o "${path.module}/http/samba_3.4.7~dfsg-1ubuntu1_amd64.de" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/samba_3.4.7~dfsg-1ubuntu1_amd64.de"
+      fi
+
+      if [ ! -f "${path.module}/http/samba-common_3.4.7~dfsg-1ubuntu1_amd64.deb" ]; then
+       curl -L -o "${path.module}/http/samba-common_3.4.7~dfsg-1ubuntu1_amd64.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/samba-common_3.4.7~dfsg-1ubuntu1_amd64.deb"
+      fi
+
+      if [ ! -f "${path.module}/http/libwbclient0_3.4.7~dfsg-1ubuntu1_amd64.deb" ]; then
+       curl -L -o "${path.module}/http/libwbclient0_3.4.7~dfsg-1ubuntu1_amd64.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/libwbclient0_3.4.7~dfsg-1ubuntu1_amd64.deb"
+      fi
+
+      if [ ! -f "${path.module}/http/samba-common-bin_3.4.7~dfsg-1ubuntu1_amd64.deb" ]; then
+       curl -L -o "${path.module}/http/samba-common-bin_3.4.7~dfsg-1ubuntu1_amd64.deb" "https://old-releases.ubuntu.com/ubuntu/pool/main/s/samba/samba-common-bin_3.4.7~dfsg-1ubuntu1_amd64.deb"
+      fi
+    EOT
+  }
+
+
 provisioner "remote-exec" {
   on_failure = continue
   inline = [
