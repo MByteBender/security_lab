@@ -47,7 +47,7 @@ source "proxmox-iso" "sophos-firewall" {
 
   cores           = 4
   memory          = 6016
-
+  machine = "q35"
   network_adapters {
     model  = "virtio"
     bridge = "vmbr140"
