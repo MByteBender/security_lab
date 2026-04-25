@@ -99,11 +99,6 @@ source "proxmox-iso" "wazuh-server" {
 build {
   sources = ["source.proxmox-iso.wazuh-server"]
 
-  provisioner "file" {
-    source      = "${path.root}/http/00-setupcfg.yaml"
-    destination = "/etc/netplan/00-setupcfg.yaml"
-  }
-
   provisioner "shell" {
     inline = [
       "sudo apt-get update",
@@ -120,8 +115,6 @@ build {
       "sudo truncate -s 0 /etc/machine-id",
       "sudo apt-get clean",
       "sudo rm /etc/sudoers.d/90-cloud-init-users",
-
-      "sudo netplay apply"
     ]
   }
 }
