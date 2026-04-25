@@ -28,6 +28,33 @@ variable "clone_vm_id" {
   type = string
 }
 
+resource "null_resource" "windows_tls_fix" {
+  # Wir nutzen die Verbindungsdaten deiner bestehenden VM
+  connection {
+    type     = "winrm"
+    user     = "Administrator"
+    password = "Packer123!"
+    host     = "10.0.40.160" # Deine Management-IP
+    port     = 5985
+    https    = false
+    insecure = true
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      # TLS 1.2 in der Registry aktivieren
+      "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\SCHANNEL\\Protocols\\TLS 1.2\\Client\" /v DisabledByDefault /t REG_DWORD /d 0 /f",
+      "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\SCHANNEL\\Protocols\\TLS 1.2\\Client\" /v Enabled /t REG_DWORD /d 1 /f",
+      
+      # WinHTTP (wichtig für den Agenten) auf TLS 1.2 vorbereiten
+      "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\WinHttp\" /v DefaultSecureProtocols /t REG_DWORD /d 2048 /f",
+      
+      # Sofortiger Neustart, damit die Registry-Änderungen greifen
+      "shutdown /r /t 5 /f /c \"Reboot for TLS 1.2 Fix\""
+    ]
+  }
+}
+
 resource "proxmox_virtual_environment_vm" "windowsServer" {
   name      = var.name
   node_name = "pve"        # The name of your Proxmox node
