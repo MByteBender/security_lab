@@ -108,41 +108,34 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
     destination = "C:\\temp\\bWAPPv2.2.zip"
   }
 
-provisioner "remote-exec" {
-  inline = [
-    "echo select disk 0 > C:\\temp\\extend.txt",
-    "echo select volume 1 >> C:\\temp\\extend.txt",
-    "echo extend >> C:\\temp\\extend.txt",
-    "diskpart /s C:\\temp\\extend.txt",
+  provisioner "remote-exec" {
+    inline = [
+      "echo select disk 0 > C:\\temp\\extend.txt",
+      "echo select volume 1 >> C:\\temp\\extend.txt",
+      "echo extend >> C:\\temp\\extend.txt",
+      "diskpart /s C:\\temp\\extend.txt",
 
-    "if not exist C:\\temp mkdir C:\\temp",
+      "if not exist C:\\temp mkdir C:\\temp",
 
-    # Note the triple/quadruple escapes for the netsh name—it's a nightmare in HCL
-    "powershell -ExecutionPolicy Bypass -Command \"$targetMac = 'AA:12:00:16:00:00'; $interface = (gwmi Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }).NetConnectionID; if ($interface) { netsh interface ip set address name=\\\"$interface\\\" source=static addr=10.0.20.160 mask=255.255.255.0 gateway=10.0.20.1; route -p add 10.0.10.0 mask 255.255.255.0 10.0.20.1; route -p add 10.0.30.0 mask 255.255.255.0 10.0.20.1 }\"",
+      "powershell -ExecutionPolicy Bypass -Command \"$targetMac = 'AA:12:00:16:00:00'; $interface = (gwmi Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }).NetConnectionID; if ($interface) { netsh interface ip set address name=\\\"$interface\\\" source=static addr=10.0.20.160 mask=255.255.255.0 gateway=10.0.20.1; route -p add 10.0.10.0 mask 255.255.255.0 10.0.20.1; route -p add 10.0.30.0 mask 255.255.255.0 10.0.20.1 }\"",
+      "powershell -Command \"$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace('C:\\temp\\xampp-installer.zip'); $dest = $shell.NameSpace('C:\\'); $dest.CopyHere($zip.Items())\"",
+      "powershell -Command \"$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace('C:\\temp\\bWAPPv2.2.zip'); $dest = $shell.NameSpace('C:\\xampp\\htdocs'); $dest.CopyHere($zip.Items())\"",
 
-    # Doubled backslashes for paths
-    "powershell -Command \"$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace('C:\\\\temp\\\\xampp-installer.zip'); $dest = $shell.NameSpace('C:\\\\'); $dest.CopyHere($zip.Items())\"",
-    "powershell -Command \"$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace('C:\\\\temp\\\\bWAPPv2.2.zip'); $dest = $shell.NameSpace('C:\\\\xampp\\\\htdocs'); $dest.CopyHere($zip.Items())\"",
+      "netsh advfirewall firewall add rule name=\"Allow HTTP\" dir=in action=allow protocol=TCP localport=80",
+      "powershell -Command \"(Get-WmiObject Win32_TerminalServiceSetting -Namespace root\\cimv2\\TerminalServices).SetAllowTSConnections(1,1)\""
+      "powershell -Command \"(Get-WmiObject Win32_TSGeneralSetting -Namespace root\\cimv2\\TerminalServices -Filter \\\"TerminalName='RDP-Tcp'\\\").SetUserAuthenticationRequired(0)\""
+      "Set-Service TermService -StartupType Automatic",
+      "Start-Service TermService",
 
-    "netsh advfirewall firewall add rule name=\"Allow HTTP\" dir=in action=allow protocol=TCP localport=80",
+      "C:\\xampp\\apache\\bin\\httpd.exe -k install",
+      "net start Apache2.4",
 
-    # FIXED: root\\cimv2\\TerminalServices
-    "powershell -Command \"(Get-WmiObject Win32_TerminalServiceSetting -Namespace root\\cimv2\\TerminalServices).SetAllowTSConnections(1,1)\"",
-    "powershell -Command \"(Get-WmiObject Win32_TSGeneralSetting -Namespace root\\cimv2\\TerminalServices -Filter \\\"TerminalName='RDP-Tcp'\\\").SetUserAuthenticationRequired(0)\"",
+      "C:\\xampp\\mysql\\bin\\mysqld.exe --install",
+      "net start mysql",
 
-    "powershell -Command \"Set-Service TermService -StartupType Automatic\"",
-    "powershell -Command \"Start-Service TermService\"",
-
-    "C:\\xampp\\apache\\bin\\httpd.exe -k install",
-    "net start Apache2.4",
-
-    "C:\\xampp\\mysql\\bin\\mysqld.exe --install",
-    "net start mysql",
-
-    "powershell -Command \"Start-Sleep -s 5\"",
-    "powershell -Command \"$wc = New-Object System.Net.WebClient; $wc.DownloadString('http://localhost/bWAPP/install.php?install=yes')\""
- ]
-}
-
+      "powershell -Command \"Start-Sleep -s 5\"",
+      "powershell -Command \"$wc = New-Object System.Net.WebClient; $wc.DownloadString('http://localhost//bWAPP//install.php?install=yes')\""
+   ]
+  }
 
 }
