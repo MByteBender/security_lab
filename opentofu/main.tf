@@ -47,15 +47,13 @@ module "kali" {
   kali_password     = var.kali_password
 }
 
-module "ubuntu" {
-  source     = "./modules/05-ubuntu"
+module "sophos" {
+  source     = "./modules/04-sophos"
   proxmox_api_url   = var.proxmox_api_url
   proxmox_api_token = var.proxmox_api_token
-  name              = "ubuntu"
-  vm_id             = 131
-  clone_vm_id       = 130
-  ubuntu_username     = "ubuntu"
-  ubuntu_password     = var.ubuntu_password_plain
+  name              = "sophosFirewall"
+  vm_id             = 121
+  clone_vm_id       = 120
 }
 
 module "ubuntuDesktop" {
