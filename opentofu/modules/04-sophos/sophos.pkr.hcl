@@ -99,6 +99,15 @@ additional_iso_files {
     "<enter>n<enter>",
     "<wait5s>0<enter>",
 
+    "<wait1s>5<enter><wait2s>",
+    "3<enter><wait2s>",
+
+    "mkdir -p /import<enter><wait1s>",
+
+    # 6. Type the XML directly into the file!
+    # (Note: I am escaping the quotes inside the XML so Packer doesn't break)
+    "echo '<Request><Login><Username>admin</Username><Password>admin</Password></Login><Set operation=\"add\"><APIConfiguration><Status>Enable</Status><AllowedIPAddress>192.168.1.0/24</AllowedIPAddress></APIConfiguration></Set></Request>' > /import/Entities.xml<enter><wait2s>"
+
     # Currently not needed
     # 5. Now we should be at the Main Menu (1-7). Select 4 for Device Console.
     #"<wait10s>4<enter>",
