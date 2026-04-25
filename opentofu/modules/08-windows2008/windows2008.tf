@@ -98,6 +98,7 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
     EOT
   }
 
+# --- FILE TRANSFERS (XAMPP, bWAPP & WAZUH) ---
   provisioner "file" {
     source = "${path.module}/http/xampp-installer.zip"
     destination = "C:\\temp\\xampp-installer.zip"
@@ -108,19 +109,35 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
     destination = "C:\\temp\\bWAPPv2.2.zip"
   }
 
+  # Wazuh Agent & Patch
+  provisioner "file" {
+    source      = "${path.module}/http/wazuh-agent-4.14.5-1.msi"
+    destination = "C:\\temp\\wazuh-agent-4.14.5-1.msi"
+  }
+
+  provisioner "file" {
+    source      = "${path.module}/http/windows6.1-kb4474419-v3-x64.msu"
+    destination = "C:\\temp\\KB4474419.msu"
+  }
+
   provisioner "remote-exec" {
     inline = [
+      "if not exist C:\\temp mkdir C:\\temp",
+
       "echo select disk 0 > C:\\temp\\extend.txt",
       "echo select volume 1 >> C:\\temp\\extend.txt",
       "echo extend >> C:\\temp\\extend.txt",
       "diskpart /s C:\\temp\\extend.txt",
 
-      "if not exist C:\\temp mkdir C:\\temp",
 
+      # IP Konfiguration & Routing
       "powershell -ExecutionPolicy Bypass -Command \"$targetMac = 'AA:12:00:16:00:00'; $interface = (gwmi Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }).NetConnectionID; if ($interface) { netsh interface ip set address name=\\\"$interface\\\" source=static addr=10.0.20.160 mask=255.255.255.0 gateway=10.0.20.1; route -p add 10.0.10.0 mask 255.255.255.0 10.0.20.1; route -p add 10.0.30.0 mask 255.255.255.0 10.0.20.1 }\"",
+      
+      # XAMPP & bWAPP Setup
       "powershell -Command \"$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace('C:\\temp\\xampp-installer.zip'); $dest = $shell.NameSpace('C:\\'); $dest.CopyHere($zip.Items())\"",
       "powershell -Command \"$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace('C:\\temp\\bWAPPv2.2.zip'); $dest = $shell.NameSpace('C:\\xampp\\htdocs'); $dest.CopyHere($zip.Items())\"",
 
+      # Services & Firewall
       "netsh advfirewall firewall add rule name=\"Allow HTTP\" dir=in action=allow protocol=TCP localport=80",
       "powershell -Command \"(Get-WmiObject Win32_TerminalServiceSetting -Namespace root\\cimv2\\TerminalServices).SetAllowTSConnections(1,1)\"",
       "powershell -Command \"(Get-WmiObject Win32_TSGeneralSetting -Namespace root\\cimv2\\TerminalServices -Filter \\\"TerminalName='RDP-Tcp'\\\").SetUserAuthenticationRequired(0)\"",
@@ -134,8 +151,26 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
       "net start mysql",
 
       "powershell -Command \"Start-Sleep -s 5\"",
-      "powershell -Command \"$wc = New-Object System.Net.WebClient; $wc.DownloadString('http://localhost//bWAPP//install.php?install=yes')\""
-   ]
+      "powershell -Command \"$wc = New-Object System.Net.WebClient; $wc.DownloadString('http://localhost//bWAPP//install.php?install=yes')\"",
+
+      # SHA-2 PATCH INSTALLATION
+      "powershell -ExecutionPolicy Bypass -Command \"Start-Process -FilePath 'wusa.exe' -ArgumentList 'C:\\temp\\KB4474419.msu /quiet /norestart' -Wait\"",
+      
+      # REBOOT TRIGGERN
+      "shutdown /r /t 15 /f /c \"Reboot nach XAMPP Setup und Patch\""
+    ]
+  }
+# --- BLOCK 2: WARTEZEIT FÜR REBOOT ---
+  provisioner "local-exec" {
+    command = "sleep 90"
   }
 
+  # --- BLOCK 3: WAZUH AGENT INSTALLATION ---
+  provisioner "remote-exec" {
+    inline = [
+      # Installation ohne Hochkommas bei der IP
+      "powershell -ExecutionPolicy Bypass -Command \"Start-Process -FilePath 'msiexec.exe' -ArgumentList '/i C:\\temp\\wazuh-agent-4.14.5-1.msi /qn WAZUH_MANAGER=10.0.10.170' -Wait\"",
+      "powershell -ExecutionPolicy Bypass -Command \"net start Wazuh\""
+    ]
+  }
 }
