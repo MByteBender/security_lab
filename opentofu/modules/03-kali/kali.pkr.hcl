@@ -126,7 +126,7 @@ build {
         apt-get update
         apt-get install -y qemu-guest-agent kali-desktop-xfce kali-linux-default gvm nuclei
 
-        git clone https://github.com/projectdiscovery/nuclei-templates.git ~/nuclei-templates
+        nuclei -ut
 
         # 1. Find the interface name
         INTERFACE=$(ip -o link show | grep -i 'AA:14:00:11:00:00' | awk -F': ' '{print $2}')
