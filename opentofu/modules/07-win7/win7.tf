@@ -95,7 +95,7 @@ provisioner "remote-exec" {
       "powershell -ExecutionPolicy Bypass -Command \"netsh advfirewall set allprofiles state off\"",
       "powershell -ExecutionPolicy Bypass -Command \"Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa' -Name 'restrictanonymous' -Value 0; Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters' -Name 'enablesecuritysignature' -Value 0; Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters' -Name 'requiresecuritysignature' -Value 0\"",
       "powershell -ExecutionPolicy Bypass -Command \"net user worker1 Password123 /add\"",
-      "powershell -ExecutionPolicy Bypass -Command \"net share LabShare=C:\Users\""
+      "powershell -ExecutionPolicy Bypass -Command \"net share LabShare=C:\\Users\""
     ]
   }
 
