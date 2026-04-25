@@ -1,7 +1,7 @@
 <Request>
     <Login>
         <Username>admin</Username>
-        <Password>admin</Password>
+        <Password>Adminadmin1!</Password>
     </Login>
     <Set operation="add">
         <APIConfiguration>
