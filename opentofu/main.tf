@@ -45,7 +45,6 @@ module "kali" {
   clone_vm_id       = 110
   kali_username     = "kali"
   kali_password     = var.kali_password
-  depends_on        = [module.networks, module.management]
 }
 
 module "ubuntu" {
@@ -57,7 +56,6 @@ module "ubuntu" {
   clone_vm_id       = 130
   ubuntu_username     = "ubuntu"
   ubuntu_password     = var.ubuntu_password_plain
-  depends_on        = [module.networks, module.management]
 }
 
 module "ubuntuDesktop" {
@@ -69,7 +67,6 @@ module "ubuntuDesktop" {
   clone_vm_id       = 140
   ubuntu_desktop_username = "ubuntu"
   ubuntu_password_plain = var.ubuntu_password_plain
-  depends_on        = [module.networks, module.management]
 }
 
 module "win7" {
@@ -79,7 +76,6 @@ module "win7" {
   name              = "win7"
   vm_id             = 151
   clone_vm_id       = 150
-  depends_on        = [module.networks, module.management]
 }
 
 module "windows2008" {
@@ -89,15 +85,4 @@ module "windows2008" {
   name              = "windows2008Server"
   vm_id             = 161
   clone_vm_id       = 160
-  depends_on        = [module.networks, module.management]
-}
-
-module "wazuh" {
-  source     = "./modules/09-wazuh"
-  proxmox_api_url   = var.proxmox_api_url
-  proxmox_api_token = var.proxmox_api_token
-  name              = "wazuh"
-  vm_id             = 171
-  clone_vm_id       = 170
-  depends_on        = [module.networks, module.management]
 }
