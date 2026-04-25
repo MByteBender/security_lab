@@ -100,7 +100,7 @@ additional_iso_files {
     "<wait2s>1<enter>",
     "<wait2s><enter>",
     "<wait2s><enter>y<enter>",
-    "<wait2s>${var.vm_ip}<enter>",
+    "<wait2s>10.0.40.2<enter>",
     "<enter><wait10s>",
     "<enter>n<enter>",
     "<wait5s>0<enter>",
