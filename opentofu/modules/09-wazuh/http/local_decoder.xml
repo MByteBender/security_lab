@@ -1,0 +1,15 @@
+<decoder name="sophos_fw">
+  <prematch>device_name="SFW"</prematch>
+</decoder>
+
+<decoder name="sophos_fw">
+  <parent>sophos_fw</parent>
+  <regex>src_ip="(\d+.\d+.\d+.\d+)"</regex>
+  <order>srcip</order>
+</decoder>
+
+<decoder name="sophos_fw">
+  <parent>sophos_fw</parent>
+  <regex>device_name="(\w+)"</regex>
+  <order>extra_data</order>
+</decoder>

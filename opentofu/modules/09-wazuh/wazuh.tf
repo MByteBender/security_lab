@@ -91,11 +91,37 @@ resource "proxmox_virtual_environment_vm" "wazuh" {
     destination = "/home/wazuh/01-netcfg.yaml"
   }
 
+  # 1. Dateien vom lokalen Rechner auf die VM hochladen (ins Home-Verzeichnis)
+  # Hochladen der Sophos-Konfigurationen
+  provisioner "file" {
+    source      = "${path.module}/http/local_decoder.xml"
+    destination = "/home/wazuh/local_decoder.xml"
+  }
+
+  provisioner "file" {
+    source      = "${path.module}/http/local_rules.xml"
+    destination = "/home/wazuh/local_rules.xml"
+  }
+
   provisioner "remote-exec" {
       inline = [
         <<-EOT
+        # Netplan config
         sudo "wazuh" | sudo -S mv /home/wazuh/01-netcfg.yaml /etc/netplan/01-netcfg.yaml
         sudo "wazuh" | sudo -S netplan apply
+
+        # Sophos Decoder an die richtige Stelle schieben & Rechte korrigieren
+        echo "wazuh" | sudo -S mv /home/wazuh/local_decoder.xml /var/ossec/etc/decoders/local_decoder.xml
+        echo "wazuh" | sudo -S chown root:wazuh /var/ossec/etc/decoders/local_decoder.xml
+        echo "wazuh" | sudo -S chmod 660 /var/ossec/etc/decoders/local_decoder.xml
+
+        # Sophos Rules an die richtige Stelle schieben & Rechte korrigieren
+        echo "wazuh" | sudo -S mv /home/wazuh/local_rules.xml /var/ossec/etc/rules/local_rules.xml
+        echo "wazuh" | sudo -S chown root:wazuh /var/ossec/etc/rules/local_rules.xml
+        echo "wazuh" | sudo -S chmod 660 /var/ossec/etc/rules/local_rules.xml
+
+        # Manager neustarten, um die Regeln zu laden
+        echo "wazuh" | sudo -S systemctl restart wazuh-manager
         EOT
       ]
   }
