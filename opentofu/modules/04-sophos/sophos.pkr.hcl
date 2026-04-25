@@ -65,15 +65,9 @@ source "proxmox-iso" "sophos-firewall" {
 additional_iso_files {
     cd_label         = "sophos_cfg"
     iso_storage_pool = "local" # The Proxmox datastore to temporarily hold the generated ISO
-    unmount          = true    # Removes the config ISO before saving the template
 
     # Option A: Read the local file and map it to a specific path on the generated ISO
-    cd_content = {
-      "import/Entities.xml" = file("${path.root}/files/Entities.xml")
-    }
-
-    # Option B: Alternatively, use cd_files to just copy the whole folder
-    # cd_files = ["${path.root}/config_disk/import"]
+     cd_files = ["${path.root}/files"]
   }
 
   boot_iso {
