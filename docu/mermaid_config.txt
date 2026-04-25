@@ -1,0 +1,53 @@
+%% Use the following code in mermaid.live to get the architecture diagram
+
+graph TD
+    subgraph Internet_Untrusted [Extern: 10.0.0.0/24 Untrusted]
+        Kali[Kali Linux - Attacker]
+    end
+
+    Router[Linux Router / FW]
+
+    subgraph DMZ_Zone [DMZ: 10.0.20.0/24 20]
+        Webserver[Win Server 2008 - PHP/MySQL/DVWA]
+    end
+
+    subgraph LAN_Zone [Intern: 10.0.10.0/24 10]
+        Win7[Windows 7 Client - Unpatched]
+        UbuntuDesktop[Linux Ubuntu Client - Unpatched]
+    end
+
+    subgraph SIEM_Zone [Mng.: 10.0.255.0/24 255]
+        SIEM[SIEM: Graylog/Elastic]
+    end
+
+    subgraph Configuration [Setup: 192.168.0.0/24]
+        Ansible[Ansible Control Node]
+        NetBox[NetBox IPAM]
+    end
+
+    %% Router Connections
+    Kali <-->|Port 80/443 NAT| Router
+    Router <--> Webserver
+    Router <--> Win7
+    Router <--> UbuntuDesktop
+    Router <--> SIEM
+
+    %% Management / Provisioning
+    Ansible -->|SSH/WinRM| Webserver
+    Ansible -->|SSH/WinRM| Win7
+    Ansible -->|SSH| Router
+    Ansible -->|SSH| UbuntuDesktop
+    Ansible -->|SSH| Kali
+    Ansible -->|SSH| SIEM
+
+    %% Multi-homed Interfaces & Logging
+    Webserver -.->|Phys. Interface / Syslog| SIEM
+    Win7 -.->|Phys. Interface / Beats| SIEM
+    UbuntuDesktop -.->|Phys. Interface / Syslog| SIEM
+    Router -.->|Syslog| SIEM
+
+    %% Styling
+    style Router fill:#f96,stroke:#333,stroke-width:2px
+    style SIEM fill:#bbf,stroke:#333,stroke-width:2px
+    style Webserver fill:#faa,stroke:#333
+    style Kali fill:#000,stroke:#fff,color:#fff

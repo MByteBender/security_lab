@@ -1,0 +1,88 @@
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "bpg/proxmox"
+      version = "0.70.0" # Use the latest stable version
+    }
+  }
+}
+
+variable "proxmox_api_url" {
+  type = string
+}
+
+variable "proxmox_api_token" {
+  type    = string
+  sensitive = true
+}
+
+variable "ubuntu_password_plain" {
+  type    = string
+  sensitive = true
+}
+
+variable "kali_password" {
+  type = string
+  sensitive = true
+}
+
+
+provider "proxmox" {
+  endpoint  = var.proxmox_api_url
+  api_token = var.proxmox_api_token
+  insecure  = true
+}
+
+# ---------------------------------------------------------
+# 2. The VM Layer
+# ---------------------------------------------------------
+module "kali" {
+  source     = "./modules/03-kali"
+  proxmox_api_url   = var.proxmox_api_url
+  proxmox_api_token = var.proxmox_api_token
+  name              = "kali"
+  vm_id             = 111
+  clone_vm_id       = 110
+  kali_username     = "kali"
+  kali_password     = var.kali_password
+}
+
+module "ubuntu" {
+  source     = "./modules/05-ubuntu"
+  proxmox_api_url   = var.proxmox_api_url
+  proxmox_api_token = var.proxmox_api_token
+  name              = "ubuntu"
+  vm_id             = 131
+  clone_vm_id       = 130
+  ubuntu_username     = "ubuntu"
+  ubuntu_password     = var.ubuntu_password_plain
+}
+
+module "ubuntuDesktop" {
+  source     = "./modules/06-ubuntu-desktop"
+  proxmox_api_url   = var.proxmox_api_url
+  proxmox_api_token = var.proxmox_api_token
+  name              = "ubuntuDesktop"
+  vm_id             = 141
+  clone_vm_id       = 140
+  ubuntu_desktop_username = "ubuntu"
+  ubuntu_password_plain = var.ubuntu_password_plain
+}
+
+module "win7" {
+  source     = "./modules/07-win7"
+  proxmox_api_url   = var.proxmox_api_url
+  proxmox_api_token = var.proxmox_api_token
+  name              = "win7"
+  vm_id             = 151
+  clone_vm_id       = 150
+}
+
+module "windows2008" {
+  source     = "./modules/08-windows2008"
+  proxmox_api_url   = var.proxmox_api_url
+  proxmox_api_token = var.proxmox_api_token
+  name              = "windows2008Server"
+  vm_id             = 161
+  clone_vm_id       = 160
+}
