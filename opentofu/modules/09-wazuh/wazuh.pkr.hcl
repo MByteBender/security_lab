@@ -37,7 +37,7 @@ source "proxmox-iso" "wazuh-server" {
 
   # VM Specs for the Build
   node                 = "pve"
-  vm_id                = "170"
+  vm_id                = "175"
   vm_name              = "wazuh-template"
   pool                 = "IT-sec"
   template_description = "Wazuh Server (all-in-one) on Ubuntu 24.04 LTS built via Packer"
@@ -59,6 +59,12 @@ source "proxmox-iso" "wazuh-server" {
   network_adapters {
     model  = "virtio"
     bridge = "vmbr0"
+  }
+
+  network_device {
+    bridge = "vmbr140"
+    firewall = false
+    mac_address = "AA:14:00:17:00:00"
   }
 
   disks {
@@ -93,6 +99,11 @@ source "proxmox-iso" "wazuh-server" {
 build {
   sources = ["source.proxmox-iso.wazuh-server"]
 
+  provisioner "file" {
+    source      = "${path.module}/http/00-setupcfg.yaml"
+    destination = "/etc/netplan/00-setupcfg.yaml"
+  }
+
   provisioner "shell" {
     inline = [
       "sudo apt-get update",
@@ -108,7 +119,9 @@ build {
       # Cleanup
       "sudo truncate -s 0 /etc/machine-id",
       "sudo apt-get clean",
-      "sudo rm /etc/sudoers.d/90-cloud-init-users"
+      "sudo rm /etc/sudoers.d/90-cloud-init-users",
+
+      "sudo netplay apply"
     ]
   }
 }

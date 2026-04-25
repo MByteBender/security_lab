@@ -1,0 +1,30 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens18:
+      dhcp4: true
+
+    # Interface 1
+    node01:
+      match:
+        macaddress: "AA:14:00:17:00:00"
+      set-name: eth0
+      addresses:
+        - 10.0.40.170/24
+
+    # Interface 2
+    node02:
+      match:
+        macaddress: "AA:11:00:17:00:00"
+      set-name: eth1
+      addresses:
+        - 10.0.10.170/24
+
+    # Interface 3
+    node03:
+      match:
+        macaddress: "AA:12:00:17:00:00"
+      set-name: eth2
+      addresses:
+        - 10.0.20.170/24

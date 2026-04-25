@@ -59,38 +59,19 @@ resource "proxmox_virtual_environment_vm" "wazuh" {
   network_device {
     bridge = "vmbr140"
     firewall = false
+    mac_address = "AA:14:00:17:00:00"
   }
   # eth1 → Intern → 10.0.10.10/24
   network_device {
     bridge = "vmbr110"
+    firewall = false
+    mac_address = "AA:11:00:17:00:00"
   }
   # eth2 → DMZ → 10.0.20.10/24
   network_device {
     bridge = "vmbr120"
-  }
-
-
-  initialization {
-    datastore_id = "zfs-itsec"
-    # eth0 - Management
-    ip_config {
-      ipv4 {
-        address = "10.0.255.10/24"
-        gateway = "10.0.255.1"
-      }
-    }
-    # eth1 - Intern
-    ip_config {
-      ipv4 {
-        address = "10.0.10.10/24"
-      }
-    }
-    # eth2 - DMZ
-    ip_config {
-      ipv4 {
-        address = "10.0.20.10/24"
-      }
-    }
+    firewall = false
+    mac_address = "AA:12:00:17:00:00"
   }
 
   agent {
@@ -103,4 +84,25 @@ resource "proxmox_virtual_environment_vm" "wazuh" {
     size         = 30
     file_format  = "raw"
   }
+
+  connection {
+    type     = "ssh"
+    user     = "wazuh"             # Use the user defined in your Packer/Cloud-Init
+    password = "wazuh"   # Or use private_key = file("~/.ssh/id_rsa")
+    host     = "10.0.40.170"
+  }
+
+  provisioner "file" {
+    source = "${path.module}/http/01-netcfg.yaml"
+    destination = "/etc/netplan/01-netcfg.yaml"
+  }
+
+  provisioner "remote-exec" {
+      inline = [
+        <<-EOT
+        sudo "wazuh" | netplan apply
+        EOT
+      ]
+  }
+
 }
