@@ -34,25 +34,6 @@ provider "proxmox" {
 }
 
 # ---------------------------------------------------------
-# 1. The Network Layer
-# This module "owns" the bridges. We point to your folder.
-# ---------------------------------------------------------
-module "networks" {
-  source    = "./modules/01-networks"   # Path to your network folder
-  proxmox_api_url   = var.proxmox_api_url
-  proxmox_api_token = var.proxmox_api_token
-}
-
-module "management" {
-  source     = "./modules/02-management"
-  proxmox_api_url   = var.proxmox_api_url
-  proxmox_api_token = var.proxmox_api_token
-  name              = "Management"
-  vm_id             = 100
-  depends_on        = [module.networks]
-}
-
-# ---------------------------------------------------------
 # 2. The VM Layer
 # ---------------------------------------------------------
 module "kali" {
@@ -64,16 +45,6 @@ module "kali" {
   clone_vm_id       = 110
   kali_username     = "kali"
   kali_password     = var.kali_password
-  depends_on        = [module.networks, module.management]
-}
-
-module "sophos" {
-  source     = "./modules/04-sophos"
-  proxmox_api_url   = var.proxmox_api_url
-  proxmox_api_token = var.proxmox_api_token
-  name              = "sophosFirewall"
-  vm_id             = 121
-  clone_vm_id       = 120
   depends_on        = [module.networks, module.management]
 }
 
