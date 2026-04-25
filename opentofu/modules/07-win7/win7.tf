@@ -129,7 +129,7 @@ resource "proxmox_virtual_environment_vm" "win7" {
   provisioner "remote-exec" {
     inline = [
       # Installation mit Manager-IP (Wichtig: doppelte Single-Quotes für Powershell-Escaping)
-      "powershell -ExecutionPolicy Bypass -Command \"Start-Process -FilePath 'msiexec.exe' -ArgumentList '/i C:\\temp\\wazuh-agent-4.14.5-1.msi /qn WAZUH_MANAGER=''10.0.10.170''' -Wait\"",
+      "powershell -ExecutionPolicy Bypass -Command \"Start-Process -FilePath 'msiexec.exe' -ArgumentList '/i C:\\temp\\wazuh-agent-4.14.5-1.msi /qn WAZUH_MANAGER=10.0.10.170' -Wait\"",
       "powershell -ExecutionPolicy Bypass -Command \"net start Wazuh\""
     ]
   }
