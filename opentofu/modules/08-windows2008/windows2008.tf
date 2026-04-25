@@ -28,6 +28,32 @@ variable "clone_vm_id" {
   type = string
 }
 
+resource "null_resource" "windows_cipher_patch" {
+  connection {
+    type     = "winrm"
+    user     = "Administrator"
+    password = "Packer123!"
+    host     = "10.0.40.160" 
+    port     = 5985
+    https    = false
+    insecure = true
+  }
+
+  # 1. Die Datei auf den laufenden Server hochladen
+  provisioner "file" {
+    source      = "${path.module}/http/windows6.1-kb3140245-x64_CipherSuite.msu"
+    destination = "C:\\temp\\KB3140245.msu"
+  }
+
+  # 2. Den Patch installieren und neustarten
+  provisioner "remote-exec" {
+    inline = [
+      "powershell -ExecutionPolicy Bypass -Command \"Start-Process -FilePath 'wusa.exe' -ArgumentList 'C:\\temp\\KB3140245.msu /quiet /norestart' -Wait\"",
+      "shutdown /r /t 5 /f /c \"Reboot for Cipher Suite Fix\""
+    ]
+  }
+}
+
 resource "null_resource" "windows_tls_fix" {
   # Wir nutzen die Verbindungsdaten deiner bestehenden VM
   connection {
@@ -147,6 +173,12 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
     destination = "C:\\temp\\KB4474419.msu"
   }
 
+  # #CipherSuite for TLS1.2 patch
+  # provisioner "file" {
+  #   source      = "${path.module}/http/windows6.1-kb3140245-x64_CipherSuite.msu"
+  #   destination = "C:\\temp\\KB3140245.msu"
+  # }
+
   provisioner "remote-exec" {
     inline = [
       "if not exist C:\\temp mkdir C:\\temp",
@@ -183,6 +215,10 @@ resource "proxmox_virtual_environment_vm" "windowsServer" {
       # SHA-2 PATCH INSTALLATION
       "powershell -ExecutionPolicy Bypass -Command \"Start-Process -FilePath 'wusa.exe' -ArgumentList 'C:\\temp\\KB4474419.msu /quiet /norestart' -Wait\"",
       
+
+      # TLS 1.2 Support Update (Ciphers)
+     # "powershell -ExecutionPolicy Bypass -Command \"Start-Process -FilePath 'wusa.exe' -ArgumentList 'C:\\temp\\KB3140245.msu /quiet /norestart' -Wait\"",
+
       # REBOOT TRIGGERN
       "shutdown /r /t 15 /f /c \"Reboot nach XAMPP Setup und Patch\""
     ]
