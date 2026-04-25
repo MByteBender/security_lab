@@ -119,6 +119,6 @@ build {
   sources = ["source.proxmox-iso.sophos-firewall"]
 
   provisioner "shell-local" {
-    inline = ["sleep 300"]
+    inline = ["sleep 60"]
   }
 }
