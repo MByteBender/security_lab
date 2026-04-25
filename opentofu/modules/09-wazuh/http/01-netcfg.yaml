@@ -20,11 +20,6 @@ network:
       set-name: eth1
       addresses:
         - 10.0.10.170/24
-
-    # Interface 3
-    node03:
-      match:
-        macaddress: "AA:12:00:17:00:00"
-      set-name: eth2
-      addresses:
-        - 10.0.20.170/24
+      routes:
+        - to: 10.0.20.0/24
+          via: 10.0.10.1

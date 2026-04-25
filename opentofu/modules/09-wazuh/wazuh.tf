@@ -67,12 +67,6 @@ resource "proxmox_virtual_environment_vm" "wazuh" {
     firewall = false
     mac_address = "AA:11:00:17:00:00"
   }
-  # eth2 → DMZ → 10.0.20.10/24
-  network_device {
-    bridge = "vmbr120"
-    firewall = false
-    mac_address = "AA:12:00:17:00:00"
-  }
 
   agent {
     enabled = true
