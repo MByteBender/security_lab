@@ -51,6 +51,11 @@ resource "proxmox_virtual_environment_vm" "wazuh" {
   # NOTE: ip_config blocks are assigned sequentially to network_device blocks.
   # The order here MUST match the order of the ip_config blocks below.
   # eth0 → Management → 10.0.255.10/24
+
+  network_device {
+    bridge = "vmbr0"
+  }
+
   network_device {
     bridge = "vmbr140"
     firewall = false
