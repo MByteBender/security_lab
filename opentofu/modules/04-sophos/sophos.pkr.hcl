@@ -40,7 +40,7 @@ source "proxmox-iso" "sophos-firewall" {
 
   # VM Specs
   node                 = "pve"
-  vm_id                = "120"
+  vm_id                = "125"
   vm_name              = "sophos-template"
   pool                 = "IT-sec"
   template_description = "Sophos FW 21.0.1 MR-1 - Auto-Configured for Lab"
