@@ -88,6 +88,12 @@ resource "proxmox_virtual_environment_vm" "win7" {
     use_ntlm = true  # Add this for legacy Windows compatibility
   }
 
+  provisioner "file" {
+    source      = "${path.module}/http/wazuh-agent-4.14.5-1.msi"
+    destination = "C:\\temp\\wazuh-agent-4.14.5-1.msi"
+  }
+
+
 provisioner "remote-exec" {
     inline = [
       "powershell -ExecutionPolicy Bypass -Command \"$targetMac = 'AA:11:00:15:00:00'; $adapter = Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }; if ($adapter) { $name = $adapter.NetConnectionID; netsh interface ip set address name=$name source=static addr=10.0.10.150 mask=255.255.255.0 gateway=10.0.10.1; route -p add 10.0.20.0 mask 255.255.255.0 10.0.10.1; route -p add 10.0.30.0 mask 255.255.255.0 10.0.10.1 }\"",
@@ -96,6 +102,7 @@ provisioner "remote-exec" {
       "powershell -ExecutionPolicy Bypass -Command \"Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa' -Name 'restrictanonymous' -Value 0; Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters' -Name 'enablesecuritysignature' -Value 0; Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters' -Name 'requiresecuritysignature' -Value 0\"",
       "powershell -ExecutionPolicy Bypass -Command \"net user worker1 Password123 /add\"",
       "powershell -ExecutionPolicy Bypass -Command \"net share LabShare=C:\\Users\""
+      "powershell -ExecutionPolicy Bypass -Command \"Start-Process -FilePath 'C:\\temp\\wazuh-agent-4.14.5-1.msi' -ArgumentList '/qn' -Wait\""
     ]
   }
 
