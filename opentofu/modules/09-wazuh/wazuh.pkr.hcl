@@ -61,7 +61,7 @@ source "proxmox-iso" "wazuh-server" {
     bridge = "vmbr0"
   }
 
-  network_device {
+  network_adapters {
     bridge = "vmbr140"
     firewall = false
     mac_address = "AA:14:00:17:00:00"
