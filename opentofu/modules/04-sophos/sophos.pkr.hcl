@@ -67,7 +67,7 @@ additional_iso_files {
     iso_storage_pool = "local" # The Proxmox datastore to temporarily hold the generated ISO
 
     # Option A: Read the local file and map it to a specific path on the generated ISO
-     cd_files = ["${path.root}/files"]
+     cd_files = ["${path.root}/import"]
   }
 
   boot_iso {
