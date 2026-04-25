@@ -100,7 +100,7 @@ build {
   sources = ["source.proxmox-iso.wazuh-server"]
 
   provisioner "file" {
-    source      = "${path.module}/http/00-setupcfg.yaml"
+    source      = "${path.root}/http/00-setupcfg.yaml"
     destination = "/etc/netplan/00-setupcfg.yaml"
   }
 
