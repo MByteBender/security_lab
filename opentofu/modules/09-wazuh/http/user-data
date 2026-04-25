@@ -1,12 +1,26 @@
 #cloud-config
 autoinstall:
   version: 1
+  # --- ADDED NETWORK SECTION START ---
+  network:
+    version: 2
+    renderer: networkd
+    ethernets:
+      ens18:
+        dhcp4: true
+      node01:
+        match:
+          macaddress: "AA:14:00:17:00:00"
+        set-name: eth0
+        addresses:
+          - 10.0.40.170/24
+  # --- ADDED NETWORK SECTION END ---
+
   packages:
     - qemu-guest-agent
   locale: en_US.UTF-8
   keyboard:
     layout: at
-  # Identity handles the user creation in 24.04/25.10
   identity:
     hostname: wazuh-server
     username: wazuh
@@ -18,7 +32,6 @@ autoinstall:
         shell: /bin/bash
         ssh_authorized_keys:
           - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOS5QC57tSdwCYdpOYyUpAVrFMN2ocHCTaaVOIcwlDFl security lab mgmt server
-  # the pub key here is the one to tristans sl_mgmt identiy file
   ssh:
     install-server: true
     allow-pw: true
