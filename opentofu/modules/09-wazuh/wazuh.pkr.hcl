@@ -37,7 +37,7 @@ source "proxmox-iso" "wazuh-server" {
 
   # VM Specs for the Build
   node                 = "pve"
-  vm_id                = "175"
+  vm_id                = "170"
   vm_name              = "wazuh-template"
   pool                 = "IT-sec"
   template_description = "Wazuh Server (all-in-one) on Ubuntu 24.04 LTS built via Packer"

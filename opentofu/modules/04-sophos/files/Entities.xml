@@ -1,0 +1,12 @@
+<Request>
+    <Login>
+        <Username>admin</Username>
+        <Password>Adminadmin1!</Password>
+    </Login>
+    <Set operation="add">
+        <APIConfiguration>
+            <Status>Enable</Status>
+            <AllowedIPAddress>192.168.1.0/24</AllowedIPAddress>
+        </APIConfiguration>
+    </Set>
+</Request>
