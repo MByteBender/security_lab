@@ -94,13 +94,14 @@ resource "proxmox_virtual_environment_vm" "wazuh" {
 
   provisioner "file" {
     source = "${path.module}/http/01-netcfg.yaml"
-    destination = "/etc/netplan/01-netcfg.yaml"
+    destination = "/home/wazuh/01-netcfg.yaml"
   }
 
   provisioner "remote-exec" {
       inline = [
         <<-EOT
-        sudo "wazuh" | netplan apply
+        sudo "wazuh" | sudo -S mv /home/wazuh/01-netcfg.yaml /etc/netplan/01-netcfg.yaml
+        sudo "wazuh" | sudo -S netplan apply
         EOT
       ]
   }
