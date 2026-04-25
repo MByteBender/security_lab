@@ -88,22 +88,49 @@ resource "proxmox_virtual_environment_vm" "win7" {
     use_ntlm = true  # Add this for legacy Windows compatibility
   }
 
+  # --- FILE TRANSFER ---
   provisioner "file" {
     source      = "${path.module}/http/wazuh-agent-4.14.5-1.msi"
     destination = "C:\\temp\\wazuh-agent-4.14.5-1.msi"
   }
 
+  provisioner "file" {
+    source      = "${path.module}/http/windows6.1-kb4474419-v3-x64.msu"
+    destination = "C:\\temp\\KB4474419.msu"
+  }
 
-provisioner "remote-exec" {
+
+# --- BLOCK 1: CONFIG & PATCH ---
+  provisioner "remote-exec" {
     inline = [
+      # Netzwerk Konfiguration
       "powershell -ExecutionPolicy Bypass -Command \"$targetMac = 'AA:11:00:15:00:00'; $adapter = Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.MACAddress -eq $targetMac }; if ($adapter) { $name = $adapter.NetConnectionID; netsh interface ip set address name=$name source=static addr=10.0.10.150 mask=255.255.255.0 gateway=10.0.10.1; route -p add 10.0.20.0 mask 255.255.255.0 10.0.10.1; route -p add 10.0.30.0 mask 255.255.255.0 10.0.10.1 }\"",
+      # SMB1 & Firewall
       "powershell -ExecutionPolicy Bypass -Command \"Set-Service -Name LanmanServer -StartupType Automatic; Start-Service -Name LanmanServer; Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters' SMB1 -Value 1\"",
       "powershell -ExecutionPolicy Bypass -Command \"netsh advfirewall set allprofiles state off\"",
+      # Security Settings & User
       "powershell -ExecutionPolicy Bypass -Command \"Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa' -Name 'restrictanonymous' -Value 0; Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters' -Name 'enablesecuritysignature' -Value 0; Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters' -Name 'requiresecuritysignature' -Value 0\"",
       "powershell -ExecutionPolicy Bypass -Command \"net user worker1 Password123 /add\"",
-      "powershell -ExecutionPolicy Bypass -Command \"net share LabShare=C:\\Users\""
-      "powershell -ExecutionPolicy Bypass -Command \"Start-Process -FilePath 'C:\\temp\\wazuh-agent-4.14.5-1.msi' -ArgumentList '/qn' -Wait\""
+      "powershell -ExecutionPolicy Bypass -Command \"net share LabShare=C:\\Users\"",
+      # SHA-2 Patch Installation
+      "powershell -ExecutionPolicy Bypass -Command \"Start-Process -FilePath 'wusa.exe' -ArgumentList 'C:\\temp\\KB4474419.msu /quiet /norestart' -Wait\"",
+      # Reboot triggern (mit 10 Sek Verzögerung für sauberes WinRM Ende)
+      "shutdown /r /t 10 /f /c \"Reboot fuer SHA-2 Patch\""
     ]
   }
 
+  # --- BLOCK 2: WAIT FOR REBOOT ---
+  provisioner "local-exec" {
+    # Wartet 90 Sekunden auf dem Host, während die VM neustartet
+    command = "sleep 90" 
+  }
+
+  # --- BLOCK 3: WAZUH AGENT INSTALL ---
+  provisioner "remote-exec" {
+    inline = [
+      # Installation mit Manager-IP (Wichtig: doppelte Single-Quotes für Powershell-Escaping)
+      "powershell -ExecutionPolicy Bypass -Command \"Start-Process -FilePath 'msiexec.exe' -ArgumentList '/i C:\\temp\\wazuh-agent-4.14.5-1.msi /qn WAZUH_MANAGER=''10.0.10.170''' -Wait\"",
+      "powershell -ExecutionPolicy Bypass -Command \"net start Wazuh\""
+    ]
+  }
 }
