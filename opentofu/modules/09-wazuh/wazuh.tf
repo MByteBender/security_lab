@@ -52,16 +52,18 @@ resource "proxmox_virtual_environment_vm" "wazuh" {
   # The order here MUST match the order of the ip_config blocks below.
   # eth0 → Management → 10.0.255.10/24
   network_device {
-    bridge = "Management"
+    bridge = "vmbr140"
+    firewall = false
   }
   # eth1 → Intern → 10.0.10.10/24
   network_device {
-    bridge = "Intern"
+    bridge = "vmbr110"
   }
   # eth2 → DMZ → 10.0.20.10/24
   network_device {
-    bridge = "DMZ"
+    bridge = "vmbr120"
   }
+
 
   initialization {
     datastore_id = "zfs-itsec"
