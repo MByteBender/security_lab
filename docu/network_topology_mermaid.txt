@@ -2,7 +2,7 @@
 
 graph LR                       
       subgraph SETUP["Setup · vmbr140 · 10.0.40.0/24"]
-          SOPHOS["Sophos Firewall<br/>10.0.40.2"]
+          SOPHOS["Sophos Firewall<br/>10.0.40.1"]
       end
       subgraph EXT["External · vmbr130 · 10.0.30.0/24"]
           KALI["Kali Linux<br/>10.0.30.110"]
