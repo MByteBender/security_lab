@@ -1,0 +1,16 @@
+[rdp-detect] [javascript] [info] 10.0.20.160:3389
+[rdp-detect] [javascript] [info] 10.0.20.160:3389
+[smb-enum-domains] [javascript] [info] 10.0.20.160:445 ["DomainName: WIN-Q3QAH5D874F"]
+[smb-enum] [javascript] [info] 10.0.20.160:445 ["DNSComputerName: WIN-Q3QAH5D874F","ForestName:","OSVersion: 6.1.7601","NetBIOSComputerName: WIN-Q3QAH5D874F","NetBIOSDomainName: WIN-Q3QAH5D874F","DNSComputerNamen: WIN-Q3QAH5D874F"]
+[smb-enum-domains] [javascript] [info] 10.0.20.160:445 ["DomainName: WIN-Q3QAH5D874F"]
+[smb-enum] [javascript] [info] 10.0.20.160:445 ["DNSComputerName: WIN-Q3QAH5D874F","ForestName:","OSVersion: 6.1.7601","NetBIOSComputerName: WIN-Q3QAH5D874F","NetBIOSDomainName: WIN-Q3QAH5D874F","DNSComputerNamen: WIN-Q3QAH5D874F"]
+[smb-version-detect:smb-version] [javascript] [info] 10.0.20.160:445 ["SMB 2.1"]
+[smb-version-detect:smb-version] [javascript] [info] 10.0.20.160:445 ["SMB 2.1"]
+[smb2-capabilities] [javascript] [info] 10.0.20.160:445 ["["DFSSupport","LargeMTU","Leasing"]"]
+[smb2-capabilities] [javascript] [info] 10.0.20.160:445 ["["DFSSupport","LargeMTU","Leasing"]"]
+[smb-signing] [javascript] [medium] 10.0.20.160:445
+[smb-signing] [javascript] [medium] 10.0.20.160:445
+[smb2-server-time] [javascript] [info] 10.0.20.160:445 ["SystemTime: 2026-05-04T06:27:06.000Z ServerStartTime: 2026-05-04T05:27:21.000Z"]
+[smb2-server-time] [javascript] [info] 10.0.20.160:445 ["SystemTime: 2026-05-04T06:27:06.000Z ServerStartTime: 2026-05-04T05:27:21.000Z"]
+[smb-os-detect] [javascript] [info] 10.0.20.160:445 ["Windows 7, Service Pack 1"]
+[smb-os-detect] [javascript] [info] 10.0.20.160:445 ["Windows 7, Service Pack 1"]

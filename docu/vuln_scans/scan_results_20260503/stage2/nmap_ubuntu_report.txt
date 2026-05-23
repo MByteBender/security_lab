@@ -1,0 +1,81 @@
+# Nmap 7.99 scan initiated Sun May  3 20:03:26 2026 as: /usr/lib/nmap/nmap -sV --script ssl-enum-ciphers,http-shellshock,ftp-anon,ftp-vsftpd-backdoor -oN ./scan_results_20260503/stage2/nmap_ubuntu_report.txt 10.0.10.0/24 10.0.20.0/24
+Nmap scan report for 10.0.10.140
+Host is up (0.0017s latency).
+Not shown: 993 closed tcp ports (reset)
+PORT     STATE SERVICE     VERSION
+21/tcp   open  ftp         vsftpd 2.2.2
+22/tcp   open  ssh         OpenSSH 5.3p1 Debian 3ubuntu7 (Ubuntu Linux; protocol 2.0)
+139/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+631/tcp  open  ipp         CUPS 1.4
+|_http-server-header: CUPS/1.4
+2222/tcp open  ssh         OpenSSH 4.3 (protocol 2.0)
+6667/tcp open  irc?
+| fingerprint-strings: 
+|   GenericLines: 
+|     root@ubuntu-vintage:~# 
+|     root@ubuntu-vintage:~# 
+|     root@ubuntu-vintage:~# 
+|     root@ubuntu-vintage:~# 
+|     root@ubuntu-vintage:~#
+|   NULL: 
+|_    root@ubuntu-vintage:~#
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port6667-TCP:V=7.99%I=7%D=5/3%Time=69F78E22%P=x86_64-pc-linux-gnu%r(NUL
+SF:L,17,"root@ubuntu-vintage:~#\x20")%r(GenericLines,77,"root@ubuntu-vinta
+SF:ge:~#\x20\nroot@ubuntu-vintage:~#\x20\nroot@ubuntu-vintage:~#\x20\nroot
+SF:@ubuntu-vintage:~#\x20\nroot@ubuntu-vintage:~#\x20");
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Nmap scan report for 10.0.10.150
+Host is up (0.0011s latency).
+Not shown: 990 closed tcp ports (reset)
+PORT      STATE SERVICE      VERSION
+135/tcp   open  msrpc        Microsoft Windows RPC
+139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds Microsoft Windows 7 - 10 microsoft-ds (workgroup: WORKGROUP)
+5985/tcp  open  http         Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+49152/tcp open  msrpc        Microsoft Windows RPC
+49153/tcp open  msrpc        Microsoft Windows RPC
+49154/tcp open  msrpc        Microsoft Windows RPC
+49155/tcp open  msrpc        Microsoft Windows RPC
+49156/tcp open  msrpc        Microsoft Windows RPC
+49157/tcp open  msrpc        Microsoft Windows RPC
+Service Info: Host: PC; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Nmap scan report for 10.0.20.160
+Host is up (0.00063s latency).
+Not shown: 994 filtered tcp ports (no-response)
+PORT      STATE SERVICE        VERSION
+80/tcp    open  http           Apache httpd 2.4.37 ((Win32) OpenSSL/1.0.2p PHP/5.6.40)
+|_http-server-header: Apache/2.4.37 (Win32) OpenSSL/1.0.2p PHP/5.6.40
+135/tcp   open  msrpc          Microsoft Windows RPC
+445/tcp   open  microsoft-ds   Microsoft Windows Server 2008 R2 - 2012 microsoft-ds
+3389/tcp  open  ms-wbt-server?
+| ssl-enum-ciphers: 
+|   TLSv1.0: 
+|     ciphers: 
+|       TLS_RSA_WITH_AES_128_CBC_SHA (rsa 2048) - F
+|       TLS_RSA_WITH_AES_256_CBC_SHA (rsa 2048) - F
+|       TLS_RSA_WITH_RC4_128_SHA (rsa 2048) - F
+|       TLS_RSA_WITH_3DES_EDE_CBC_SHA (rsa 2048) - F
+|       TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (secp256r1) - F
+|       TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (secp256r1) - F
+|       TLS_RSA_WITH_RC4_128_MD5 (rsa 2048) - F
+|     compressors: 
+|       NULL
+|     cipher preference: server
+|     warnings: 
+|       64-bit block cipher 3DES vulnerable to SWEET32 attack
+|       Broken cipher RC4 is deprecated by RFC 7465
+|       Ciphersuite uses MD5 for message integrity
+|       Insecure certificate signature (SHA1), score capped at F
+|_  least strength: F
+5985/tcp  open  http           Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+49154/tcp open  msrpc          Microsoft Windows RPC
+Service Info: OSs: Windows, Windows Server 2008 R2 - 2012; CPE: cpe:/o:microsoft:windows
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sun May  3 20:05:36 2026 -- 512 IP addresses (3 hosts up) scanned in 130.49 seconds

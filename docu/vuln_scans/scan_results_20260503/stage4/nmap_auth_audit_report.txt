@@ -1,0 +1,47 @@
+# Nmap 7.99 scan initiated Sun May  3 20:11:24 2026 as: /usr/lib/nmap/nmap -p 3306,445 --script mysql-empty-password,smb-enum-shares,smb-enum-users,smb-protocols,smb-security-mode,smb-enum-sessions,smb-os-discovery,ms-sql-info,ms-sql-empty-password,pgsql-brute,http-default-accounts,snmp-brute -oN ./scan_results_20260503/stage4/nmap_auth_audit_report.txt 10.0.10.0/24
+Nmap scan report for 10.0.10.140
+Host is up (0.00055s latency).
+
+PORT     STATE  SERVICE
+445/tcp  open   microsoft-ds
+3306/tcp closed mysql
+
+Nmap scan report for 10.0.10.150
+Host is up (0.00063s latency).
+
+PORT     STATE  SERVICE
+445/tcp  open   microsoft-ds
+3306/tcp closed mysql
+
+Host script results:
+| smb-enum-shares: 
+|   note: ERROR: Enumerating shares failed, guessing at common ones (NT_STATUS_ACCESS_DENIED)
+|   account_used: <blank>
+|   \\10.0.10.150\ADMIN$: 
+|     warning: Couldn't get details for share: NT_STATUS_ACCESS_DENIED
+|     Anonymous access: <none>
+|   \\10.0.10.150\C$: 
+|     warning: Couldn't get details for share: NT_STATUS_ACCESS_DENIED
+|     Anonymous access: <none>
+|   \\10.0.10.150\IPC$: 
+|     warning: Couldn't get details for share: NT_STATUS_ACCESS_DENIED
+|_    Anonymous access: READ
+| smb-protocols: 
+|   dialects: 
+|     NT LM 0.12 (SMBv1) [dangerous, but default]
+|     2.0.2
+|_    2.1
+| smb-os-discovery: 
+|   OS: Windows 7 Home Basic 7601 Service Pack 1 (Windows 7 Home Basic 6.1)
+|   OS CPE: cpe:/o:microsoft:windows_7::sp1
+|   Computer name: PC
+|   NetBIOS computer name: PC\x00
+|   Workgroup: WORKGROUP\x00
+|_  System time: 2026-05-03T20:11:44-07:00
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+
+# Nmap done at Sun May  3 20:11:45 2026 -- 256 IP addresses (2 hosts up) scanned in 21.16 seconds

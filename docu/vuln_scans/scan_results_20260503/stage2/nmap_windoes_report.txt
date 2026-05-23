@@ -1,0 +1,102 @@
+# Nmap 7.99 scan initiated Sun May  3 20:00:06 2026 as: /usr/lib/nmap/nmap -sV -script smb-vuln-ms17-010,smb-vuln-ms08-067,rdp-vuln-ms12-020,smb-vuln-ms10-061,smb-vuln-ms10-054,rdp-ntlm-info -oN ./scan_results_20260503/stage2/nmap_windoes_report.txt 10.0.10.0/24 10.0.20.0/24
+Nmap scan report for 10.0.10.140
+Host is up (0.0028s latency).
+Not shown: 993 closed tcp ports (reset)
+PORT     STATE SERVICE     VERSION
+21/tcp   open  ftp         vsftpd 2.2.2
+22/tcp   open  ssh         OpenSSH 5.3p1 Debian 3ubuntu7 (Ubuntu Linux; protocol 2.0)
+139/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+631/tcp  open  ipp         CUPS 1.4
+|_http-server-header: CUPS/1.4
+2222/tcp open  ssh         OpenSSH 4.3 (protocol 2.0)
+6667/tcp open  irc?
+| fingerprint-strings: 
+|   GenericLines: 
+|     root@ubuntu-vintage:~# 
+|     root@ubuntu-vintage:~# 
+|     root@ubuntu-vintage:~# 
+|     root@ubuntu-vintage:~# 
+|     root@ubuntu-vintage:~#
+|   NULL: 
+|_    root@ubuntu-vintage:~#
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port6667-TCP:V=7.99%I=7%D=5/3%Time=69F78D62%P=x86_64-pc-linux-gnu%r(NUL
+SF:L,17,"root@ubuntu-vintage:~#\x20")%r(GenericLines,77,"root@ubuntu-vinta
+SF:ge:~#\x20\nroot@ubuntu-vintage:~#\x20\nroot@ubuntu-vintage:~#\x20\nroot
+SF:@ubuntu-vintage:~#\x20\nroot@ubuntu-vintage:~#\x20");
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_smb-vuln-ms10-054: false
+|_smb-vuln-ms10-061: Could not negotiate a connection:SMB: ERROR: Server returned less data than it was supposed to (one or more fields are missing); aborting [14]
+
+Nmap scan report for 10.0.10.150
+Host is up (0.0010s latency).
+Not shown: 990 closed tcp ports (reset)
+PORT      STATE SERVICE      VERSION
+135/tcp   open  msrpc        Microsoft Windows RPC
+139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds Microsoft Windows 7 - 10 microsoft-ds (workgroup: WORKGROUP)
+5985/tcp  open  http         Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+49152/tcp open  msrpc        Microsoft Windows RPC
+49153/tcp open  msrpc        Microsoft Windows RPC
+49154/tcp open  msrpc        Microsoft Windows RPC
+49155/tcp open  msrpc        Microsoft Windows RPC
+49156/tcp open  msrpc        Microsoft Windows RPC
+49157/tcp open  msrpc        Microsoft Windows RPC
+Service Info: Host: PC; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_smb-vuln-ms10-054: false
+| smb-vuln-ms17-010: 
+|   VULNERABLE:
+|   Remote Code Execution vulnerability in Microsoft SMBv1 servers (ms17-010)
+|     State: VULNERABLE
+|     IDs:  CVE:CVE-2017-0143
+|     Risk factor: HIGH
+|       A critical remote code execution vulnerability exists in Microsoft SMBv1
+|        servers (ms17-010).
+|           
+|     Disclosure date: 2017-03-14
+|     References:
+|       https://technet.microsoft.com/en-us/library/security/ms17-010.aspx
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143
+|_      https://blogs.technet.microsoft.com/msrc/2017/05/12/customer-guidance-for-wannacrypt-attacks/
+|_smb-vuln-ms10-061: NT_STATUS_ACCESS_DENIED
+
+Nmap scan report for 10.0.20.160
+Host is up (0.00082s latency).
+Not shown: 994 filtered tcp ports (no-response)
+PORT      STATE SERVICE        VERSION
+80/tcp    open  http           Apache httpd 2.4.37 ((Win32) OpenSSL/1.0.2p PHP/5.6.40)
+|_http-server-header: Apache/2.4.37 (Win32) OpenSSL/1.0.2p PHP/5.6.40
+135/tcp   open  msrpc          Microsoft Windows RPC
+445/tcp   open  microsoft-ds   Microsoft Windows Server 2008 R2 - 2012 microsoft-ds
+3389/tcp  open  ms-wbt-server?
+5985/tcp  open  http           Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+49154/tcp open  msrpc          Microsoft Windows RPC
+Service Info: OSs: Windows, Windows Server 2008 R2 - 2012; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb-vuln-ms17-010: 
+|   VULNERABLE:
+|   Remote Code Execution vulnerability in Microsoft SMBv1 servers (ms17-010)
+|     State: VULNERABLE
+|     IDs:  CVE:CVE-2017-0143
+|     Risk factor: HIGH
+|       A critical remote code execution vulnerability exists in Microsoft SMBv1
+|        servers (ms17-010).
+|           
+|     Disclosure date: 2017-03-14
+|     References:
+|       https://technet.microsoft.com/en-us/library/security/ms17-010.aspx
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143
+|_      https://blogs.technet.microsoft.com/msrc/2017/05/12/customer-guidance-for-wannacrypt-attacks/
+|_smb-vuln-ms10-061: NT_STATUS_ACCESS_DENIED
+|_smb-vuln-ms10-054: false
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sun May  3 20:03:26 2026 -- 512 IP addresses (3 hosts up) scanned in 199.74 seconds

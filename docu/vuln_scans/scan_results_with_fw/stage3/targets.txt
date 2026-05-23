@@ -1,0 +1,4 @@
+# Nmap 7.99 scan initiated Sun May  3 23:13:52 2026 as: /usr/lib/nmap/nmap -p- --open -oG ./scan_results_20260503/stage3/targets.txt 10.0.10.0/24 10.0.20.0/24
+Host: 10.0.20.160 ()	Status: Up
+Host: 10.0.20.160 ()	Ports: 21/open/tcp//ftp///, 80/open/tcp//http///, 135/open/tcp//msrpc///, 445/open/tcp//microsoft-ds///, 3389/open/tcp//ms-wbt-server///, 5985/open/tcp//wsman///, 49154/open/tcp/////	Ignored State: filtered (65528)
+# Nmap done at Sun May  3 23:17:15 2026 -- 512 IP addresses (1 host up) scanned in 203.10 seconds

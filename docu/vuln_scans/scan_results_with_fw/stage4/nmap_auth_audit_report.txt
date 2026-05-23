@@ -1,0 +1,2 @@
+# Nmap 7.99 scan initiated Sun May  3 23:19:40 2026 as: /usr/lib/nmap/nmap -p 3306,445 --script mysql-empty-password,smb-enum-shares,smb-enum-users,smb-protocols,smb-security-mode,smb-enum-sessions,smb-os-discovery,ms-sql-info,ms-sql-empty-password,pgsql-brute,http-default-accounts,snmp-brute -oN ./scan_results_20260503/stage4/nmap_auth_audit_report.txt 10.0.10.0/24
+# Nmap done at Sun May  3 23:23:07 2026 -- 256 IP addresses (0 hosts up) scanned in 206.39 seconds

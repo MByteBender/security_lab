@@ -1,0 +1,35 @@
+# Nmap 7.99 scan initiated Sun May  3 23:08:18 2026 as: /usr/lib/nmap/nmap -sV --script ssl-enum-ciphers,http-shellshock,ftp-anon,ftp-vsftpd-backdoor -oN ./scan_results_20260503/stage2/nmap_ubuntu_report.txt 10.0.10.0/24 10.0.20.0/24
+Nmap scan report for 10.0.20.160
+Host is up (0.00093s latency).
+Not shown: 993 filtered tcp ports (no-response)
+PORT      STATE SERVICE        VERSION
+21/tcp    open  ftp?
+80/tcp    open  http           Apache httpd 2.4.37 ((Win32) OpenSSL/1.0.2p PHP/5.6.40)
+135/tcp   open  msrpc          Microsoft Windows RPC
+445/tcp   open  microsoft-ds   Microsoft Windows Server 2008 R2 - 2012 microsoft-ds
+3389/tcp  open  ms-wbt-server?
+| ssl-enum-ciphers: 
+|   TLSv1.0: 
+|     ciphers: 
+|       TLS_RSA_WITH_AES_128_CBC_SHA (rsa 2048) - F
+|       TLS_RSA_WITH_AES_256_CBC_SHA (rsa 2048) - F
+|       TLS_RSA_WITH_RC4_128_SHA (rsa 2048) - F
+|       TLS_RSA_WITH_3DES_EDE_CBC_SHA (rsa 2048) - F
+|       TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (secp256r1) - F
+|       TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (secp256r1) - F
+|       TLS_RSA_WITH_RC4_128_MD5 (rsa 2048) - F
+|     compressors: 
+|       NULL
+|     cipher preference: server
+|     warnings: 
+|       64-bit block cipher 3DES vulnerable to SWEET32 attack
+|       Broken cipher RC4 is deprecated by RFC 7465
+|       Ciphersuite uses MD5 for message integrity
+|       Insecure certificate signature (SHA1), score capped at F
+|_  least strength: F
+5985/tcp  open  http           Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+49154/tcp open  msrpc          Microsoft Windows RPC
+Service Info: OSs: Windows, Windows Server 2008 R2 - 2012; CPE: cpe:/o:microsoft:windows
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sun May  3 23:13:52 2026 -- 512 IP addresses (1 host up) scanned in 334.03 seconds

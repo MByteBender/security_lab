@@ -1,0 +1,42 @@
+# Nmap 7.99 scan initiated Sun May  3 23:03:42 2026 as: /usr/lib/nmap/nmap -sV -script smb-vuln-ms17-010,smb-vuln-ms08-067,rdp-vuln-ms12-020,smb-vuln-ms10-061,smb-vuln-ms10-054,rdp-ntlm-info -oN ./scan_results_20260503/stage2/nmap_windoes_report.txt 10.0.10.0/24 10.0.20.0/24
+Nmap scan report for 10.0.20.160
+Host is up (0.00072s latency).
+Not shown: 993 filtered tcp ports (no-response)
+PORT      STATE SERVICE        VERSION
+21/tcp    open  ftp?
+80/tcp    open  http           Apache httpd 2.4.37 ((Win32) OpenSSL/1.0.2p PHP/5.6.40)
+135/tcp   open  msrpc          Microsoft Windows RPC
+445/tcp   open  microsoft-ds   Microsoft Windows Server 2008 R2 - 2012 microsoft-ds
+3389/tcp  open  ms-wbt-server?
+| rdp-ntlm-info: 
+|   Target_Name: WIN-Q3QAH5D874F
+|   NetBIOS_Domain_Name: WIN-Q3QAH5D874F
+|   NetBIOS_Computer_Name: WIN-Q3QAH5D874F
+|   DNS_Domain_Name: WIN-Q3QAH5D874F
+|   DNS_Computer_Name: WIN-Q3QAH5D874F
+|   Product_Version: 6.1.7601
+|_  System_Time: 2026-05-04T06:07:08+00:00
+5985/tcp  open  http           Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+49154/tcp open  msrpc          Microsoft Windows RPC
+Service Info: OSs: Windows, Windows Server 2008 R2 - 2012; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb-vuln-ms17-010: 
+|   VULNERABLE:
+|   Remote Code Execution vulnerability in Microsoft SMBv1 servers (ms17-010)
+|     State: VULNERABLE
+|     IDs:  CVE:CVE-2017-0143
+|     Risk factor: HIGH
+|       A critical remote code execution vulnerability exists in Microsoft SMBv1
+|        servers (ms17-010).
+|           
+|     Disclosure date: 2017-03-14
+|     References:
+|       https://technet.microsoft.com/en-us/library/security/ms17-010.aspx
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143
+|_      https://blogs.technet.microsoft.com/msrc/2017/05/12/customer-guidance-for-wannacrypt-attacks/
+|_smb-vuln-ms10-054: false
+|_smb-vuln-ms10-061: NT_STATUS_ACCESS_DENIED
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sun May  3 23:08:18 2026 -- 512 IP addresses (1 host up) scanned in 275.83 seconds

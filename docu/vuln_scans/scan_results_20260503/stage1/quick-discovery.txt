@@ -1,0 +1,2581 @@
+# Nmap 7.99 scan initiated Sun May  3 19:47:16 2026 as: /usr/lib/nmap/nmap -Pn -T4 --min-rate 1000 -F -oN ./scan_results_20260503/stage1/quick-discovery.txt 10.0.10.0/24 10.0.20.0/24
+Nmap scan report for 10.0.10.0
+Host is up.
+All 100 scanned ports on 10.0.10.0 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.1
+Host is up.
+All 100 scanned ports on 10.0.10.1 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.2
+Host is up.
+All 100 scanned ports on 10.0.10.2 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.3
+Host is up.
+All 100 scanned ports on 10.0.10.3 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.4
+Host is up.
+All 100 scanned ports on 10.0.10.4 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.5
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.10.5 are in ignored states.
+Not shown: 98 filtered tcp ports (no-response), 2 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.6
+Host is up.
+All 100 scanned ports on 10.0.10.6 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.7
+Host is up.
+All 100 scanned ports on 10.0.10.7 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.8
+Host is up.
+All 100 scanned ports on 10.0.10.8 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.9
+Host is up.
+All 100 scanned ports on 10.0.10.9 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.10
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.10.10 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.11
+Host is up (3.1s latency).
+All 100 scanned ports on 10.0.10.11 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.12
+Host is up.
+All 100 scanned ports on 10.0.10.12 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.13
+Host is up.
+All 100 scanned ports on 10.0.10.13 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.14
+Host is up.
+All 100 scanned ports on 10.0.10.14 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.15
+Host is up.
+All 100 scanned ports on 10.0.10.15 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.16
+Host is up.
+All 100 scanned ports on 10.0.10.16 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.17
+Host is up.
+All 100 scanned ports on 10.0.10.17 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.18
+Host is up.
+All 100 scanned ports on 10.0.10.18 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.19
+Host is up.
+All 100 scanned ports on 10.0.10.19 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.20
+Host is up.
+All 100 scanned ports on 10.0.10.20 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.21
+Host is up.
+All 100 scanned ports on 10.0.10.21 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.22
+Host is up.
+All 100 scanned ports on 10.0.10.22 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.23
+Host is up.
+All 100 scanned ports on 10.0.10.23 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.24
+Host is up.
+All 100 scanned ports on 10.0.10.24 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.25
+Host is up.
+All 100 scanned ports on 10.0.10.25 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.26
+Host is up.
+All 100 scanned ports on 10.0.10.26 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.27
+Host is up.
+All 100 scanned ports on 10.0.10.27 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.28
+Host is up.
+All 100 scanned ports on 10.0.10.28 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.29
+Host is up.
+All 100 scanned ports on 10.0.10.29 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.30
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.10.30 are in ignored states.
+Not shown: 98 filtered tcp ports (no-response), 2 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.31
+Host is up.
+All 100 scanned ports on 10.0.10.31 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.32
+Host is up.
+All 100 scanned ports on 10.0.10.32 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.33
+Host is up.
+All 100 scanned ports on 10.0.10.33 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.34
+Host is up.
+All 100 scanned ports on 10.0.10.34 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.35
+Host is up.
+All 100 scanned ports on 10.0.10.35 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.36
+Host is up.
+All 100 scanned ports on 10.0.10.36 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.37
+Host is up.
+All 100 scanned ports on 10.0.10.37 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.38
+Host is up.
+All 100 scanned ports on 10.0.10.38 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.39
+Host is up.
+All 100 scanned ports on 10.0.10.39 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.40
+Host is up.
+All 100 scanned ports on 10.0.10.40 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.41
+Host is up.
+All 100 scanned ports on 10.0.10.41 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.42
+Host is up.
+All 100 scanned ports on 10.0.10.42 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.43
+Host is up.
+All 100 scanned ports on 10.0.10.43 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.44
+Host is up.
+All 100 scanned ports on 10.0.10.44 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.45
+Host is up.
+All 100 scanned ports on 10.0.10.45 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.46
+Host is up.
+All 100 scanned ports on 10.0.10.46 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.47
+Host is up.
+All 100 scanned ports on 10.0.10.47 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.48
+Host is up.
+All 100 scanned ports on 10.0.10.48 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.49
+Host is up.
+All 100 scanned ports on 10.0.10.49 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.50
+Host is up.
+All 100 scanned ports on 10.0.10.50 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.51
+Host is up.
+All 100 scanned ports on 10.0.10.51 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.52
+Host is up.
+All 100 scanned ports on 10.0.10.52 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.53
+Host is up.
+All 100 scanned ports on 10.0.10.53 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.54
+Host is up.
+All 100 scanned ports on 10.0.10.54 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.55
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.10.55 are in ignored states.
+Not shown: 98 filtered tcp ports (no-response), 2 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.56
+Host is up.
+All 100 scanned ports on 10.0.10.56 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.57
+Host is up.
+All 100 scanned ports on 10.0.10.57 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.58
+Host is up.
+All 100 scanned ports on 10.0.10.58 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.59
+Host is up.
+All 100 scanned ports on 10.0.10.59 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.60
+Host is up (3.1s latency).
+All 100 scanned ports on 10.0.10.60 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.61
+Host is up.
+All 100 scanned ports on 10.0.10.61 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.62
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.10.62 are in ignored states.
+Not shown: 97 filtered tcp ports (no-response), 3 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.63
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.10.63 are in ignored states.
+Not shown: 97 filtered tcp ports (no-response), 3 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.64
+Host is up (3.1s latency).
+All 100 scanned ports on 10.0.10.64 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.65
+Host is up.
+All 100 scanned ports on 10.0.10.65 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.66
+Host is up.
+All 100 scanned ports on 10.0.10.66 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.67
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.10.67 are in ignored states.
+Not shown: 97 filtered tcp ports (no-response), 3 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.68
+Host is up.
+All 100 scanned ports on 10.0.10.68 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.69
+Host is up.
+All 100 scanned ports on 10.0.10.69 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.70
+Host is up.
+All 100 scanned ports on 10.0.10.70 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.71
+Host is up.
+All 100 scanned ports on 10.0.10.71 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.72
+Host is up.
+All 100 scanned ports on 10.0.10.72 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.73
+Host is up.
+All 100 scanned ports on 10.0.10.73 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.74
+Host is up.
+All 100 scanned ports on 10.0.10.74 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.75
+Host is up.
+All 100 scanned ports on 10.0.10.75 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.76
+Host is up.
+All 100 scanned ports on 10.0.10.76 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.77
+Host is up.
+All 100 scanned ports on 10.0.10.77 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.78
+Host is up.
+All 100 scanned ports on 10.0.10.78 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.79
+Host is up (3.1s latency).
+All 100 scanned ports on 10.0.10.79 are in ignored states.
+Not shown: 98 filtered tcp ports (no-response), 2 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.80
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.10.80 are in ignored states.
+Not shown: 97 filtered tcp ports (no-response), 3 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.81
+Host is up.
+All 100 scanned ports on 10.0.10.81 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.82
+Host is up.
+All 100 scanned ports on 10.0.10.82 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.83
+Host is up.
+All 100 scanned ports on 10.0.10.83 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.84
+Host is up.
+All 100 scanned ports on 10.0.10.84 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.85
+Host is up.
+All 100 scanned ports on 10.0.10.85 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.86
+Host is up.
+All 100 scanned ports on 10.0.10.86 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.87
+Host is up.
+All 100 scanned ports on 10.0.10.87 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.88
+Host is up.
+All 100 scanned ports on 10.0.10.88 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.89
+Host is up.
+All 100 scanned ports on 10.0.10.89 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.90
+Host is up.
+All 100 scanned ports on 10.0.10.90 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.91
+Host is up.
+All 100 scanned ports on 10.0.10.91 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.92
+Host is up.
+All 100 scanned ports on 10.0.10.92 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.93
+Host is up.
+All 100 scanned ports on 10.0.10.93 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.94
+Host is up.
+All 100 scanned ports on 10.0.10.94 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.95
+Host is up.
+All 100 scanned ports on 10.0.10.95 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.96
+Host is up.
+All 100 scanned ports on 10.0.10.96 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.97
+Host is up.
+All 100 scanned ports on 10.0.10.97 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.98
+Host is up.
+All 100 scanned ports on 10.0.10.98 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.99
+Host is up.
+All 100 scanned ports on 10.0.10.99 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.100
+Host is up.
+All 100 scanned ports on 10.0.10.100 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.101
+Host is up.
+All 100 scanned ports on 10.0.10.101 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.102
+Host is up.
+All 100 scanned ports on 10.0.10.102 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.103
+Host is up.
+All 100 scanned ports on 10.0.10.103 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.104
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.10.104 are in ignored states.
+Not shown: 98 filtered tcp ports (no-response), 2 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.105
+Host is up.
+All 100 scanned ports on 10.0.10.105 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.106
+Host is up.
+All 100 scanned ports on 10.0.10.106 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.107
+Host is up.
+All 100 scanned ports on 10.0.10.107 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.108
+Host is up.
+All 100 scanned ports on 10.0.10.108 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.109
+Host is up.
+All 100 scanned ports on 10.0.10.109 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.110
+Host is up.
+All 100 scanned ports on 10.0.10.110 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.111
+Host is up.
+All 100 scanned ports on 10.0.10.111 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.112
+Host is up.
+All 100 scanned ports on 10.0.10.112 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.113
+Host is up.
+All 100 scanned ports on 10.0.10.113 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.114
+Host is up.
+All 100 scanned ports on 10.0.10.114 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.115
+Host is up.
+All 100 scanned ports on 10.0.10.115 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.116
+Host is up.
+All 100 scanned ports on 10.0.10.116 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.117
+Host is up.
+All 100 scanned ports on 10.0.10.117 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.118
+Host is up.
+All 100 scanned ports on 10.0.10.118 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.119
+Host is up.
+All 100 scanned ports on 10.0.10.119 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.120
+Host is up.
+All 100 scanned ports on 10.0.10.120 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.121
+Host is up.
+All 100 scanned ports on 10.0.10.121 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.122
+Host is up.
+All 100 scanned ports on 10.0.10.122 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.123
+Host is up.
+All 100 scanned ports on 10.0.10.123 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.124
+Host is up.
+All 100 scanned ports on 10.0.10.124 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.125
+Host is up.
+All 100 scanned ports on 10.0.10.125 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.126
+Host is up.
+All 100 scanned ports on 10.0.10.126 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.127
+Host is up (3.1s latency).
+All 100 scanned ports on 10.0.10.127 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.128
+Host is up.
+All 100 scanned ports on 10.0.10.128 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.129
+Host is up.
+All 100 scanned ports on 10.0.10.129 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.130
+Host is up.
+All 100 scanned ports on 10.0.10.130 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.131
+Host is up.
+All 100 scanned ports on 10.0.10.131 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.132
+Host is up.
+All 100 scanned ports on 10.0.10.132 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.133
+Host is up.
+All 100 scanned ports on 10.0.10.133 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.134
+Host is up.
+All 100 scanned ports on 10.0.10.134 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.135
+Host is up.
+All 100 scanned ports on 10.0.10.135 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.136
+Host is up.
+All 100 scanned ports on 10.0.10.136 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.137
+Host is up.
+All 100 scanned ports on 10.0.10.137 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.138
+Host is up.
+All 100 scanned ports on 10.0.10.138 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.139
+Host is up.
+All 100 scanned ports on 10.0.10.139 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.140
+Host is up (0.00051s latency).
+Not shown: 95 closed tcp ports (reset)
+PORT    STATE SERVICE
+21/tcp  open  ftp
+22/tcp  open  ssh
+139/tcp open  netbios-ssn
+445/tcp open  microsoft-ds
+631/tcp open  ipp
+
+Nmap scan report for 10.0.10.141
+Host is up.
+All 100 scanned ports on 10.0.10.141 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.142
+Host is up.
+All 100 scanned ports on 10.0.10.142 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.143
+Host is up.
+All 100 scanned ports on 10.0.10.143 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.144
+Host is up.
+All 100 scanned ports on 10.0.10.144 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.145
+Host is up.
+All 100 scanned ports on 10.0.10.145 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.146
+Host is up.
+All 100 scanned ports on 10.0.10.146 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.147
+Host is up.
+All 100 scanned ports on 10.0.10.147 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.148
+Host is up.
+All 100 scanned ports on 10.0.10.148 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.149
+Host is up.
+All 100 scanned ports on 10.0.10.149 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.150
+Host is up (0.00060s latency).
+Not shown: 91 closed tcp ports (reset)
+PORT      STATE SERVICE
+135/tcp   open  msrpc
+139/tcp   open  netbios-ssn
+445/tcp   open  microsoft-ds
+49152/tcp open  unknown
+49153/tcp open  unknown
+49154/tcp open  unknown
+49155/tcp open  unknown
+49156/tcp open  unknown
+49157/tcp open  unknown
+
+Nmap scan report for 10.0.10.151
+Host is up.
+All 100 scanned ports on 10.0.10.151 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.152
+Host is up.
+All 100 scanned ports on 10.0.10.152 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.153
+Host is up.
+All 100 scanned ports on 10.0.10.153 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.154
+Host is up.
+All 100 scanned ports on 10.0.10.154 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.155
+Host is up.
+All 100 scanned ports on 10.0.10.155 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.156
+Host is up.
+All 100 scanned ports on 10.0.10.156 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.157
+Host is up.
+All 100 scanned ports on 10.0.10.157 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.158
+Host is up.
+All 100 scanned ports on 10.0.10.158 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.159
+Host is up.
+All 100 scanned ports on 10.0.10.159 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.160
+Host is up.
+All 100 scanned ports on 10.0.10.160 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.161
+Host is up.
+All 100 scanned ports on 10.0.10.161 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.162
+Host is up.
+All 100 scanned ports on 10.0.10.162 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.163
+Host is up.
+All 100 scanned ports on 10.0.10.163 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.164
+Host is up.
+All 100 scanned ports on 10.0.10.164 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.165
+Host is up.
+All 100 scanned ports on 10.0.10.165 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.166
+Host is up.
+All 100 scanned ports on 10.0.10.166 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.167
+Host is up.
+All 100 scanned ports on 10.0.10.167 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.168
+Host is up.
+All 100 scanned ports on 10.0.10.168 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.169
+Host is up.
+All 100 scanned ports on 10.0.10.169 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.170
+Host is up.
+All 100 scanned ports on 10.0.10.170 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.171
+Host is up.
+All 100 scanned ports on 10.0.10.171 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.172
+Host is up.
+All 100 scanned ports on 10.0.10.172 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.173
+Host is up.
+All 100 scanned ports on 10.0.10.173 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.174
+Host is up.
+All 100 scanned ports on 10.0.10.174 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.175
+Host is up.
+All 100 scanned ports on 10.0.10.175 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.176
+Host is up.
+All 100 scanned ports on 10.0.10.176 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.177
+Host is up.
+All 100 scanned ports on 10.0.10.177 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.178
+Host is up.
+All 100 scanned ports on 10.0.10.178 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.179
+Host is up.
+All 100 scanned ports on 10.0.10.179 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.180
+Host is up.
+All 100 scanned ports on 10.0.10.180 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.181
+Host is up.
+All 100 scanned ports on 10.0.10.181 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.182
+Host is up.
+All 100 scanned ports on 10.0.10.182 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.183
+Host is up.
+All 100 scanned ports on 10.0.10.183 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.184
+Host is up.
+All 100 scanned ports on 10.0.10.184 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.185
+Host is up.
+All 100 scanned ports on 10.0.10.185 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.186
+Host is up.
+All 100 scanned ports on 10.0.10.186 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.187
+Host is up.
+All 100 scanned ports on 10.0.10.187 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.188
+Host is up.
+All 100 scanned ports on 10.0.10.188 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.189
+Host is up.
+All 100 scanned ports on 10.0.10.189 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.190
+Host is up.
+All 100 scanned ports on 10.0.10.190 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.191
+Host is up.
+All 100 scanned ports on 10.0.10.191 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.192
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.10.192 are in ignored states.
+Not shown: 98 filtered tcp ports (no-response), 2 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.193
+Host is up.
+All 100 scanned ports on 10.0.10.193 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.194
+Host is up.
+All 100 scanned ports on 10.0.10.194 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.195
+Host is up.
+All 100 scanned ports on 10.0.10.195 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.196
+Host is up.
+All 100 scanned ports on 10.0.10.196 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.197
+Host is up.
+All 100 scanned ports on 10.0.10.197 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.198
+Host is up.
+All 100 scanned ports on 10.0.10.198 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.199
+Host is up.
+All 100 scanned ports on 10.0.10.199 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.200
+Host is up.
+All 100 scanned ports on 10.0.10.200 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.201
+Host is up.
+All 100 scanned ports on 10.0.10.201 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.202
+Host is up.
+All 100 scanned ports on 10.0.10.202 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.203
+Host is up.
+All 100 scanned ports on 10.0.10.203 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.204
+Host is up.
+All 100 scanned ports on 10.0.10.204 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.205
+Host is up (3.1s latency).
+All 100 scanned ports on 10.0.10.205 are in ignored states.
+Not shown: 98 filtered tcp ports (no-response), 2 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.206
+Host is up.
+All 100 scanned ports on 10.0.10.206 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.207
+Host is up.
+All 100 scanned ports on 10.0.10.207 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.208
+Host is up.
+All 100 scanned ports on 10.0.10.208 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.209
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.10.209 are in ignored states.
+Not shown: 98 filtered tcp ports (no-response), 2 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.210
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.10.210 are in ignored states.
+Not shown: 96 filtered tcp ports (no-response), 4 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.211
+Host is up.
+All 100 scanned ports on 10.0.10.211 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.212
+Host is up.
+All 100 scanned ports on 10.0.10.212 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.213
+Host is up.
+All 100 scanned ports on 10.0.10.213 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.214
+Host is up.
+All 100 scanned ports on 10.0.10.214 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.215
+Host is up.
+All 100 scanned ports on 10.0.10.215 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.216
+Host is up.
+All 100 scanned ports on 10.0.10.216 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.217
+Host is up.
+All 100 scanned ports on 10.0.10.217 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.218
+Host is up.
+All 100 scanned ports on 10.0.10.218 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.219
+Host is up.
+All 100 scanned ports on 10.0.10.219 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.220
+Host is up.
+All 100 scanned ports on 10.0.10.220 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.221
+Host is up.
+All 100 scanned ports on 10.0.10.221 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.222
+Host is up.
+All 100 scanned ports on 10.0.10.222 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.223
+Host is up.
+All 100 scanned ports on 10.0.10.223 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.224
+Host is up.
+All 100 scanned ports on 10.0.10.224 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.225
+Host is up.
+All 100 scanned ports on 10.0.10.225 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.226
+Host is up.
+All 100 scanned ports on 10.0.10.226 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.227
+Host is up.
+All 100 scanned ports on 10.0.10.227 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.228
+Host is up.
+All 100 scanned ports on 10.0.10.228 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.229
+Host is up.
+All 100 scanned ports on 10.0.10.229 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.230
+Host is up.
+All 100 scanned ports on 10.0.10.230 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.231
+Host is up.
+All 100 scanned ports on 10.0.10.231 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.232
+Host is up.
+All 100 scanned ports on 10.0.10.232 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.233
+Host is up.
+All 100 scanned ports on 10.0.10.233 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.234
+Host is up.
+All 100 scanned ports on 10.0.10.234 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.235
+Host is up.
+All 100 scanned ports on 10.0.10.235 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.236
+Host is up.
+All 100 scanned ports on 10.0.10.236 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.237
+Host is up.
+All 100 scanned ports on 10.0.10.237 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.238
+Host is up.
+All 100 scanned ports on 10.0.10.238 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.239
+Host is up.
+All 100 scanned ports on 10.0.10.239 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.240
+Host is up.
+All 100 scanned ports on 10.0.10.240 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.241
+Host is up.
+All 100 scanned ports on 10.0.10.241 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.242
+Host is up.
+All 100 scanned ports on 10.0.10.242 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.243
+Host is up.
+All 100 scanned ports on 10.0.10.243 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.244
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.10.244 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.245
+Host is up.
+All 100 scanned ports on 10.0.10.245 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.246
+Host is up.
+All 100 scanned ports on 10.0.10.246 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.247
+Host is up.
+All 100 scanned ports on 10.0.10.247 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.248
+Host is up.
+All 100 scanned ports on 10.0.10.248 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.249
+Host is up.
+All 100 scanned ports on 10.0.10.249 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.250
+Host is up.
+All 100 scanned ports on 10.0.10.250 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.251
+Host is up.
+All 100 scanned ports on 10.0.10.251 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.252
+Host is up (3.1s latency).
+All 100 scanned ports on 10.0.10.252 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.10.253
+Host is up.
+All 100 scanned ports on 10.0.10.253 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.254
+Host is up.
+All 100 scanned ports on 10.0.10.254 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.10.255
+Host is up.
+All 100 scanned ports on 10.0.10.255 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.0
+Host is up.
+All 100 scanned ports on 10.0.20.0 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.1
+Host is up.
+All 100 scanned ports on 10.0.20.1 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.2
+Host is up.
+All 100 scanned ports on 10.0.20.2 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.3
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.20.3 are in ignored states.
+Not shown: 97 filtered tcp ports (no-response), 3 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.4
+Host is up.
+All 100 scanned ports on 10.0.20.4 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.5
+Host is up.
+All 100 scanned ports on 10.0.20.5 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.6
+Host is up.
+All 100 scanned ports on 10.0.20.6 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.7
+Host is up.
+All 100 scanned ports on 10.0.20.7 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.8
+Host is up.
+All 100 scanned ports on 10.0.20.8 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.9
+Host is up.
+All 100 scanned ports on 10.0.20.9 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.10
+Host is up.
+All 100 scanned ports on 10.0.20.10 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.11
+Host is up.
+All 100 scanned ports on 10.0.20.11 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.12
+Host is up.
+All 100 scanned ports on 10.0.20.12 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.13
+Host is up.
+All 100 scanned ports on 10.0.20.13 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.14
+Host is up.
+All 100 scanned ports on 10.0.20.14 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.15
+Host is up.
+All 100 scanned ports on 10.0.20.15 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.16
+Host is up.
+All 100 scanned ports on 10.0.20.16 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.17
+Host is up.
+All 100 scanned ports on 10.0.20.17 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.18
+Host is up.
+All 100 scanned ports on 10.0.20.18 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.19
+Host is up.
+All 100 scanned ports on 10.0.20.19 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.20
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.20.20 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.21
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.20.21 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.22
+Host is up.
+All 100 scanned ports on 10.0.20.22 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.23
+Host is up.
+All 100 scanned ports on 10.0.20.23 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.24
+Host is up.
+All 100 scanned ports on 10.0.20.24 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.25
+Host is up.
+All 100 scanned ports on 10.0.20.25 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.26
+Host is up.
+All 100 scanned ports on 10.0.20.26 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.27
+Host is up.
+All 100 scanned ports on 10.0.20.27 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.28
+Host is up.
+All 100 scanned ports on 10.0.20.28 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.29
+Host is up.
+All 100 scanned ports on 10.0.20.29 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.30
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.20.30 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.31
+Host is up.
+All 100 scanned ports on 10.0.20.31 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.32
+Host is up.
+All 100 scanned ports on 10.0.20.32 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.33
+Host is up.
+All 100 scanned ports on 10.0.20.33 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.34
+Host is up.
+All 100 scanned ports on 10.0.20.34 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.35
+Host is up.
+All 100 scanned ports on 10.0.20.35 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.36
+Host is up.
+All 100 scanned ports on 10.0.20.36 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.37
+Host is up.
+All 100 scanned ports on 10.0.20.37 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.38
+Host is up.
+All 100 scanned ports on 10.0.20.38 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.39
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.20.39 are in ignored states.
+Not shown: 97 filtered tcp ports (no-response), 3 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.40
+Host is up.
+All 100 scanned ports on 10.0.20.40 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.41
+Host is up (3.1s latency).
+All 100 scanned ports on 10.0.20.41 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.42
+Host is up (3.1s latency).
+All 100 scanned ports on 10.0.20.42 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.43
+Host is up.
+All 100 scanned ports on 10.0.20.43 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.44
+Host is up.
+All 100 scanned ports on 10.0.20.44 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.45
+Host is up.
+All 100 scanned ports on 10.0.20.45 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.46
+Host is up.
+All 100 scanned ports on 10.0.20.46 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.47
+Host is up.
+All 100 scanned ports on 10.0.20.47 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.48
+Host is up.
+All 100 scanned ports on 10.0.20.48 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.49
+Host is up.
+All 100 scanned ports on 10.0.20.49 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.50
+Host is up.
+All 100 scanned ports on 10.0.20.50 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.51
+Host is up.
+All 100 scanned ports on 10.0.20.51 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.52
+Host is up.
+All 100 scanned ports on 10.0.20.52 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.53
+Host is up.
+All 100 scanned ports on 10.0.20.53 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.54
+Host is up.
+All 100 scanned ports on 10.0.20.54 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.55
+Host is up.
+All 100 scanned ports on 10.0.20.55 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.56
+Host is up.
+All 100 scanned ports on 10.0.20.56 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.57
+Host is up.
+All 100 scanned ports on 10.0.20.57 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.58
+Host is up.
+All 100 scanned ports on 10.0.20.58 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.59
+Host is up.
+All 100 scanned ports on 10.0.20.59 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.60
+Host is up.
+All 100 scanned ports on 10.0.20.60 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.61
+Host is up.
+All 100 scanned ports on 10.0.20.61 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.62
+Host is up.
+All 100 scanned ports on 10.0.20.62 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.63
+Host is up.
+All 100 scanned ports on 10.0.20.63 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.64
+Host is up.
+All 100 scanned ports on 10.0.20.64 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.65
+Host is up.
+All 100 scanned ports on 10.0.20.65 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.66
+Host is up.
+All 100 scanned ports on 10.0.20.66 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.67
+Host is up.
+All 100 scanned ports on 10.0.20.67 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.68
+Host is up.
+All 100 scanned ports on 10.0.20.68 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.69
+Host is up.
+All 100 scanned ports on 10.0.20.69 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.70
+Host is up.
+All 100 scanned ports on 10.0.20.70 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.71
+Host is up (3.1s latency).
+All 100 scanned ports on 10.0.20.71 are in ignored states.
+Not shown: 98 filtered tcp ports (no-response), 2 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.72
+Host is up.
+All 100 scanned ports on 10.0.20.72 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.73
+Host is up.
+All 100 scanned ports on 10.0.20.73 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.74
+Host is up.
+All 100 scanned ports on 10.0.20.74 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.75
+Host is up.
+All 100 scanned ports on 10.0.20.75 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.76
+Host is up.
+All 100 scanned ports on 10.0.20.76 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.77
+Host is up.
+All 100 scanned ports on 10.0.20.77 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.78
+Host is up.
+All 100 scanned ports on 10.0.20.78 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.79
+Host is up (2.9s latency).
+All 100 scanned ports on 10.0.20.79 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.80
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.20.80 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.81
+Host is up.
+All 100 scanned ports on 10.0.20.81 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.82
+Host is up.
+All 100 scanned ports on 10.0.20.82 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.83
+Host is up.
+All 100 scanned ports on 10.0.20.83 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.84
+Host is up.
+All 100 scanned ports on 10.0.20.84 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.85
+Host is up.
+All 100 scanned ports on 10.0.20.85 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.86
+Host is up.
+All 100 scanned ports on 10.0.20.86 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.87
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.20.87 are in ignored states.
+Not shown: 97 filtered tcp ports (no-response), 3 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.88
+Host is up.
+All 100 scanned ports on 10.0.20.88 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.89
+Host is up.
+All 100 scanned ports on 10.0.20.89 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.90
+Host is up.
+All 100 scanned ports on 10.0.20.90 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.91
+Host is up.
+All 100 scanned ports on 10.0.20.91 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.92
+Host is up.
+All 100 scanned ports on 10.0.20.92 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.93
+Host is up.
+All 100 scanned ports on 10.0.20.93 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.94
+Host is up.
+All 100 scanned ports on 10.0.20.94 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.95
+Host is up.
+All 100 scanned ports on 10.0.20.95 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.96
+Host is up (3.1s latency).
+All 100 scanned ports on 10.0.20.96 are in ignored states.
+Not shown: 98 filtered tcp ports (no-response), 2 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.97
+Host is up.
+All 100 scanned ports on 10.0.20.97 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.98
+Host is up.
+All 100 scanned ports on 10.0.20.98 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.99
+Host is up.
+All 100 scanned ports on 10.0.20.99 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.100
+Host is up.
+All 100 scanned ports on 10.0.20.100 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.101
+Host is up.
+All 100 scanned ports on 10.0.20.101 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.102
+Host is up.
+All 100 scanned ports on 10.0.20.102 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.103
+Host is up.
+All 100 scanned ports on 10.0.20.103 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.104
+Host is up.
+All 100 scanned ports on 10.0.20.104 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.105
+Host is up.
+All 100 scanned ports on 10.0.20.105 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.106
+Host is up.
+All 100 scanned ports on 10.0.20.106 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.107
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.20.107 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.108
+Host is up.
+All 100 scanned ports on 10.0.20.108 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.109
+Host is up.
+All 100 scanned ports on 10.0.20.109 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.110
+Host is up.
+All 100 scanned ports on 10.0.20.110 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.111
+Host is up.
+All 100 scanned ports on 10.0.20.111 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.112
+Host is up.
+All 100 scanned ports on 10.0.20.112 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.113
+Host is up.
+All 100 scanned ports on 10.0.20.113 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.114
+Host is up.
+All 100 scanned ports on 10.0.20.114 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.115
+Host is up.
+All 100 scanned ports on 10.0.20.115 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.116
+Host is up.
+All 100 scanned ports on 10.0.20.116 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.117
+Host is up.
+All 100 scanned ports on 10.0.20.117 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.118
+Host is up.
+All 100 scanned ports on 10.0.20.118 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.119
+Host is up.
+All 100 scanned ports on 10.0.20.119 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.120
+Host is up.
+All 100 scanned ports on 10.0.20.120 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.121
+Host is up (3.1s latency).
+All 100 scanned ports on 10.0.20.121 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.122
+Host is up.
+All 100 scanned ports on 10.0.20.122 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.123
+Host is up.
+All 100 scanned ports on 10.0.20.123 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.124
+Host is up.
+All 100 scanned ports on 10.0.20.124 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.125
+Host is up.
+All 100 scanned ports on 10.0.20.125 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.126
+Host is up.
+All 100 scanned ports on 10.0.20.126 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.127
+Host is up.
+All 100 scanned ports on 10.0.20.127 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.128
+Host is up.
+All 100 scanned ports on 10.0.20.128 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.129
+Host is up.
+All 100 scanned ports on 10.0.20.129 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.130
+Host is up.
+All 100 scanned ports on 10.0.20.130 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.131
+Host is up.
+All 100 scanned ports on 10.0.20.131 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.132
+Host is up.
+All 100 scanned ports on 10.0.20.132 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.133
+Host is up.
+All 100 scanned ports on 10.0.20.133 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.134
+Host is up.
+All 100 scanned ports on 10.0.20.134 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.135
+Host is up.
+All 100 scanned ports on 10.0.20.135 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.136
+Host is up.
+All 100 scanned ports on 10.0.20.136 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.137
+Host is up.
+All 100 scanned ports on 10.0.20.137 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.138
+Host is up.
+All 100 scanned ports on 10.0.20.138 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.139
+Host is up.
+All 100 scanned ports on 10.0.20.139 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.140
+Host is up.
+All 100 scanned ports on 10.0.20.140 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.141
+Host is up.
+All 100 scanned ports on 10.0.20.141 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.142
+Host is up.
+All 100 scanned ports on 10.0.20.142 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.143
+Host is up.
+All 100 scanned ports on 10.0.20.143 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.144
+Host is up.
+All 100 scanned ports on 10.0.20.144 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.145
+Host is up.
+All 100 scanned ports on 10.0.20.145 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.146
+Host is up.
+All 100 scanned ports on 10.0.20.146 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.147
+Host is up.
+All 100 scanned ports on 10.0.20.147 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.148
+Host is up.
+All 100 scanned ports on 10.0.20.148 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.149
+Host is up.
+All 100 scanned ports on 10.0.20.149 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.150
+Host is up.
+All 100 scanned ports on 10.0.20.150 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.151
+Host is up.
+All 100 scanned ports on 10.0.20.151 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.152
+Host is up.
+All 100 scanned ports on 10.0.20.152 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.153
+Host is up.
+All 100 scanned ports on 10.0.20.153 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.154
+Host is up.
+All 100 scanned ports on 10.0.20.154 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.155
+Host is up.
+All 100 scanned ports on 10.0.20.155 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.156
+Host is up.
+All 100 scanned ports on 10.0.20.156 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.157
+Host is up.
+All 100 scanned ports on 10.0.20.157 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.158
+Host is up.
+All 100 scanned ports on 10.0.20.158 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.159
+Host is up.
+All 100 scanned ports on 10.0.20.159 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.160
+Host is up (0.00056s latency).
+Not shown: 95 filtered tcp ports (no-response)
+PORT      STATE SERVICE
+80/tcp    open  http
+135/tcp   open  msrpc
+445/tcp   open  microsoft-ds
+3389/tcp  open  ms-wbt-server
+49154/tcp open  unknown
+
+Nmap scan report for 10.0.20.161
+Host is up.
+All 100 scanned ports on 10.0.20.161 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.162
+Host is up.
+All 100 scanned ports on 10.0.20.162 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.163
+Host is up.
+All 100 scanned ports on 10.0.20.163 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.164
+Host is up.
+All 100 scanned ports on 10.0.20.164 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.165
+Host is up.
+All 100 scanned ports on 10.0.20.165 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.166
+Host is up.
+All 100 scanned ports on 10.0.20.166 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.167
+Host is up.
+All 100 scanned ports on 10.0.20.167 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.168
+Host is up.
+All 100 scanned ports on 10.0.20.168 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.169
+Host is up.
+All 100 scanned ports on 10.0.20.169 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.170
+Host is up.
+All 100 scanned ports on 10.0.20.170 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.171
+Host is up.
+All 100 scanned ports on 10.0.20.171 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.172
+Host is up.
+All 100 scanned ports on 10.0.20.172 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.173
+Host is up.
+All 100 scanned ports on 10.0.20.173 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.174
+Host is up.
+All 100 scanned ports on 10.0.20.174 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.175
+Host is up.
+All 100 scanned ports on 10.0.20.175 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.176
+Host is up.
+All 100 scanned ports on 10.0.20.176 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.177
+Host is up.
+All 100 scanned ports on 10.0.20.177 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.178
+Host is up.
+All 100 scanned ports on 10.0.20.178 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.179
+Host is up.
+All 100 scanned ports on 10.0.20.179 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.180
+Host is up.
+All 100 scanned ports on 10.0.20.180 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.181
+Host is up.
+All 100 scanned ports on 10.0.20.181 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.182
+Host is up.
+All 100 scanned ports on 10.0.20.182 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.183
+Host is up.
+All 100 scanned ports on 10.0.20.183 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.184
+Host is up.
+All 100 scanned ports on 10.0.20.184 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.185
+Host is up.
+All 100 scanned ports on 10.0.20.185 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.186
+Host is up.
+All 100 scanned ports on 10.0.20.186 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.187
+Host is up.
+All 100 scanned ports on 10.0.20.187 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.188
+Host is up.
+All 100 scanned ports on 10.0.20.188 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.189
+Host is up.
+All 100 scanned ports on 10.0.20.189 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.190
+Host is up.
+All 100 scanned ports on 10.0.20.190 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.191
+Host is up.
+All 100 scanned ports on 10.0.20.191 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.192
+Host is up.
+All 100 scanned ports on 10.0.20.192 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.193
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.20.193 are in ignored states.
+Not shown: 94 filtered tcp ports (no-response), 6 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.194
+Host is up.
+All 100 scanned ports on 10.0.20.194 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.195
+Host is up.
+All 100 scanned ports on 10.0.20.195 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.196
+Host is up.
+All 100 scanned ports on 10.0.20.196 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.197
+Host is up.
+All 100 scanned ports on 10.0.20.197 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.198
+Host is up.
+All 100 scanned ports on 10.0.20.198 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.199
+Host is up.
+All 100 scanned ports on 10.0.20.199 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.200
+Host is up.
+All 100 scanned ports on 10.0.20.200 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.201
+Host is up.
+All 100 scanned ports on 10.0.20.201 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.202
+Host is up.
+All 100 scanned ports on 10.0.20.202 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.203
+Host is up.
+All 100 scanned ports on 10.0.20.203 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.204
+Host is up.
+All 100 scanned ports on 10.0.20.204 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.205
+Host is up.
+All 100 scanned ports on 10.0.20.205 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.206
+Host is up.
+All 100 scanned ports on 10.0.20.206 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.207
+Host is up.
+All 100 scanned ports on 10.0.20.207 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.208
+Host is up.
+All 100 scanned ports on 10.0.20.208 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.209
+Host is up.
+All 100 scanned ports on 10.0.20.209 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.210
+Host is up.
+All 100 scanned ports on 10.0.20.210 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.211
+Host is up.
+All 100 scanned ports on 10.0.20.211 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.212
+Host is up.
+All 100 scanned ports on 10.0.20.212 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.213
+Host is up.
+All 100 scanned ports on 10.0.20.213 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.214
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.20.214 are in ignored states.
+Not shown: 97 filtered tcp ports (no-response), 3 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.215
+Host is up.
+All 100 scanned ports on 10.0.20.215 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.216
+Host is up.
+All 100 scanned ports on 10.0.20.216 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.217
+Host is up.
+All 100 scanned ports on 10.0.20.217 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.218
+Host is up.
+All 100 scanned ports on 10.0.20.218 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.219
+Host is up.
+All 100 scanned ports on 10.0.20.219 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.220
+Host is up.
+All 100 scanned ports on 10.0.20.220 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.221
+Host is up.
+All 100 scanned ports on 10.0.20.221 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.222
+Host is up.
+All 100 scanned ports on 10.0.20.222 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.223
+Host is up (3.0s latency).
+All 100 scanned ports on 10.0.20.223 are in ignored states.
+Not shown: 99 filtered tcp ports (no-response), 1 filtered tcp ports (host-unreach)
+
+Nmap scan report for 10.0.20.224
+Host is up.
+All 100 scanned ports on 10.0.20.224 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.225
+Host is up.
+All 100 scanned ports on 10.0.20.225 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.226
+Host is up.
+All 100 scanned ports on 10.0.20.226 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.227
+Host is up.
+All 100 scanned ports on 10.0.20.227 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.228
+Host is up.
+All 100 scanned ports on 10.0.20.228 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.229
+Host is up.
+All 100 scanned ports on 10.0.20.229 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.230
+Host is up.
+All 100 scanned ports on 10.0.20.230 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.231
+Host is up.
+All 100 scanned ports on 10.0.20.231 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.232
+Host is up.
+All 100 scanned ports on 10.0.20.232 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.233
+Host is up.
+All 100 scanned ports on 10.0.20.233 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.234
+Host is up.
+All 100 scanned ports on 10.0.20.234 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.235
+Host is up.
+All 100 scanned ports on 10.0.20.235 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.236
+Host is up.
+All 100 scanned ports on 10.0.20.236 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.237
+Host is up.
+All 100 scanned ports on 10.0.20.237 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.238
+Host is up.
+All 100 scanned ports on 10.0.20.238 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.239
+Host is up.
+All 100 scanned ports on 10.0.20.239 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.240
+Host is up.
+All 100 scanned ports on 10.0.20.240 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.241
+Host is up.
+All 100 scanned ports on 10.0.20.241 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.242
+Host is up.
+All 100 scanned ports on 10.0.20.242 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.243
+Host is up.
+All 100 scanned ports on 10.0.20.243 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.244
+Host is up.
+All 100 scanned ports on 10.0.20.244 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.245
+Host is up.
+All 100 scanned ports on 10.0.20.245 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.246
+Host is up.
+All 100 scanned ports on 10.0.20.246 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.247
+Host is up.
+All 100 scanned ports on 10.0.20.247 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.248
+Host is up.
+All 100 scanned ports on 10.0.20.248 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.249
+Host is up.
+All 100 scanned ports on 10.0.20.249 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.250
+Host is up.
+All 100 scanned ports on 10.0.20.250 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.251
+Host is up.
+All 100 scanned ports on 10.0.20.251 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.252
+Host is up.
+All 100 scanned ports on 10.0.20.252 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.253
+Host is up.
+All 100 scanned ports on 10.0.20.253 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.254
+Host is up.
+All 100 scanned ports on 10.0.20.254 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+Nmap scan report for 10.0.20.255
+Host is up.
+All 100 scanned ports on 10.0.20.255 are in ignored states.
+Not shown: 100 filtered tcp ports (no-response)
+
+# Nmap done at Sun May  3 19:49:12 2026 -- 512 IP addresses (512 hosts up) scanned in 116.80 seconds
