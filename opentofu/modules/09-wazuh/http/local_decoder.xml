@@ -2,14 +2,30 @@
   <prematch>device_name="SFW"</prematch>
 </decoder>
 
+<!-- Extrahiert die Quell-IP -->
 <decoder name="sophos_fw">
-  <parent>sophos_fw</parent>
+  <parent>sophos_fw</parent>https://localhost:8443/app/dashboards#/view/c4df3cb0-40c7-11f1-bda2-555d38f49721?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'2026-05-02T22:00:00.000Z',to:'2026-05-03T16:20:16.581Z'))&_a=(description:'',filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'wazuh-alerts-*',key:rule.description,negate:!f,params:(query:'Sophos%20Firewall:%20Verbindung%20blockiert'),type:phrase),query:(match_phrase:(rule.description:'Sophos%20Firewall:%20Verbindung%20blockiert')))),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),panels:!((embeddableConfig:(),gridData:(h:14,i:'22ad1ae6-6cd5-4fb2-bc05-bf550522aa71',w:25,x:0,y:0),id:'973f3e90-40c7-11f1-bda2-555d38f49721',panelIndex:'22ad1ae6-6cd5-4fb2-bc05-bf550522aa71',type:visualization,version:'2.19.4'),(embeddableConfig:(),gridData:(h:15,i:'7c037ca8-24ef-46f6-a02a-464cde14c58d',w:24,x:0,y:14),id:f3607640-40cb-11f1-bda2-555d38f49721,panelIndex:'7c037ca8-24ef-46f6-a02a-464cde14c58d',type:visualization,version:'2.19.4')),query:(language:kuery,query:''),timeRestore:!f,title:'Security%20Lab%20Overview',viewMode:edit)
   <regex>src_ip="(\d+.\d+.\d+.\d+)"</regex>
   <order>srcip</order>
 </decoder>
 
+<!-- Extrahiert die Ziel-IP -->
 <decoder name="sophos_fw">
   <parent>sophos_fw</parent>
-  <regex>device_name="(\w+)"</regex>
-  <order>extra_data</order>
+  <regex>dst_ip="(\d+.\d+.\d+.\d+)"</regex>
+  <order>dstip</order>
+</decoder>
+
+<!-- Extrahiert den Ziel-Port -->
+<decoder name="sophos_fw">
+  <parent>sophos_fw</parent>
+  <regex>dst_port=(\d+)</regex>
+  <order>dstport</order>
+</decoder>
+
+<!-- Extrahiert die Komponente (z.B. IP Spoof) -->
+<decoder name="sophos_fw">
+  <parent>sophos_fw</parent>
+  <regex>log_component="(\w+\s*\w*)"</regex>
+  <order>log_component</order>
 </decoder>

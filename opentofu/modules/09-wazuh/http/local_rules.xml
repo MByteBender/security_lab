@@ -17,18 +17,42 @@
   </rule>
 
 </group>
+
 <group name="sophos_firewall">
 
-  <rule id="110000" level="3">
+  <!-- 1. Basis-Regel: Erfasst alles von Sophos -->
+  <rule id="110000" level="0">
     <decoded_as>sophos_fw</decoded_as>
     <description>Sophos Firewall ($(extra_data)): Log erhalten</description>
   </rule>
 
+  <!-- 2. Block-Regel: Filtert nur die Denied-Logs aus der 110000 -->
   <rule id="110001" level="3">
     <if_sid>110000</if_sid>
     <match>Denied|Denied/Dropped|Deny</match>
     <description>Sophos Firewall: Verbindung blockiert</description>
     <group>firewall_drop</group>
+  </rule>
+
+  <!-- 3. IPS-Regel: Filtert IPS-Events aus der 110000 -->
+  <rule id="110002" level="7">
+    <if_sid>110000</if_sid>
+    <match>category="IPS"</match>
+    <description>Sophos IPS: Angriff erkannt!</description>
+  </rule>
+
+  <!-- 4. Rausch-Filter: DHCP (0.0.0.0) aus der 110001 wieder auf Level 0 setzen -->
+  <rule id="110005" level="0">
+    <if_sid>110001</if_sid>
+    <srcip>0.0.0.0</srcip>
+    <description>Sophos Firewall: Ignoriere DHCP Rauschen</description>
+  </rule>
+
+  <!-- 5. Rausch-Filter: APIPA (169.254.x.x) aus der 110001 wieder auf Level 0 setzen -->
+  <rule id="110006" level="0">
+    <if_sid>110001</if_sid>
+    <srcip>169.254.0.0/16</srcip>
+    <description>Sophos Firewall: Ignoriere APIPA Rauschen</description>
   </rule>
 
 </group>
