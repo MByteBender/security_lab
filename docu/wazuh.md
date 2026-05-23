@@ -82,13 +82,3 @@ The OpenTofu wazuh module (`modules/09-wazuh/wazuh.tf`) uploads both config file
 ```
 
 After placement, `systemctl restart wazuh-manager` is run to load the new rules and decoder.
-
-## Windows Security Log Events (Agent)
-
-During the vulnerability scan credential audit phase, Wazuh agents on Win7 and Win2008 will forward Windows Security Log events to the manager:
-
-| Event ID | Meaning |
-|----------|---------|
-| 4625 | Failed logon |
-| 4624 | Successful logon |
-| 4776 | NTLM credential validation attempt |
